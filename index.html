@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستر عادل بسيوني | هكر الفيزياء</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES (Colors) --- */
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue/Grey - Professional */
+            --accent-color: #3498db;  /* Bright Blue - Highlights */
+            --bg-color: #f4f7f6;      /* Light Grey - Background */
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --youtube-red: #ff0000;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        a { text-decoration: none; }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--white);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent-color);
+            text-align: center;
+        }
+
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        .brand-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        /* --- CHAPTER TITLE --- */
+        .chapter-title {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* --- ACCORDION STYLES --- */
+        .lecture-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.2s;
+        }
+
+        .accordion-header {
+            background: var(--white);
+            padding: 18px 20px;
+            width: 100%;
+            text-align: right;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background-color: #fafafa;
+        }
+
+        .accordion-header::after {
+            content: '+'; /* Icon */
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(45deg); /* Rotates to become 'x' */
+            content: '+'; 
+        }
+
+        /* The Hidden Content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fcfcfc;
+        }
+
+        .content-inner {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- LECTURE ELEMENTS --- */
+        
+        /* 1. Video Thumbnail Link */
+        .video-link {
+            position: relative;
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px; /* Limit width */
+            margin: 0 auto;   /* Center */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .video-link img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+
+        /* Play Button Overlay */
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .play-icon::before {
+            content: '▶';
+            color: white;
+            font-size: 20px;
+            margin-right: -4px; /* Optical adjustment */
+        }
+
+        .video-link:hover .play-icon {
+            background: var(--youtube-red);
+        }
+
+        /* 2. PDF Button */
+        .pdf-btn {
+            display: block;
+            background-color: #e74c3c; /* PDF Red color */
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pdf-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-title">مستر عادل بسيوني | هكر الفيزياء</div>
+        <div class="brand-subtitle">منصة التعليم الإلكتروني</div>
+        <div class="badge">الصف الثاني الثانوي</div>
+    </header>
+
+    <main class="container">
+
+        <div class="chapter-block">
+            <div class="chapter-title">
+                <span>الفصل الأول: الشغل والطاقة</span>
+                <span>📂</span>
+            </div>
+
+            <div class="lecture-card">
+                <button class="accordion-header">محاضرة (1): مفهوم الشغل</button>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="video-link">
+                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="thumbnail">
+                            <div class="play-icon"></div>
+                        </a>
+                        
+                        <a href="files/lecture1.pdf" target="_blank" class="pdf-btn">
+                            📄 تحميل PDF المحاضرة
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lecture-card">
+                <button class="accordion-header">محاضرة (2): الطاقة</button>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <a href="https://www.youtube.com/watch?v=VIDEO_ID_HERE" target="_blank" class="video-link">
+                            <img src="https://via.placeholder.com/640x360/333/fff?text=Video+Thumbnail" alt="thumbnail">
+                            <div class="play-icon"></div>
+                        </a>
+                        <a href="#" class="pdf-btn">📄 تحميل PDF المحاضرة</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lecture-card">
+                <button class="accordion-header">محاضرة (3): الطاقة الحركية</button>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <a href="https://www.youtube.com/watch?v=VIDEO_ID_HERE" target="_blank" class="video-link">
+                            <img src="https://via.placeholder.com/640x360/333/fff?text=Video+Thumbnail" alt="thumbnail">
+                            <div class="play-icon"></div>
+                        </a>
+                        <a href="#" class="pdf-btn">📄 تحميل PDF المحاضرة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+
+    <footer>
+        &copy; 2024 مستر عادل بسيوني. جميع الحقوق محفوظة.
+    </footer>
+
+    <script>
+        const accordions = document.querySelectorAll(".accordion-header");
+
+        accordions.forEach(acc => {
+            acc.addEventListener("click", function() {
+                // 1. Close all other open accordions (Optional behavior)
+                const currentActive = document.querySelector(".accordion-header.active");
+                if (currentActive && currentActive !== this) {
+                    currentActive.classList.remove("active");
+                    currentActive.nextElementSibling.style.maxHeight = null;
+                }
+
+                // 2. Toggle the clicked accordion
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
