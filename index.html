@@ -8,222 +8,244 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        :root {
-            --bg-main: #f9fafb;       /* خلفية الصفحة الرمادية الفاتحة */
-            --text-dark: #333;        /* لون النص الرئيسي */
-            --text-muted: #777;       /* لون النص الثانوي */
-            --blue-header: #ff00e6;   /* الأزرق السماوي للهيدر */
-            --pink-light: #ffebee;    /* الخلفية الوردية للمهمة الأولى */
-            --yellow-light: #fffde7;  /* الخلفية الصفراء للأجزاء */
-            --gray-light: #f5f5f5;    /* الخلفية الرمادية للمهام الأخرى */
-            --red-btn: #ff4d6d;       /* لون الزر الأحمر */
-            --border-radius: 12px;
-            --shadow-card: 0 4px 12px rgba(0,0,0,0.05);
-        }
+   <style>
+    :root {
+        /* --- الألوان الجديدة المستوحاة من الكافر --- */
+        --header-bg: #5e35b1;       /* البنفسجي العميق للهيدر */
+        --header-accent: #ff007f;   /* الفوشيا الساطع (مثل الأرقام في الصورة) */
+        --header-text-muted: #e1bee7; /* لون بنفسجي فاتح للنصوص الثانوية في الهيدر */
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* --- الألوان الأساسية للموقع --- */
+        --bg-main: #f9fafb;       /* خلفية الصفحة الرمادية الفاتحة */
+        --text-dark: #333;        /* لون النص الرئيسي */
+        --text-muted: #777;       /* لون النص الثانوي في باقي الموقع */
+        --pink-light: #fce4ec;    /* تعديل طفيف للخلفية الوردية لتناسب الفوشيا */
+        --yellow-light: #fffde7;  /* الخلفية الصفراء للأجزاء */
+        --gray-light: #f5f5f5;    /* الخلفية الرمادية للمهام الأخرى */
+        --border-radius: 12px;
+        --shadow-card: 0 4px 12px rgba(0,0,0,0.05);
+    }
 
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        a { text-decoration: none; color: inherit; }
+    body {
+        font-family: 'Cairo', sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-dark);
+        overflow-x: hidden;
+    }
 
-        /* --- HEADER SECTION --- */
-        .course-header-bg {
-            background: var(--blue-header);
-            background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 20,0 10,20" fill="%2300b0ea" opacity="0.1"/></svg>'); /* نقش مثلثات خفيف */
-            color: white;
-            padding: 40px 20px;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            padding-left: 350px; /* مساحة للكارت العائم على اليسار */
-        }
-        .course-title-main {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .course-description {
-            font-size: 1rem;
-            line-height: 1.7;
-            opacity: 0.9;
-            margin-bottom: 20px;
-            max-width: 700px;
-        }
-        .course-meta {
-            display: flex;
-            gap: 20px;
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-        .meta-item span { font-weight: 700; color: #ffd700; }
+    a { text-decoration: none; color: inherit; }
 
-        /* --- MAIN GRID LAYOUT --- */
-        .main-container {
-            max-width: 1200px;
-            margin: -100px auto 50px; /* سحب المحتوى للأعلى فوق الهيدر */
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px; /* المحتوى + الكارت الجانبي */
-            gap: 30px;
-            position: relative;
-            z-index: 10;
-        }
+    /* --- HEADER SECTION (تعديلات كبيرة هنا) --- */
+    .course-header-bg {
+        background-color: var(--header-bg);
+        /* تم تعديل لون نقشة المثلثات في كود الـ SVG التالي ليصبح بنفسجي فاتح %237c4dff */
+        background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 20,0 10,20" fill="%237c4dff" opacity="0.1"/></svg>');
+        color: white;
+        padding: 40px 20px;
+        min-height: 250px;
+        display: flex;
+        align-items: center;
+    }
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        padding-left: 350px;
+    }
+    .course-title-main {
+        font-size: 2.2rem;
+        font-weight: 900;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    /* تعديل لون القلب ليناسب الثيم الجديد */
+    .course-title-main i {
+        color: var(--header-accent) !important; 
+    }
+    .course-description {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--header-text-muted); /* لون فاتح جديد */
+        margin-bottom: 20px;
+        max-width: 700px;
+    }
+    .course-meta {
+        display: flex;
+        gap: 20px;
+        font-size: 0.85rem;
+        color: var(--header-text-muted); /* لون فاتح جديد */
+    }
+    .meta-item span { 
+        font-weight: 700; 
+        color: var(--header-accent); /* استخدام لون الفوشيا للتواريخ */
+    }
 
-        /* --- SIDEBAR CARD (LEFT) --- */
-        .sidebar-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-card);
-            overflow: hidden;
-            position: sticky;
-            top: 20px;
-        }
-        .card-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .free-btn {
-            display: block;
-            width: 100%;
-            background: var(--red-btn);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            transition: 0.3s;
-        }
-        .free-btn:hover { background: #e63e5c; }
+    /* --- MAIN GRID LAYOUT --- */
+    .main-container {
+        max-width: 1200px;
+        margin: -100px auto 50px;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 30px;
+        position: relative;
+        z-index: 10;
+    }
 
-        /* --- CONTENT SECTION (RIGHT) --- */
-        .content-section-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #007bff;
-            text-align: left;
-            margin-bottom: 25px;
-            padding-left: 10px;
-        }
+    /* --- SIDEBAR CARD (LEFT) --- */
+    .sidebar-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        position: sticky;
+        top: 20px;
+    }
+    .card-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .free-btn {
+        display: block;
+        width: 100%;
+        background: var(--header-accent); /* استخدام الفوشيا للزر الرئيسي */
+        color: white;
+        text-align: center;
+        padding: 12px;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3); /* ظل خفيف بنفس لون الزر */
+    }
+    .free-btn:hover { background: #d6006b; }
 
-        /* --- ACCORDION STYLES --- */
-        .task-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-card);
-            margin-bottom: 20px;
-            overflow: hidden;
-            border: 1px solid #eee;
-        }
+    /* --- CONTENT SECTION (RIGHT) --- */
+    .content-section-title {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--header-bg); /* عنوان القسم بنفس لون الهيدر البنفسجي */
+        text-align: left;
+        margin-bottom: 25px;
+        padding-left: 10px;
+    }
 
-        /* Task Header (المهمة) */
-        .task-header {
-            padding: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s;
-        }
-        /* ألوان خلفية المهام */
-        .task-card:nth-child(2) .task-header { background: var(--pink-light); } /* المهمة الأولى وردي */
-        .task-card:not(:nth-child(2)) .task-header { background: var(--gray-light); } /* الباقي رمادي */
+    /* --- ACCORDION STYLES --- */
+    .task-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 20px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        transition: 0.3s;
+    }
+    .task-card:hover {
+        border-color: var(--header-text-muted);
+    }
 
-        .task-info { flex: 1; }
-        .task-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 5px; }
-        .task-details { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
-        
-        .task-icons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.2rem;
-            color: var(--red-btn);
-        }
-        .toggle-icon { transition: transform 0.3s; }
+    /* Task Header */
+    .task-header {
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.3s;
+    }
+    .task-card:nth-child(2) .task-header { background: var(--pink-light); }
+    .task-card:not(:nth-child(2)) .task-header { background: var(--gray-light); }
 
-        /* Task Content (الأجزاء) */
-        .task-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-        }
-        .task-body { padding: 15px; }
+    .task-info { flex: 1; }
+    .task-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 5px; }
+    .task-details { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+    
+    .task-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.2rem;
+        color: var(--header-accent); /* أيقونات المهام باللون الفوشيا */
+    }
+    .toggle-icon { transition: transform 0.3s; }
 
-        /* Part Item (الجزء) */
-        .part-item {
-            background: var(--yellow-light);
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .part-item:hover { background: #fff9c4; }
-        .part-title { font-size: 1.1rem; color: var(--red-btn); }
-        .view-btn {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+    /* Task Content */
+    .task-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out;
+    }
+    .task-body { padding: 15px; }
 
-        /* أيقونة الواتساب */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #25d366;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 100;
-        }
+    /* Part Item */
+    .part-item {
+        background: var(--yellow-light);
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+        border-left: 4px solid transparent;
+    }
+    .part-item:hover { 
+        background: #fff9c4; 
+        border-left-color: var(--header-accent); /* خط جانبي فوشيا عند التحويم */
+    }
+    .part-title { font-size: 1.1rem; color: var(--header-bg); } /* عناوين الأجزاء بالبنفسجي */
+    .view-btn {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 992px) {
-            .header-content { padding-left: 0; }
-            .main-container { grid-template-columns: 1fr; margin-top: -50px; }
-            .sidebar-card { position: static; max-width: 400px; margin: 0 auto 30px; }
-            .course-header-bg { padding: 30px 20px; }
-        }
-        @media (max-width: 768px) {
-            .course-title-main { font-size: 1.8rem; }
-            .content-section-title { text-align: center; padding-left: 0; }
-            .task-header { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .task-icons { width: 100%; justify-content: space-between; }
-        }
-    </style>
+    /* WhatsApp Icon */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: #25d366;
+        color: white;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 100;
+        transition: 0.3s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 992px) {
+        .header-content { padding-left: 0; }
+        .main-container { grid-template-columns: 1fr; margin-top: -50px; }
+        .sidebar-card { position: static; max-width: 400px; margin: 0 auto 30px; }
+        .course-header-bg { padding: 30px 20px; }
+    }
+    @media (max-width: 768px) {
+        .course-title-main { font-size: 1.8rem; }
+        .content-section-title { text-align: center; padding-left: 0; }
+        .task-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+        .task-icons { width: 100%; justify-content: space-between; }
+    }
+</style>
 </head>
 <body>
 
