@@ -1,278 +1,437 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مستر عادل بسيوني | هكر الفيزياء</title>
+    <meta name="description"
+        content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة.">
+    <title>منصة مستر عادل بسيوني | هكر الفيزياء</title>
+    <meta property="og:title" content="منصة مستر عادل بسيوني | هكر الفيزياء">
+    <meta property="og:description"
+        content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة.">
+    <meta property="og:image" content="https://adelsayed411.github.io/HackerElfizia/Cover.png">
+    <meta property="og:url" content="https://adelsayed411.github.io/HackerElfizia/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://adelsayed411.github.io/HackerElfizia/Cover.png">
     <link rel="icon" href="logo.png" type="image/png">
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V8XZL5BSHL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <link rel="apple-touch-icon" href="logo.png">
 
-  gtag('config', 'G-V8XZL5BSHL');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8XZL5BSHL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-V8XZL5BSHL');
+    </script>
     <link rel="canonical" href="https://adelsayed411.github.io/HackerElfizia/" />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-   <style>
-    :root {
-        /* --- الألوان الجديدة المستوحاة من الكافر --- */
-        --header-bg: #5e35b1;       /* البنفسجي العميق للهيدر */
-        --header-accent: #ff007f;   /* الفوشيا الساطع (مثل الأرقام في الصورة) */
-        --header-text-muted: #e1bee7; /* لون بنفسجي فاتح للنصوص الثانوية في الهيدر */
+    <style>
+        :root {
+            /* --- الألوان الجديدة المستوحاة من الكافر --- */
+            --header-bg: #5e35b1;
+            /* البنفسجي العميق للهيدر */
+            --header-accent: #ff007f;
+            /* الفوشيا الساطع (مثل الأرقام في الصورة) */
+            --header-text-muted: #e1bee7;
+            /* لون بنفسجي فاتح للنصوص الثانوية في الهيدر */
 
-        /* --- الألوان الأساسية للموقع --- */
-        --bg-main: #f9fafb;       /* خلفية الصفحة الرمادية الفاتحة */
-        --text-dark: #333;        /* لون النص الرئيسي */
-        --text-muted: #777;       /* لون النص الثانوي في باقي الموقع */
-        --pink-light: #fce4ec;    /* تعديل طفيف للخلفية الوردية لتناسب الفوشيا */
-        --yellow-light: #fffde7;  /* الخلفية الصفراء للأجزاء */
-        --gray-light: #f5f5f5;    /* الخلفية الرمادية للمهام الأخرى */
-        --border-radius: 12px;
-        --shadow-card: 0 4px 12px rgba(0,0,0,0.05);
-    }
+            /* --- الألوان الأساسية للموقع --- */
+            --bg-main: #f9fafb;
+            /* خلفية الصفحة الرمادية الفاتحة */
+            --text-dark: #333;
+            /* لون النص الرئيسي */
+            --text-muted: #777;
+            /* لون النص الثانوي في باقي الموقع */
+            --pink-light: #fce4ec;
+            /* تعديل طفيف للخلفية الوردية لتناسب الفوشيا */
+            --yellow-light: #fffde7;
+            /* الخلفية الصفراء للأجزاء */
+            --gray-light: #f5f5f5;
+            /* الخلفية الرمادية للمهام الأخرى */
+            --border-radius: 12px;
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-        font-family: 'Cairo', sans-serif;
-        background-color: var(--bg-main);
-        color: var(--text-dark);
-        overflow-x: hidden;
-    }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
 
-    a { text-decoration: none; color: inherit; }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    /* --- HEADER SECTION (تعديلات كبيرة هنا) --- */
-    .course-header-bg {
-        background-color: var(--header-bg);
-        /* تم تعديل لون نقشة المثلثات في كود الـ SVG التالي ليصبح بنفسجي فاتح %237c4dff */
-        background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 20,0 10,20" fill="%237c4dff" opacity="0.1"/></svg>');
-        color: white;
-        padding: 40px 20px;
-        min-height: 250px;
-        display: flex;
-        align-items: center;
-    }
-    .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-        padding-left: 350px;
-    }
-    .course-title-main {
-        font-size: 2.2rem;
-        font-weight: 900;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    /* تعديل لون القلب ليناسب الثيم الجديد */
-    .course-title-main i {
-        color: var(--header-accent) !important; 
-    }
-    .course-description {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: var(--header-text-muted); /* لون فاتح جديد */
-        margin-bottom: 20px;
-        max-width: 700px;
-    }
-    .course-meta {
-        display: flex;
-        gap: 20px;
-        font-size: 0.85rem;
-        color: var(--header-text-muted); /* لون فاتح جديد */
-    }
-    .meta-item span { 
-        font-weight: 700; 
-        color: var(--header-accent); /* استخدام لون الفوشيا للتواريخ */
-    }
+        /* --- HEADER SECTION (تعديلات كبيرة هنا) --- */
+        .course-header-bg {
+            background-color: var(--header-bg);
+            /* تم تعديل لون نقشة المثلثات في كود الـ SVG التالي ليصبح بنفسجي فاتح %237c4dff */
+            background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 20,0 10,20" fill="%237c4dff" opacity="0.1"/></svg>');
+            color: white;
+            padding: 40px 20px;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+        }
 
-    /* --- MAIN GRID LAYOUT --- */
-    .main-container {
-        max-width: 1200px;
-        margin: -100px auto 50px;
-        padding: 0 20px;
-        display: grid;
-        grid-template-columns: 1fr 320px;
-        gap: 30px;
-        position: relative;
-        z-index: 10;
-    }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding-left: 350px;
+        }
 
-    /* --- SIDEBAR CARD (LEFT) --- */
-    .sidebar-card {
-        background: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-card);
-        overflow: hidden;
-        position: sticky;
-        top: 20px;
-    }
-    .card-image {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-    .card-body {
-        padding: 20px;
-    }
-    .free-btn {
-        display: block;
-        width: 100%;
-        background: var(--header-accent); /* استخدام الفوشيا للزر الرئيسي */
-        color: white;
-        text-align: center;
-        padding: 12px;
-        border-radius: 50px;
-        font-weight: 800;
-        font-size: 1.1rem;
-        transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3); /* ظل خفيف بنفس لون الزر */
-    }
-    .free-btn:hover { background: #d6006b; }
+        .course-title-main {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    /* --- CONTENT SECTION (RIGHT) --- */
-    .content-section-title {
-        font-size: 1.8rem;
-        font-weight: 900;
-        color: var(--header-bg); /* عنوان القسم بنفس لون الهيدر البنفسجي */
-        text-align: left;
-        margin-bottom: 25px;
-        padding-left: 10px;
-    }
+        /* تعديل لون القلب ليناسب الثيم الجديد */
+        .course-title-main i {
+            color: var(--header-accent) !important;
+        }
 
-    /* --- ACCORDION STYLES --- */
-    .task-card {
-        background: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-card);
-        margin-bottom: 20px;
-        overflow: hidden;
-        border: 1px solid #eee;
-        transition: 0.3s;
-    }
-    .task-card:hover {
-        border-color: var(--header-text-muted);
-    }
+        .course-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--header-text-muted);
+            /* لون فاتح جديد */
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
 
-    /* Task Header */
-    .task-header {
-        padding: 20px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: 0.3s;
-    }
-    .task-card:nth-child(2) .task-header { background: var(--pink-light); }
-    .task-card:not(:nth-child(2)) .task-header { background: var(--gray-light); }
+        .course-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--header-text-muted);
+            /* لون فاتح جديد */
+        }
 
-    .task-info { flex: 1; }
-    .task-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 5px; }
-    .task-details { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
-    
-    .task-icons {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 1.2rem;
-        color: var(--header-accent); /* أيقونات المهام باللون الفوشيا */
-    }
-    .toggle-icon { transition: transform 0.3s; }
+        .meta-item span {
+            font-weight: 700;
+            color: var(--header-accent);
+            /* استخدام لون الفوشيا للتواريخ */
+        }
 
-    /* Task Content */
-    .task-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease-out;
-    }
-    .task-body { padding: 15px; }
+        /* --- MAIN GRID LAYOUT --- */
+        .main-container {
+            max-width: 1200px;
+            margin: -100px auto 50px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+        }
 
-    /* Part Item */
-    .part-item {
-        background: var(--yellow-light);
-        padding: 12px 20px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s;
-        border-left: 4px solid transparent;
-    }
-    .part-item:hover { 
-        background: #fff9c4; 
-        border-left-color: var(--header-accent); /* خط جانبي فوشيا عند التحويم */
-    }
-    .part-title { font-size: 1.1rem; color: var(--header-bg); } /* عناوين الأجزاء بالبنفسجي */
-    .view-btn {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
+        /* --- SIDEBAR CARD (LEFT) --- */
+        .sidebar-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+        }
 
-    /* WhatsApp Icon */
-    .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        background: #25d366;
-        color: white;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        z-index: 100;
-        transition: 0.3s;
-    }
-    .whatsapp-float:hover { transform: scale(1.1); }
+        .card-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    /* --- RESPONSIVE DESIGN --- */
-    @media (max-width: 992px) {
-        .header-content { padding-left: 0; }
-        .main-container { grid-template-columns: 1fr; margin-top: -20px; }
-        .sidebar-card { position: static; max-width: 400px; margin: 0 auto 30px; order :-1; }
-        .course-header-bg { padding: 30px 20px; }
-    }
-    @media (max-width: 768px) {
-        .course-title-main { font-size: 1.8rem; }
-        .content-section-title { text-align: center; padding-left: 0; }
-        .task-header { flex-direction: column; align-items: flex-start; gap: 15px; }
-        .task-icons { width: 100%; justify-content: space-between; }
-    }
-</style>
+        .card-body {
+            padding: 20px;
+        }
+
+        .free-btn {
+            display: block;
+            width: 100%;
+            background: var(--header-accent);
+            /* استخدام الفوشيا للزر الرئيسي */
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
+            /* ظل خفيف بنفس لون الزر */
+        }
+
+        .free-btn:hover {
+            background: #d6006b;
+        }
+
+        /* --- CONTENT SECTION (RIGHT) --- */
+        .content-section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--header-bg);
+            /* عنوان القسم بنفس لون الهيدر البنفسجي */
+            text-align: left;
+            margin-bottom: 25px;
+            padding-left: 10px;
+        }
+
+        /* --- ACCORDION STYLES --- */
+        .task-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .task-card:hover {
+            border-color: var(--header-text-muted);
+        }
+
+        /* Task Header */
+        .task-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .task-card:nth-child(2) .task-header {
+            background: var(--pink-light);
+        }
+
+        .task-card:not(:nth-child(2)) .task-header {
+            background: var(--gray-light);
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .task-details {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .task-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+            color: var(--header-accent);
+            /* أيقونات المهام باللون الفوشيا */
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        /* Task Content */
+        .task-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .task-body {
+            padding: 15px;
+        }
+
+        /* Part Item */
+        .part-item {
+            background: var(--yellow-light);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .part-item:hover {
+            background: #fff9c4;
+            border-left-color: var(--header-accent);
+            /* خط جانبي فوشيا عند التحويم */
+        }
+
+        .part-title {
+            font-size: 1.1rem;
+            color: var(--header-bg);
+        }
+
+        /* عناوين الأجزاء بالبنفسجي */
+        .view-btn {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* WhatsApp Icon */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #25d366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* أيقونات وسائل التواصل الاجتماعي */
+        .social-icons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .facebook {
+            background: #1877f2;
+        }
+
+        .telegram {
+            background: #0088cc;
+        }
+
+        .whatsapp-personal,
+        .whatsapp-channel {
+            background: #25d366;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .header-content {
+                padding-left: 0;
+            }
+
+            .main-container {
+                grid-template-columns: 1fr;
+                margin-top: -20px;
+            }
+
+            .sidebar-card {
+                position: static;
+                max-width: 400px;
+                margin: 0 auto 30px;
+                order: -1;
+            }
+
+            .course-header-bg {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .course-title-main {
+                font-size: 1.8rem;
+            }
+
+            .content-section-title {
+                text-align: center;
+                padding-left: 0;
+            }
+
+            .task-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .task-icons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
 
     <header class="course-header-bg">
         <div class="header-content">
-            
+
             <h1 class="course-title-main">
-    <img src="logo.png" alt="لوجو المنصة" style="height: 80px; margin-left: 15px; vertical-align: middle;">
-    
-    منهج فيزياء تانية ثانوي الترم الثاني <i class="fa-solid fa-heart" style="color: #ff007f; font-size: 1.5rem;"></i>
+                <img src="logo.png" alt="لوجو المنصة" style="height: 80px; margin-left: 15px; vertical-align: middle;">
+
+                منهج فيزياء تانية ثانوي الترم الثاني <i class="fa-solid fa-heart"
+                    style="color: #ff007f; font-size: 1.5rem;"></i>
             </h1>
             <p class="course-description">
-هنا هتلاقي شرح **منهج فيزياء الصف الثاني الثانوي – الترم الثاني** بالكامل، <strong>مجاني تمامًا على يوتيوب ❤️</strong>.<br>
-المحتوى منظم بطريقة سهلة: الفيديوهات موجودة هنا، وملفات الـ PDF لكل محاضرة هتنزل هنا كمان.<br>
-ولو فيه امتحانات أو اختبارات، هنبعتلكم الرابط الخاص بيها هنا مباشرة.
+                هنا هتلاقي شرح **منهج فيزياء الصف الثاني الثانوي – الترم الثاني** بالكامل، <strong>مجاني تمامًا على
+                    يوتيوب ❤️</strong>.<br>
+                المحتوى منظم بطريقة سهلة: الفيديوهات موجودة هنا، وملفات الـ PDF لكل محاضرة هتنزل هنا كمان.<br>
+                ولو فيه امتحانات أو اختبارات، هنبعتلكم الرابط الخاص بيها هنا مباشرة.
             </p>
 
             <div class="course-meta">
@@ -283,17 +442,17 @@
     </header>
 
     <main class="main-container">
-        
+
         <section class="content-column">
             <h2 class="content-section-title">محتوى الكورس</h2>
-            
+
             <div class="task-card">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-info">
                         <div class="task-title">المحاضرة الأولى : درس الشغل</div>
                         <div class="task-details">
                             شرح درس الشغل بالتفصيل والتجارب العملي <br>
-تم الإعلان عن  <strong>جايزة 1000 جنيه💵❤️</strong> للأول في امتحان شهر فبراير
+                            تم الإعلان عن <strong>جايزة 1000 جنيه💵❤️</strong> للأول في امتحان شهر فبراير
                         </div>
                     </div>
                     <div class="task-icons">
@@ -305,11 +464,13 @@
                     <div class="task-body">
                         <a href="https://youtu.be/wG3yHpU2yKc" target="_blank" class="part-item">
                             <span class="part-title">فيديو الشرح</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left" style="font-size: 0.7rem;"></i></span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
                         </a>
                         <a href="PDF/هكر_الفيزياء_–_فيديو_درس_الشغل_–_فيزياء_2ث.pdf" target="_blank" class="part-item">
                             <span class="part-title">شرح المحاضرة (PDF)</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left" style="font-size: 0.7rem;"></i></span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
@@ -320,7 +481,7 @@
                     <div class="task-info">
                         <div class="task-title">المحاضرة الثانية : درس الطاقة</div>
                         <div class="task-details">
-                           شرح طاقة الحركة وطاقة الوضع عملي بتجارب علي سبورة تفاعلية <br>
+                            شرح طاقة الحركة وطاقة الوضع عملي بتجارب علي سبورة تفاعلية <br>
                         </div>
                     </div>
                     <div class="task-icons">
@@ -332,11 +493,13 @@
                     <div class="task-body">
                         <a href="https://youtu.be/X6T0ukUsqoM" target="_blank" class="part-item">
                             <span class="part-title">فيديو الشرح</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left" style="font-size: 0.7rem;"></i></span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
                         </a>
                         <a href="PDF/هكر_الفيزياء_–_فيديو_درس_الطاقة_–_فيزياء_2ث.pdf" target="_blank" class="part-item">
                             <span class="part-title">شرح المحاضرة (PDF)</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left" style="font-size: 0.7rem;"></i></span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
@@ -346,7 +509,8 @@
             <div class="task-card">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-info">
-                        <div class="task-title">المحاضرة الثالثة: قانون بقاء الطاقة<br> يوم الثلاثاء 3 فبراير الساعة 4</div>
+                        <div class="task-title">المحاضرة الثالثة: قانون بقاء الطاقة<br> يوم الثلاثاء 3 فبراير الساعة 4
+                        </div>
                         <div class="task-details">شرح قانون بقاء الطاقة عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -354,10 +518,12 @@
                         <i class="fa-solid fa-chevron-down toggle-icon"></i>
                     </div>
                 </div>
-                <div class="task-content"><div class="task-body"></div></div>
+                <div class="task-content">
+                    <div class="task-body"></div>
+                </div>
             </div>
 
-           
+
         </section>
 
         <aside class="sidebar-card">
@@ -369,15 +535,30 @@
 
     </main>
 
-    <a href="https://wa.me/+201501857217" class="whatsapp-float" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+    <!-- أيقونات وسائل التواصل الاجتماعي -->
+    <div class="social-icons">
+        <a href="https://wa.me/+201501857217?text=السلام عليكم محتاج استفسر عن " target="_blank"
+            class="social-icon whatsapp-personal" title="تواصل شخصي عبر WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61551687059447" target="_blank" class="social-icon facebook"
+            title="صفحة Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://t.me/Hackerelfizia2027" target="_blank" class="social-icon telegram" title="مجموعة Telegram">
+            <i class="fa-brands fa-telegram"></i>
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vb6TFbqA2pLBHPvMHR06" target="_blank"
+            class="social-icon whatsapp-channel" title="قناة WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
 
     <script>
         function toggleTask(header) {
             const content = header.nextElementSibling;
             const icon = header.querySelector('.toggle-icon');
-            
+
             // إغلاق أي مهمة أخرى مفتوحة (اختياري)
             /*
             document.querySelectorAll('.task-content').forEach(item => {
@@ -399,4 +580,5 @@
         }
     </script>
 </body>
+
 </html>
