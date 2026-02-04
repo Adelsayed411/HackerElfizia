@@ -20,7 +20,7 @@
     
     <title>منصة مستر عادل بسيوني | هكر الفيزياء - شرح فيزياء تانية ثانوي مجاناً</title>
     
-    <!-- ===== Open Graph (Facebook & LinkedIn) ===== -->
+    <!-- ===== Open Graph ===== -->
     <meta property="og:locale" content="ar_EG">
     <meta property="og:type" content="website">
     <meta property="og:title" content="منصة مستر عادل بسيوني | هكر الفيزياء">
@@ -28,8 +28,6 @@
         content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة.">
     <meta property="og:url" content="https://adelsayed411.github.io/HackerElfizia/">
     <meta property="og:site_name" content="منصة مستر عادل بسيوني | هكر الفيزياء">
-    
-    <!-- ===== الصور لـ Open Graph (مهم جداً!) ===== -->
     <meta property="og:image" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
     <meta property="og:image:secure_url" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
     <meta property="og:image:type" content="image/png">
@@ -52,7 +50,7 @@
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="manifest" href="manifest.json">
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8XZL5BSHL"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -61,7 +59,7 @@
         gtag('config', 'G-V8XZL5BSHL');
     </script>
     
-    <!-- ===== Schema.org Structured Data ===== -->
+    <!-- ===== Schema.org ===== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -85,12 +83,7 @@
         "https://www.facebook.com/profile.php?id=61551687059447",
         "https://t.me/Hackerelfizia2027",
         "https://www.youtube.com/@hacker_Elfizia"
-      ],
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://adelsayed411.github.io/HackerElfizia/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      ]
     }
     </script>
     
@@ -102,6 +95,33 @@
 </head>
 
 <body>
+
+    <!-- ===== شريط الأخبار العاجلة ===== -->
+    <div class="news-bar" id="newsBar">
+        <div class="news-content">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span id="newsText">🎉 تم الإعلان عن جائزة 1000 جنيه للأول في امتحان شهر فبراير! • 📢 فيديو جديد كل أسبوع • ⭐ انضم لقناة التليجرام للحصول على التحديثات الفورية</span>
+        </div>
+        <button class="news-close" onclick="closeNewsBar()">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+
+    <!-- ===== شريط الأدوات العلوي ===== -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <!-- زر الوضع الليلي -->
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="تبديل الوضع الليلي">
+                <i class="fa-solid fa-moon" id="darkModeIcon"></i>
+            </button>
+            
+            <!-- العداد التنازلي -->
+            <div class="countdown-timer" id="countdownTimer">
+                <i class="fa-solid fa-clock"></i>
+                <span id="countdownText">جاري التحميل...</span>
+            </div>
+        </div>
+    </div>
 
     <header class="course-header-bg">
         <div class="header-content">
@@ -127,10 +147,36 @@
     <main class="main-container">
 
         <section class="content-column">
+            <!-- شريط التقدم -->
+            <div class="progress-section">
+                <div class="progress-info">
+                    <h3>تقدمك في الكورس</h3>
+                    <span id="progressText">0 من 3 محاضرات (0%)</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <!-- شريط البحث -->
+            <div class="search-section">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="ابحث عن محاضرة معينة..." onkeyup="searchLectures()">
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display: none;">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
             <h2 class="content-section-title">محتوى الكورس</h2>
 
-            <div class="task-card">
+            <div class="task-card" data-lecture-id="lecture-1">
                 <div class="task-header" onclick="toggleTask(this)">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-1" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-1" class="checkbox-label"></label>
+                    </div>
                     <div class="task-info">
                         <div class="task-title">المحاضرة الأولى : درس الشغل</div>
                         <div class="task-details">
@@ -159,8 +205,12 @@
                 </div>
             </div>
 
-            <div class="task-card">
+            <div class="task-card" data-lecture-id="lecture-2">
                 <div class="task-header" onclick="toggleTask(this)">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-2" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-2" class="checkbox-label"></label>
+                    </div>
                     <div class="task-info">
                         <div class="task-title">المحاضرة الثانية : درس الطاقة</div>
                         <div class="task-details">
@@ -188,8 +238,12 @@
                 </div>
             </div>
 
-            <div class="task-card">
+            <div class="task-card" data-lecture-id="lecture-3">
                 <div class="task-header" onclick="toggleTask(this)">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-3" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-3" class="checkbox-label"></label>
+                    </div>
                     <div class="task-info">
                         <div class="task-title">المحاضرة الثالثة: قانون بقاء الطاقة<br> <span style="color: rgb(206, 8, 137);">[جديد]</span>
                         </div>
@@ -215,6 +269,12 @@
                         </a>
                     </div>
                 </div>
+            </div>
+
+            <!-- رسالة عدم وجود نتائج بحث -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <p>لا توجد محاضرات مطابقة لبحثك</p>
             </div>
 
         </section>
@@ -247,20 +307,7 @@
         </a>
     </div>
 
-    <script>
-        function toggleTask(header) {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector('.toggle-icon');
-
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
