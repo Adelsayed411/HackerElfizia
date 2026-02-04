@@ -81,7 +81,7 @@ function loadProgress() {
 function startCountdown() {
     // ⚠️ هنا غيّر التاريخ للامتحان القادم
     // الصيغة: new Date('YYYY-MM-DD HH:MM:SS')
-    const examDate = new Date('2026-02-28 09:00:00');
+    const examDate = new Date('2026-03-15 09:00:00');
     
     function updateCountdown() {
         const now = new Date();
