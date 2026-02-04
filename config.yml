@@ -1,0 +1,21 @@
+# إعدادات GitHub Pages
+title: "منصة مستر عادل بسيوني | هكر الفيزياء"
+description: "أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً"
+author: "مستر عادل بسيوني"
+url: "https://adelsayed411.github.io"
+baseurl: "/HackerElfizia"
+
+# تعطيل الثيم الافتراضي من GitHub
+theme: null
+plugins: []
+
+# إعدادات SEO
+lang: ar
+locale: ar_EG
+
+# منع Jekyll من معالجة الملفات
+exclude:
+  - README.md
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock

@@ -4,22 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ===== SEO الأساسي ===== -->
     <meta name="description"
         content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة. فيزياء ثانية ثانوي، شرح فيزياء مجاني، هكر الفيزياء، مستر عادل بسيوني.">
     <meta name="keywords"
         content="فيزياء ثانية ثانوي, شرح فيزياء مجاني, هكر الفيزياء, مستر عادل بسيوني, فيديوهات فيزياء, مذكرات PDF فيزياء, امتحانات فيزياء شاملة">
-    <title>منصة مستر عادل بسيوني | هكر الفيزياء</title>
+    <meta name="author" content="مستر عادل بسيوني">
+    <meta name="application-name" content="منصة هكر الفيزياء">
+    
+    <!-- ===== منع GitHub من التحكم ===== -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <title>منصة مستر عادل بسيوني | هكر الفيزياء - شرح فيزياء تانية ثانوي مجاناً</title>
+    
+    <!-- ===== Open Graph (Facebook & LinkedIn) ===== -->
+    <meta property="og:locale" content="ar_EG">
+    <meta property="og:type" content="website">
     <meta property="og:title" content="منصة مستر عادل بسيوني | هكر الفيزياء">
     <meta property="og:description"
-        content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة. فيزياء ثانية ثانوي، شرح فيزياء مجاني، هكر الفيزياء، مستر عادل بسيوني.">
-    <meta property="og:image" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
+        content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة.">
     <meta property="og:url" content="https://adelsayed411.github.io/HackerElfizia/">
-    <meta property="og:type" content="website">
     <meta property="og:site_name" content="منصة مستر عادل بسيوني | هكر الفيزياء">
+    
+    <!-- ===== الصور لـ Open Graph (مهم جداً!) ===== -->
+    <meta property="og:image" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
+    <meta property="og:image:secure_url" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="منصة مستر عادل بسيوني - هكر الفيزياء">
+    
+    <!-- ===== Twitter Card ===== -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="منصة مستر عادل بسيوني | هكر الفيزياء">
+    <meta name="twitter:description"
+        content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة.">
     <meta name="twitter:image" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
+    <meta name="twitter:image:alt" content="منصة مستر عادل بسيوني - هكر الفيزياء">
+    
+    <!-- ===== Theme & Icons ===== -->
+    <meta name="theme-color" content="#5e35b1">
+    <meta name="msapplication-TileColor" content="#5e35b1">
     <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="manifest.json">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8XZL5BSHL"></script>
@@ -27,18 +58,34 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-V8XZL5BSHL');
     </script>
+    
+    <!-- ===== Schema.org Structured Data ===== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
+      "@type": "EducationalOrganization",
       "name": "منصة مستر عادل بسيوني | هكر الفيزياء",
-      "alternateName": ["Hacker El Fizia", "منصة هكر الفيزياء"],
+      "alternateName": ["Hacker El Fizia", "منصة هكر الفيزياء", "هكر الفيزياء"],
       "url": "https://adelsayed411.github.io/HackerElfizia/",
-      "logo": "https://adelsayed411.github.io/HackerElfizia/logo.png",
-      "description": "أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://adelsayed411.github.io/HackerElfizia/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://adelsayed411.github.io/HackerElfizia/logo.png",
+      "description": "أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة.",
+      "founder": {
+        "@type": "Person",
+        "name": "عادل بسيوني"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61551687059447",
+        "https://t.me/Hackerelfizia2027",
+        "https://www.youtube.com/@hacker_Elfizia"
+      ],
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://adelsayed411.github.io/HackerElfizia/?q={search_term_string}",
@@ -46,6 +93,7 @@
       }
     }
     </script>
+    
     <link rel="canonical" href="https://adelsayed411.github.io/HackerElfizia/" />
     <link rel="sitemap" type="application/xml" href="sitemap.xml" />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -55,13 +103,10 @@
 
 <body>
 
-
     <header class="course-header-bg">
         <div class="header-content">
-
             <h1 class="course-title-main">
-                <img src="logo.png" alt="لوجو المنصة" style="height: 80px; margin-left: 15px; vertical-align: middle;">
-
+                <img src="logo.png" alt="منصة مستر عادل بسيوني - هكر الفيزياء" style="height: 80px; margin-left: 15px; vertical-align: middle;">
                 منهج فيزياء تانية ثانوي الترم الثاني <i class="fa-solid fa-heart"
                     style="color: #ff007f; font-size: 1.5rem;"></i>
             </h1>
@@ -110,11 +155,6 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <a href="https://youtu.be/3zrW8-SDVTQ" target="_blank" class="part-item">
-                            <span class="part-title">فيديو حل الواجب (حل اسألة كتاب الامتحان)</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -148,7 +188,6 @@
                 </div>
             </div>
 
-
             <div class="task-card">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-info">
@@ -178,11 +217,10 @@
                 </div>
             </div>
 
-
         </section>
 
         <aside class="sidebar-card">
-            <img src="Cover.png" alt="غلاف الكورس" class="card-image">
+            <img src="Cover.png" alt="غلاف كورس فيزياء تانية ثانوي" class="card-image">
             <div class="card-body">
                 <a href="#" class="free-btn">هذا الكورس مجاني !</a>
             </div>
@@ -193,18 +231,18 @@
     <!-- أيقونات وسائل التواصل الاجتماعي -->
     <div class="social-icons">
         <a href="https://wa.me/+201501857217?text=السلام عليكم محتاج استفسر عن " target="_blank"
-            class="social-icon whatsapp-personal" title="تواصل شخصي عبر WhatsApp">
+            class="social-icon whatsapp-personal" title="تواصل شخصي عبر WhatsApp" aria-label="تواصل عبر واتساب">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
         <a href="https://www.facebook.com/profile.php?id=61551687059447" target="_blank" class="social-icon facebook"
-            title="صفحة Facebook">
+            title="صفحة Facebook" aria-label="صفحة فيسبوك">
             <i class="fa-brands fa-facebook-f"></i>
         </a>
-        <a href="https://t.me/Hackerelfizia2027" target="_blank" class="social-icon telegram" title="مجموعة Telegram">
+        <a href="https://t.me/Hackerelfizia2027" target="_blank" class="social-icon telegram" title="مجموعة Telegram" aria-label="مجموعة تيليجرام">
             <i class="fa-brands fa-telegram"></i>
         </a>
         <a href="https://whatsapp.com/channel/0029Vb6TFbqA2pLBHPvMHR06" target="_blank"
-            class="social-icon whatsapp-channel" title="قناة WhatsApp">
+            class="social-icon whatsapp-channel" title="قناة WhatsApp" aria-label="قناة واتساب">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
@@ -214,17 +252,6 @@
             const content = header.nextElementSibling;
             const icon = header.querySelector('.toggle-icon');
 
-            // إغلاق أي مهمة أخرى مفتوحة (اختياري)
-            /*
-            document.querySelectorAll('.task-content').forEach(item => {
-                if (item !== content && item.style.maxHeight) {
-                    item.style.maxHeight = null;
-                    item.previousElementSibling.querySelector('.toggle-icon').style.transform = 'rotate(0deg)';
-                }
-            });
-            */
-
-            // فتح/إغلاق المهمة الحالية
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
                 icon.style.transform = 'rotate(0deg)';

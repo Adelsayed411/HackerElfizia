@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- الصفحة الرئيسية -->
   <url>
     <loc>https://adelsayed411.github.io/HackerElfizia/</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://adelsayed411.github.io/HackerElfizia/logo.png</image:loc>
+      <image:title>منصة مستر عادل بسيوني - هكر الفيزياء</image:title>
+      <image:caption>أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://adelsayed411.github.io/HackerElfizia/Cover.png</image:loc>
+      <image:title>غلاف كورس فيزياء تانية ثانوي</image:title>
+    </image:image>
   </url>
-</urlset></content>
-<parameter name="filePath">d:\مونتاج\فيزياء\fizia\HackerElfizia\sitemap.xml
+  
+</urlset>

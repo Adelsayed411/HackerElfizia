@@ -1,0 +1,29 @@
+{
+  "name": "منصة مستر عادل بسيوني | هكر الفيزياء",
+  "short_name": "هكر الفيزياء",
+  "description": "أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً",
+  "start_url": "/HackerElfizia/",
+  "scope": "/HackerElfizia/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#5e35b1",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "learning"],
+  "screenshots": []
+}
