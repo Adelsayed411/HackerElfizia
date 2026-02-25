@@ -22,17 +22,26 @@ Notification.requestPermission().then((permission) => {
   if (permission === 'granted') {
     console.log('الطالب وافق على الإشعارات ✅');
     
-    // جلب التوكن باستخدام المفتاح السري (VAPID)
-    getToken(messaging, { vapidKey: 'BDIuTA2wSM7eGN3bTv4IRbcLbXvW1FZL5qjXy3dyKkmpPT_wVoT1C7W0xd16JRmB6zUMYqznhdpF9ytg1mI4BsU' })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log('تم ربط الطالب بنجاح! التوكن:', currentToken);
-      } else {
-        console.log('مفيش توكن متاح.');
-      }
-    }).catch((err) => {
-      console.log('خطأ في الإشعارات: ', err);
-    });
+    // الحل السحري: تسجيل الـ Service Worker بالمسار الصحيح بتاع GitHub Pages
+    navigator.serviceWorker.register('/HackerElfizia/firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log('تم تسجيل الـ Service Worker بنجاح!');
+        
+        // جلب التوكن وربطه بالـ registration الصح
+        return getToken(messaging, { 
+          vapidKey: 'BDIuTA2wSM7eGN3bTv4IRbcLbXvW1FZL5qjXy3dyKkmpPT_wVoT1C7W0xd16JRmB6zUMYqznhdpF9ytg1mI4BsU',
+          serviceWorkerRegistration: registration
+        });
+      })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log('تم ربط الطالب بنجاح! التوكن:', currentToken);
+        } else {
+          console.log('مفيش توكن متاح.');
+        }
+      }).catch((err) => {
+        console.log('خطأ في جلب التوكن: ', err);
+      });
   } else {
     console.log('الطالب رفض الإشعارات ❌');
   }
@@ -41,5 +50,5 @@ Notification.requestPermission().then((permission) => {
 // استقبال الإشعار والموقع مفتوح
 onMessage(messaging, (payload) => {
   console.log('وصل إشعار والموقع مفتوح:', payload);
-  alert(`🔔 هكر الفيزياء:\n\n${payload.notification.title}\n${payload.notification.body}`);
+  alert(`🔔 تنبيه من هكر الفيزياء:\n\n${payload.notification.title}\n${payload.notification.body}`);
 });
