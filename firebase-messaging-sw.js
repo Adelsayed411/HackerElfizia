@@ -2,7 +2,7 @@
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js');
 
-// بيانات موقعك (اللي إنت لسه جايبها)
+// بيانات موقعك
 firebase.initializeApp({
   apiKey: "AIzaSyD3RlyAtObwMMyeZz4ghYdhxHd3H2JTonY",
   authDomain: "hacker-5ca96.firebaseapp.com",
@@ -23,7 +23,25 @@ messaging.onBackgroundMessage(function(payload) {
     body: payload.notification.body,
     icon: 'logo.png', // اللوجو المربع بتاعك هيظهر في الإشعار
     badge: 'logo.png',
-    dir: 'rtl'
+    dir: 'rtl',
+    // الجزء ده هو اللي بيحفظ لينك المنصة الصح عشان نفتحه لما الطالب يدوس
+    data: {
+      url: 'https://adelsayed411.github.io/HackerElfizia/'
+    }
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+// الكود ده بيشتغل أول ما الطالب يدوس على الإشعار
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close(); // يقفل رسالة الإشعار
+  
+  // يجيب اللينك الصح اللي حفظناه فوق، ولو مش موجود يفتح اللينك الافتراضي
+  const targetUrl = event.notification.data && event.notification.data.url 
+    ? event.notification.data.url 
+    : 'https://adelsayed411.github.io/HackerElfizia/';
+    
+  event.waitUntil(
+    clients.openWindow(targetUrl) // يفتح اللينك للطالب في تاب جديدة
+  );
 });
