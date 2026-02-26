@@ -1,3 +1,16 @@
+// الكود ده بنحطه عشان يسبق فايربيز ويفتح اللينك الصح لمنصة هكر الفيزياء
+self.addEventListener('notificationclick', function(event) {
+  event.stopImmediatePropagation(); // بنوقف فايربيز إنه يفتح اللينك الغلط
+  event.notification.close(); // بنقفل رسالة الإشعار
+  
+  // اللينك الصح اللي هيفتح للطالب
+  const targetUrl = 'https://adelsayed411.github.io/HackerElfizia/';
+  
+  event.waitUntil(
+    clients.openWindow(targetUrl)
+  );
+});
+
 // استدعاء مكتبات فايربيز للعمل في الخلفية
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js');
@@ -15,33 +28,15 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// كود استقبال الإشعار وإظهاره للطالب
+// كود استقبال الإشعار وإظهاره للطالب في الخلفية
 messaging.onBackgroundMessage(function(payload) {
   console.log('وصل إشعار جديد في الخلفية!', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
-    icon: 'logo.png', // اللوجو المربع بتاعك هيظهر في الإشعار
+    icon: 'logo.png', // اللوجو المربع بتاعك
     badge: 'logo.png',
-    dir: 'rtl',
-    // الجزء ده هو اللي بيحفظ لينك المنصة الصح عشان نفتحه لما الطالب يدوس
-    data: {
-      url: 'https://adelsayed411.github.io/HackerElfizia/'
-    }
+    dir: 'rtl'
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
-// الكود ده بيشتغل أول ما الطالب يدوس على الإشعار
-self.addEventListener('notificationclick', function(event) {
-  event.notification.close(); // يقفل رسالة الإشعار
-  
-  // يجيب اللينك الصح اللي حفظناه فوق، ولو مش موجود يفتح اللينك الافتراضي
-  const targetUrl = event.notification.data && event.notification.data.url 
-    ? event.notification.data.url 
-    : 'https://adelsayed411.github.io/HackerElfizia/';
-    
-  event.waitUntil(
-    clients.openWindow(targetUrl) // يفتح اللينك للطالب في تاب جديدة
-  );
 });
