@@ -859,3 +859,66 @@ body.dark-mode .no-results p {
         font-size: 20px;
     }
 }
+/* =========================================
+   تنسيقات بانر تحميل التطبيق (PWA)
+   ========================================= */
+.install-banner {
+  display: none; /* مخفي في البداية لحد ما البرمجة تظهره */
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e1e;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  z-index: 9999;
+  text-align: right;
+  width: 90%;
+  max-width: 400px;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Cairo', sans-serif;
+  border: 2px solid #8e44ad;
+  direction: rtl;
+}
+
+.banner-text {
+  flex-grow: 1;
+}
+
+.banner-text strong {
+  display: block;
+  font-size: 16px;
+  color: #f1c40f;
+}
+
+.banner-text span {
+  font-size: 13px;
+  color: #ddd;
+}
+
+.banner-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+#install-btn {
+  background: #8e44ad;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Cairo', sans-serif;
+}
+
+#close-banner-btn {
+  background: transparent;
+  color: #aaa;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}

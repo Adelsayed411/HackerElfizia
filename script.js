@@ -254,6 +254,45 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+// =========================================
+// برمجة ظهور بانر تحميل التطبيق (PWA)
+// =========================================
+let deferredPrompt;
+const installBanner = document.getElementById('install-banner');
+const installBtn = document.getElementById('install-btn');
+const closeBtn = document.getElementById('close-banner-btn');
+
+// الكود ده مش بيشتغل غير لو الطالب "مش محمل" التطبيق
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); 
+  deferredPrompt = e; 
+  // بنستخدم flex عشان يظهر بنفس تنسيق الـ CSS
+  if(installBanner) installBanner.style.display = 'flex'; 
+});
+
+// لما الطالب يدوس على زرار "تحميل"
+if(installBtn) {
+  installBtn.addEventListener('click', async () => {
+    installBanner.style.display = 'none'; 
+    deferredPrompt.prompt(); 
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`نتيجة التحميل: ${outcome}`);
+    deferredPrompt = null;
+  });
+}
+
+// لما الطالب يدوس على (X) عشان يقفل البانر
+if(closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    installBanner.style.display = 'none';
+  });
+}
+
+// رسالة تأكيد لو التطبيق نزل بنجاح
+window.addEventListener('appinstalled', () => {
+  console.log('تم تحميل تطبيق هكر الفيزياء بنجاح! 🚀');
+  if(installBanner) installBanner.style.display = 'none';
+});
 
 // ===== نصائح مفيدة للتخصيص =====
 
