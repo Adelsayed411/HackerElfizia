@@ -292,6 +292,14 @@ if(closeBtn) {
 window.addEventListener('appinstalled', () => {
   console.log('تم تحميل تطبيق هكر الفيزياء بنجاح! 🚀');
   if(installBanner) installBanner.style.display = 'none';
+  
+  // السطر السحري اللي بيبعت الإحصائية لجوجل أناليتكس
+  if (typeof gtag === 'function') {
+    gtag('event', 'install_pwa', {
+      'event_category': 'App Installation',
+      'event_label': 'Hacker Elfizia App'
+    });
+  }
 });
 
 // ===== نصائح مفيدة للتخصيص =====
