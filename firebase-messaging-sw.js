@@ -1,16 +1,3 @@
-// الكود ده بنحطه عشان يسبق فايربيز ويفتح اللينك الصح لمنصة هكر الفيزياء
-self.addEventListener('notificationclick', function(event) {
-  event.stopImmediatePropagation(); // بنوقف فايربيز إنه يفتح اللينك الغلط
-  event.notification.close(); // بنقفل رسالة الإشعار
-  
-  // اللينك الصح اللي هيفتح للطالب
-  const targetUrl = 'https://adelsayed411.github.io/HackerElfizia/';
-  
-  event.waitUntil(
-    clients.openWindow(targetUrl)
-  );
-});
-
 // استدعاء مكتبات فايربيز للعمل في الخلفية
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js');
@@ -36,7 +23,35 @@ messaging.onBackgroundMessage(function(payload) {
     body: payload.notification.body,
     icon: 'logo.png', // اللوجو المربع بتاعك
     badge: 'logo.png',
-    dir: 'rtl'
+    dir: 'rtl',
+    // الاحتفاظ باللينك المخصص لو مبعوت، أو لينك المنصة الافتراضي
+    data: payload.data || { url: 'https://adelsayed411.github.io/HackerElfizia/' }
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+// برمجة زرار الإشعار (ميزة الـ Focus بس لمنع تكرار التابات لمنصة الصفحة الواحدة)
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close(); // قفل رسالة الإشعار
+  
+  const targetUrl = event.notification.data && event.notification.data.url 
+    ? event.notification.data.url 
+    : 'https://adelsayed411.github.io/HackerElfizia/';
+  
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then(function(clientList) {
+      // بندور: هل الطالب فاتح المنصة أصلاً؟
+      for (let i = 0; i < clientList.length; i++) {
+        let client = clientList[i];
+        
+        // لو فاتح المنصة، هاتها قدام عينه (Focus) وماتفتحش تاب جديدة
+        if (client.url.includes("HackerElfizia") && 'focus' in client) {
+          return client.focus(); 
+        }
+      }
+      
+      // لو مش فاتح المنصة خالص، افتح تاب جديدة
+      return clients.openWindow(targetUrl);
+    })
+  );
 });
