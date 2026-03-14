@@ -922,3 +922,97 @@ body.dark-mode .no-results p {
   font-size: 22px;
   cursor: pointer;
 }
+/* =========================================
+   تنسيقات PWA محسّنة (تستبدل القديمة)
+   ========================================= */
+.install-banner {
+    display: none !important;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    padding: 14px 18px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(142,68,173,0.4);
+    z-index: 9999;
+    text-align: right;
+    width: 92%;
+    max-width: 420px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cairo', sans-serif;
+    border: none;
+    border-top: 3px solid #8e44ad;
+    direction: rtl;
+}
+
+.install-banner[style*="flex"] {
+    display: flex !important;
+}
+
+.banner-text {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.banner-text strong {
+    display: block;
+    font-size: 15px;
+    color: #f1c40f;
+    margin-bottom: 3px;
+}
+
+.banner-text span {
+    font-size: 12px;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+#install-btn {
+    background: linear-gradient(135deg, #8e44ad, #5e35b1) !important;
+    color: white !important;
+    border: none !important;
+    padding: 9px 18px !important;
+    border-radius: 50px !important;
+    cursor: pointer !important;
+    font-weight: 800 !important;
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 0.9rem !important;
+    white-space: nowrap;
+    transition: 0.25s;
+    box-shadow: 0 3px 12px rgba(142,68,173,0.5);
+}
+
+#install-btn:hover {
+    transform: scale(1.05);
+}
+
+#close-banner-btn {
+    background: rgba(255,255,255,0.08) !important;
+    color: #bbb !important;
+    border: none !important;
+    font-size: 18px !important;
+    cursor: pointer !important;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+#close-banner-btn:hover {
+    background: rgba(255,255,255,0.18) !important;
+    color: white !important;
+}

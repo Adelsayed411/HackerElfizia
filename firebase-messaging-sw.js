@@ -1,8 +1,65 @@
-// استدعاء مكتبات فايربيز للعمل في الخلفية
+// ==========================================
+// 1. كود التخزين (Offline Mode - Cache) - النسخة V2
+// ==========================================
+// 💡 زودنا رقم الإصدار لـ v2 عشان المتصفح يحس بالتحديثات
+const CACHE_NAME = 'hacker-elfizia-v2';
+const urlsToCache = [
+  '/HackerElfizia/',
+  '/HackerElfizia/index.html',
+  '/HackerElfizia/style.css',
+  '/HackerElfizia/script.js',
+  '/HackerElfizia/logo.png',
+  '/HackerElfizia/manifest.json'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      console.log('تم تخزين ملفات المنصة بنجاح - V2!');
+      return cache.addAll(urlsToCache);
+    })
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName); // مسح الكاش القديم
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) return;
+
+  event.respondWith(
+    fetch(event.request).then(response => {
+      // 💡 التحسين العبقري: نتأكد إن الرد سليم 100% قبل ما نخزنه عشان منخزنش صفحة Error
+      if (response && response.status === 200 && response.type === 'basic') {
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+      }
+      return response;
+    }).catch(() => {
+      return caches.match(event.request);
+    })
+  );
+});
+
+// ==========================================
+// 2. كود الإشعارات بتاع فايربيز 
+// ==========================================
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js');
 
-// بيانات موقعك
 firebase.initializeApp({
   apiKey: "AIzaSyD3RlyAtObwMMyeZz4ghYdhxHd3H2JTonY",
   authDomain: "hacker-5ca96.firebaseapp.com",
@@ -15,24 +72,25 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// كود استقبال الإشعار وإظهاره للطالب في الخلفية
 messaging.onBackgroundMessage(function(payload) {
   console.log('وصل إشعار جديد في الخلفية!', payload);
-  const notificationTitle = payload.notification.title;
+  
+  // 💡 حماية قوية: لو فايربيز بعت الداتا من غير notification مش هيكراش
+  const notificationTitle = payload.notification?.title || payload.data?.title || "تحديث جديد من هكر الفيزياء ⚡";
+  
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: 'logo.png', // اللوجو المربع بتاعك
-    badge: 'logo.png',
+    body: payload.notification?.body || payload.data?.body || "اضغط هنا لمعرفة التفاصيل.",
+    // 💡 تعديل المسارات عشان GitHub Pages
+    icon: '/HackerElfizia/logo.png', 
+    badge: '/HackerElfizia/logo.png',
     dir: 'rtl',
-    // الاحتفاظ باللينك المخصص لو مبعوت، أو لينك المنصة الافتراضي
     data: payload.data || { url: 'https://adelsayed411.github.io/HackerElfizia/' }
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-// برمجة زرار الإشعار (ميزة الـ Focus بس لمنع تكرار التابات لمنصة الصفحة الواحدة)
 self.addEventListener('notificationclick', function(event) {
-  event.notification.close(); // قفل رسالة الإشعار
+  event.notification.close(); 
   
   const targetUrl = event.notification.data && event.notification.data.url 
     ? event.notification.data.url 
@@ -40,17 +98,14 @@ self.addEventListener('notificationclick', function(event) {
   
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then(function(clientList) {
-      // بندور: هل الطالب فاتح المنصة أصلاً؟
       for (let i = 0; i < clientList.length; i++) {
         let client = clientList[i];
         
-        // لو فاتح المنصة، هاتها قدام عينه (Focus) وماتفتحش تاب جديدة
-        if (client.url.includes("HackerElfizia") && 'focus' in client) {
+        // 💡 استخدام مسار أدق عشان ميعملش فوكس لصفحة تانية بالغلط
+        if (client.url.includes("/HackerElfizia/") && 'focus' in client) {
           return client.focus(); 
         }
       }
-      
-      // لو مش فاتح المنصة خالص، افتح تاب جديدة
       return clients.openWindow(targetUrl);
     })
   );

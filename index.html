@@ -153,7 +153,7 @@
             <div class="progress-section">
                 <div class="progress-info">
                     <h3>تقدمك في الكورس</h3>
-                    <span id="progressText">0 من 3 محاضرات (0%)</span>
+                    <span id="progressText"></span>
                 </div>
                 <div class="progress-bar-container">
                     <div class="progress-bar" id="progressBar"></div>
@@ -171,13 +171,20 @@
                     </button>
                 </div>
             </div>
+            <div style="text-align: center; margin: 40px 0;">
+                <h3 style="color: var(--text); margin-bottom: 15px;">خايف من شكل الامتحان؟ جرب دلوقتي! 👻</h3>
+                <a href="exam.html"
+                    style="display: inline-block; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 14px 32px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); transition: transform 0.2s;">
+                    <i class="fa-solid fa-gamepad"></i> دخول الامتحان التجريبي
+                </a>
+            </div>
 
             <h2 class="content-section-title">محتوى الكورس</h2>
-            <div class="task-card" data-lecture-id="lecture-4">
+            <div class="task-card" data-lecture-id="weakly-tasks">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
-                        <input type="checkbox" id="check-4" onchange="updateProgress()" class="lecture-checkbox">
-                        <label for="check-4" class="checkbox-label"></label>
+                        <input type="checkbox" id="check-weakly" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-weakly" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
                         <div class="task-title">التقييمات الإسبوعية والوجابات المنزلية<br> <span
@@ -243,7 +250,7 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                         <a href="https://youtu.be/7ec-z56_mLM" target="_blank" class="part-item">
+                        <a href="https://youtu.be/7ec-z56_mLM" target="_blank" class="part-item">
                             <span class="part-title">التقييم الإسبوعي - 6 (انعكاس وانكسار الضوء)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
@@ -383,8 +390,8 @@
             <div class="task-card" data-lecture-id="revision-1">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
-                        <input type="checkbox" id="check-3" onchange="updateProgress()" class="lecture-checkbox">
-                        <label for="check-3" class="checkbox-label"></label>
+                        <input type="checkbox" id="check-rev1" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-rev1" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
                         <div class="task-title">مراجعة الفصل الأول <br> <span style="color: rgb(206, 8, 137);">في 40
@@ -504,8 +511,8 @@
             <div class="task-card" data-lecture-id="revision-2">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
-                        <input type="checkbox" id="check-3" onchange="updateProgress()" class="lecture-checkbox">
-                        <label for="check-3" class="checkbox-label"></label>
+                        <input type="checkbox" id="check-rev2" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-rev2" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
                         <div class="task-title">مراجعة الفصل الثاني <br> <span style="color: rgb(206, 8, 137);">في ساعة
@@ -621,53 +628,54 @@
                         </a>
                     </div>
                 </div>
-                <div class="task-card" data-lecture-id="lecture-8">
-                    <div class="task-header" onclick="toggleTask(this)">
-                        <div class="task-checkbox">
-                            <input type="checkbox" id="check-8" onchange="updateProgress()" class="lecture-checkbox">
-                            <label for="check-8" class="checkbox-label"></label>
-                        </div>
-                        <div class="task-info">
-                            <div class="task-title">المحاضرة الثامنة : الإنعكاس الكلي للضوء<br> <span
-                                    style="color: rgb(206, 8, 137);">[جديد]</span>
-                            </div>
-                            <div class="task-details">شرح الإنعكاس الكلي للضوء عملي بتجارب علي سبورة تفاعلية </div>
-                        </div>
-                        <div class="task-icons">
-                            <i class="fa-solid fa-table-cells-large"></i>
-                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                        </div>
+            </div>
+            <div class="task-card" data-lecture-id="lecture-8">
+                <div class="task-header" onclick="toggleTask(this)">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-8" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-8" class="checkbox-label"></label>
                     </div>
-                    <div class="task-content">
-                        <div class="task-body">
-                            <a href="https://youtu.be/YI5FdzAycIs" target="_blank" class="part-item">
-                                <span class="part-title">فيديو الشرح</span>
-                                <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                        style="font-size: 0.7rem;"></i></span>
-                            </a>
-                            <a href="PDF/L8.pdf"
-                                download="هكر_الفيزياء_–_فيديو_درس_الإنعكاس_الكلي_للضوء_–_فيزياء_2ث.pdf" target="_blank"
-                                class="part-item">
-                                <span class="part-title">شرح المحاضرة (PDF)</span>
-                                <span class="view-btn">تحميل <i class="fa-solid fa-download"
-                                        style="font-size: 0.7rem;"></i></span>
-                            </a>
-                            </a>
-                            <a href="https://youtu.be/ah7TyMeYIqo" target="_blank" class="part-item">
-                                <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                        style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
-                                <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                        style="font-size: 0.7rem;"></i></span>
-                            </a>
+                    <div class="task-info">
+                        <div class="task-title">المحاضرة الثامنة : الإنعكاس الكلي للضوء<br> <span
+                                style="color: rgb(206, 8, 137);">[جديد]</span>
                         </div>
+                        <div class="task-details">شرح الإنعكاس الكلي للضوء عملي بتجارب علي سبورة تفاعلية </div>
+                    </div>
+                    <div class="task-icons">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
                     </div>
                 </div>
+                <div class="task-content">
+                    <div class="task-body">
+                        <a href="https://youtu.be/YI5FdzAycIs" target="_blank" class="part-item">
+                            <span class="part-title">فيديو الشرح</span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a>
+                        <a href="PDF/L8.pdf" download="هكر_الفيزياء_–_فيديو_درس_الإنعكاس_الكلي_للضوء_–_فيزياء_2ث.pdf"
+                            target="_blank" class="part-item">
+                            <span class="part-title">شرح المحاضرة (PDF)</span>
+                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a>
+                        </a>
+                        <a href="https://youtu.be/ah7TyMeYIqo" target="_blank" class="part-item">
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
+                                    style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-                <!-- رسالة عدم وجود نتائج بحث -->
-                <div class="no-results" id="noResults" style="display: none;">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>لا توجد محاضرات مطابقة لبحثك</p>
-                </div>
+
+            <!-- رسالة عدم وجود نتائج بحث -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <p>لا توجد محاضرات مطابقة لبحثك</p>
+            </div>
 
         </section>
 
@@ -699,14 +707,40 @@
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
+    <!-- ===== بانر التثبيت السفلي (PWA) ===== -->
     <div id="install-banner" class="install-banner">
         <div class="banner-text">
-            <strong>📲 حمل تطبيق المنصة!</strong>
-            <span>عشان تتابع المحاضرات والإشعارات أسرع.</span>
+            <strong>📲 ثبّت التطبيق مجاناً!</strong>
+            <span>ادرس بدون انترنت وافتكر من أي حاجة وصلتلها!</span>
         </div>
         <div class="banner-buttons">
-            <button id="install-btn">تحميل</button>
+            <button id="install-btn">تثبيت الآن</button>
             <button id="close-banner-btn">&times;</button>
+        </div>
+    </div>
+
+    <!-- ===== Overlay PWA الجذاب ===== -->
+    <div id="pwa-overlay">
+        <div class="pwa-overlay-card">
+            <button class="pwa-overlay-close" onclick="closeInstallOverlay(true)" title="إغلاق">&times;</button>
+            <span class="pwa-overlay-icon">📲</span>
+            <h2>وفّر بياناتك وادرس بدون انقطاع!</h2>
+            <p>
+                ثبّت تطبيق <strong>هكر الفيزياء</strong> على شاشتك الرئيسية وافتحه في أي وقت —
+                حتى بدون إنترنت. مش هتحتاج تدور عليه في المتصفح تاني! 🚀
+            </p>
+            <div class="pwa-overlay-features">
+                <span class="pwa-feature-chip">⚡ أسرع بكثير</span>
+                <span class="pwa-feature-chip">📴 يعمل بدون نت</span>
+                <span class="pwa-feature-chip">🔔 إشعارات فورية</span>
+                <span class="pwa-feature-chip">🆓 مجاني 100%</span>
+            </div>
+            <button class="pwa-install-cta" onclick="triggerInstall()">
+                📥 ثبّت التطبيق الآن مجاناً!
+            </button>
+            <button class="pwa-overlay-skip" onclick="closeInstallOverlay(true)">
+                لا شكراً، هفضل في المتصفح
+            </button>
         </div>
     </div>
 
