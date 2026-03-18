@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>امتحان — هكر الفيزياء</title>
+    <title>اختبار مارس - هكر الفيزياء</title>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -1062,6 +1062,86 @@
         }
 
         /* ============================================================
+       SCREEN: WAITING (showModelAnswer = false, submitted)
+    ============================================================ */
+        #screen-waiting {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 80px);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .waiting-card {
+            background: var(--surface);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 48px 36px;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: var(--shadow), var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waiting-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #f59e0b, #c653ff);
+        }
+
+        .waiting-icon {
+            font-size: 3.2rem;
+            margin-bottom: 18px;
+            display: block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .waiting-card h2 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .waiting-card .waiting-msg {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 28px;
+        }
+
+        .waiting-submitted-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .waiting-name-display {
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        /* ============================================================
        SCREEN: LOCKED (Already submitted)
     ============================================================ */
         #screen-locked {
@@ -1333,8 +1413,8 @@
         <div id="screen-register" class="screen active">
             <div class="register-card">
                 <span class="register-icon">⚡</span>
-                <h1 id="reg-title">اختبار الفصل الأول</h1>
-                <p class="subtitle" id="reg-subtitle">الشغل والطاقة — فيزياء تانية ثانوي</p>
+                <h1 id="reg-title">اختبار مارس </h1>
+                <p class="subtitle" id="reg-subtitle">الفصل الأول والثاني ودرس انعكاس وانكسار الضوء</p>
 
                 <div class="exam-meta-chips">
                     <div class="chip"><i class="fa-solid fa-circle-question"></i> <span id="chip-qcount">10 أسئلة</span>
@@ -1345,11 +1425,11 @@
 
                 <div class="field-group">
                     <div class="field-wrap">
-                        <input type="text" id="input-name" placeholder="اسمك الكامل" autocomplete="name" />
+                        <input type="text" id="input-name" placeholder="اسمك ثلاثي" autocomplete="name" />
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="field-wrap">
-                        <input type="tel" id="input-phone" placeholder="رقم الهاتف" autocomplete="tel"
+                        <input type="tel" id="input-phone" placeholder="رقم الهاتف بالانجليزي" autocomplete="tel"
                             inputmode="numeric" />
                         <i class="fa-solid fa-phone"></i>
                     </div>
@@ -1463,13 +1543,37 @@
         </div>
 
         <!-- ════════════════════════════════════
+         SCREEN 4B: WAITING (showModelAnswer=false)
+    ════════════════════════════════════ -->
+        <div id="screen-waiting" class="screen">
+            <div class="waiting-card">
+                <span class="waiting-icon">⏳</span>
+                <div class="waiting-submitted-badge">
+                    <i class="fa-solid fa-circle-check"></i>
+                    تم استلام إجاباتك بنجاح
+                </div>
+                <div class="waiting-name-display" id="waiting-name"></div>
+                <h2>النتيجة غير متاحة الآن</h2>
+                <p class="waiting-msg">
+                    يرجى العودة بعد انتهاء وقت الامتحان لجميع الطلاب<br>
+                    لمشاهدة نتيجتك والإجابات الصحيحة.
+                </p>
+                <a href="index.html">
+                    <button class="btn-primary" style="max-width:260px;margin:0 auto;">
+                        <i class="fa-solid fa-arrow-right"></i> العودة للمنصة
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════
          SCREEN 5: LOCKED
     ════════════════════════════════════ -->
         <div id="screen-locked" class="screen">
             <div class="locked-card">
                 <span class="lock-icon"><i class="fa-solid fa-lock"></i></span>
                 <h2>لقد سبق وأديت هذا الامتحان</h2>
-                <p>يمكنك أداء الامتحان مرة واحدة فقط من هذا الجهاز.</p>
+                <p>يمكنك أداء الامتحان مرة واحدة فقط  .</p>
 
                 <div class="prev-score-display">
                     <div class="big-score" id="locked-score">—</div>
@@ -1578,10 +1682,27 @@
             if (stored) {
                 try {
                     const data = JSON.parse(stored);
-                    $('locked-score').textContent = data.percent + '%';
-                    $('locked-detail').textContent = data.name + ' | ' + data.correct + ' صح من ' + data.total + ' سؤال';
-                } catch (e) { /* بيانات تالفة — نعرض الشاشة المقفولة بدون تفاصيل */ }
-                // 🔒 الهيدر يفضل مخفي للطلاب المقفولين
+
+                    // ── نتيجة كاملة موجودة ─────────────────────────────────
+                    if (data.submitted) {
+                        if (EXAM_CONFIG.showModelAnswer) {
+                            // ✅ showModelAnswer أصبح true — نعرض النتائج الكاملة
+                            showResults(data.fullResult);
+                        } else {
+                            // 🔒 showModelAnswer لا يزال false — شاشة الانتظار
+                            $('waiting-name').textContent = data.name || '';
+                            document.body.classList.remove('exam-active');
+                            showScreen('screen-waiting');
+                        }
+                        return;
+                    }
+
+                    // ── بيانات قديمة (نسخة سابقة من النظام بدون fullResult) ──
+                    $('locked-score').textContent = (data.percent ?? '—') + '%';
+                    $('locked-detail').textContent =
+                        (data.name || '') + ' | ' +
+                        (data.correct ?? '—') + ' صح من ' + (data.total ?? '—') + ' سؤال';
+                } catch (e) { /* بيانات تالفة */ }
                 document.body.classList.remove('exam-active');
                 showScreen('screen-locked');
                 return;
@@ -1904,14 +2025,17 @@
                             name: State.name,
                             phone: State.phone,
                         };
-                        localStorage.setItem(getStorageKey(), JSON.stringify({
-                            name: result.name,
-                            correct: result.correct,
-                            total: result.total,
-                            percent: result.percent,
-                        }));
+                        saveToLocalStorage(result);
                         localStorage.removeItem(getStorageKey() + '_pending');
-                        showResults(result);
+
+                        if (EXAM_CONFIG.showModelAnswer) {
+                            // ✅ عرض كامل — درجة + إجابات صحيحة + مراجعة
+                            showResults(result);
+                        } else {
+                            // 🔒 إخفاء النتيجة — شاشة الانتظار فقط
+                            $('waiting-name').textContent = State.name;
+                            showScreen('screen-waiting');
+                        }
                     } else {
                         handleNetworkError(payload, data.message || 'خطأ من السيرفر');
                     }
@@ -1947,11 +2071,16 @@
 
         // ─── saveToLocalStorage (تُستدعى من sendToServer بعد النجاح) ──
         function saveToLocalStorage(result) {
+            // نحفظ كل البيانات دايمًا — العرض يتحكم فيه showModelAnswer
             localStorage.setItem(getStorageKey(), JSON.stringify({
+                submitted: true,
                 name: result.name,
                 correct: result.correct,
                 total: result.total,
                 percent: result.percent,
+                // fullResult يحتوي على details والإجابات الصحيحة
+                // لا يُعرض إلا لما showModelAnswer = true
+                fullResult: result,
             }));
         }
 
@@ -2012,7 +2141,7 @@
                 result.percent === 100 ? 'ممتاز! إجابات مثالية 💯' :
                     result.percent >= 80 ? 'أداء رائع! استمر على هذا المستوى 🔥' :
                         result.percent >= 50 ? 'حصلت على درجة مقبولة. راجع الأسئلة اللي غلطت فيها 📖' :
-                            'احتاج تراجع الدرس أكتر. أنت قادر تعملها 💪';
+                            'محتاج تراجع الدرس أكتر. أنت قادر تعملها 💪';
 
             // ✅ مراجعة الإجابات — details جاية من السيرفر
             if (result.details && result.details.length > 0) {
@@ -2030,8 +2159,10 @@
 
             details.forEach(d => {
                 // نجيب بيانات السؤال من State.questions لعرض نص السؤال والخيارات
-                const qObj = State.questions[d.qNumber - 1];
-
+                const questionsSource = (State.questions && State.questions.length > 0)
+                    ? State.questions
+                    : EXAM_CONFIG.questions;          // ← الـ fallback للـ reload case
+                const qObj = questionsSource[d.qNumber - 1];
                 html += '<div class="question-card" style="margin-bottom:20px;">';
                 html += '<div class="q-header">';
                 html += '<div class="q-number-badge">' + d.qNumber + '</div>';

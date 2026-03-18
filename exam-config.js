@@ -16,8 +16,8 @@ const EXAM_CONFIG = {
 
   // ─── معلومات الامتحان ──────────────────────────────
   id: "physics_t2_ch1_2026",
-  title: "اختبار الفصل الأول",
-  subtitle: "الشغل والطاقة — فيزياء تانية ثانوي ترم ثاني",
+  title: "اختبار مارس - 1000جنيه",
+  subtitle: "الفصل الأول والثاني ودرس انعكاس وانكسار الضوء",
   duration: 15,          // بالدقائق
   passMark: 50,          // درجة النجاح (%)
 
@@ -25,6 +25,11 @@ const EXAM_CONFIG = {
   // ─── رابط Google Apps Script ────────────────────────
   // ⚠️ هذا الرابط يستقبل الإجابات ويصحح على السيرفر
   sheetsURL: "https://script.google.com/macros/s/AKfycbybiCU2URykD_bLBuepMOf9YMIgK2YVxYKhrrxHb1ap_QmIvKSf4r32x1G1OZIxk-7kMA/exec",
+
+  // ─── إعداد عرض النموذج ──────────────────────────────
+  // true  → يعرض النتيجة الكاملة + الإجابات الصحيحة فور التسليم
+  // false → يخفي النتيجة ويعرض رسالة الانتظار حتى ينتهي وقت الامتحان
+  showModelAnswer: true,
 
   // ─── نوع الامتحان ────────────────────────────────────
   mode: "standard",   // "standard" أو "bubble"
