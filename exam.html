@@ -1633,6 +1633,8 @@
         const State = {
             name: '',
             phone: '',
+            studentId: '',      // 🔑 ID ثابت للجهاز — نفس الـ ID على كل browsers
+            tabSwitchCount: 0,  // ⚠️ عدد مرات الخروج من صفحة الامتحان
             currentQ: 0,
             answers: {},
             timerInterval: null,
@@ -1640,6 +1642,37 @@
             submitted: false,
             questions: [],
         };
+
+        // ═══════════════════════════════════════════════════════════
+        //  generateDeviceId — بصمة الجهاز بدون localStorage
+        //
+        //  خصائص Hardware ثابتة مهما غيرت الـ browser:
+        //  screen resolution, color depth, CPU cores, device memory,
+        //  timezone, language, platform
+        //  → SHA-256 → DEV-XXXXXXXXXXXXXXXX (نفس الجهاز = نفس الЭ ID على Chrome وFirefox وSafari)
+        // ══════════════════════════════════════════════════════════
+        async function generateDeviceId() {
+            const props = [
+                screen.width + 'x' + screen.height,
+                screen.colorDepth,
+                navigator.hardwareConcurrency || 0,
+                navigator.deviceMemory || 0,
+                Intl.DateTimeFormat().resolvedOptions().timeZone,
+                navigator.language,
+                navigator.platform || '',
+            ].join('|');
+
+            try {
+                const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(props));
+                const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+                return 'DEV-' + hex.substring(0, 16).toUpperCase();
+            } catch (e) {
+                // fallback لو ممش على HTTPS
+                let h = 0;
+                for (let i = 0; i < props.length; i++) h = Math.imul(31, h) + props.charCodeAt(i) | 0;
+                return 'DEV-' + Math.abs(h).toString(16).toUpperCase().padStart(8, '0');
+            }
+        }
 
         // ─── Helpers ─────────────────────────────────────────────────
         const $ = id => document.getElementById(id);
@@ -1668,7 +1701,7 @@
         }
 
         // ─── Boot ─────────────────────────────────────────────────────
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             // ✅ تأكد إن exam-config.js اتحمل صح
             if (typeof EXAM_CONFIG === 'undefined') {
                 document.body.innerHTML =
@@ -1677,6 +1710,10 @@
                     '<p>تأكد إن ملف exam-config.js موجود في نفس المجلد.</p></div>';
                 return;
             }
+
+            // 🔑 توليد بصمة الجهاز فور تحميل الصفحة (مش مخزنة في أي مكان)
+            State.studentId = await generateDeviceId();
+            initAntiCheat();  // ⚠️ تفعيل رادار الخروج
 
             const stored = localStorage.getItem(getStorageKey());
             if (stored) {
@@ -1982,6 +2019,8 @@
                 mode: EXAM_CONFIG.mode,
                 studentName: State.name,
                 phone: State.phone,
+                deviceFingerprint: State.studentId,   // 🔒 بصمة الجهاز
+                tabSwitchCount: State.tabSwitchCount, // ⚠️ عدد مرات الخروج
             };
 
             if (EXAM_CONFIG.mode === 'bubble') {
@@ -2237,6 +2276,63 @@
                 s.textContent = '@keyframes cfall{0%{transform:translateY(0) rotate(0);}100%{transform:translateY(105vh) rotate(720deg);opacity:0;}}';
                 document.head.appendChild(s);
             }
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  initAntiCheat — رادار تتبع الخروج من صفحة الامتحان
+        //  بيشتغل بس لما يكون body.exam-active — عشان ميتعدش قبل / بعد الامتحان
+        // ══════════════════════════════════════════════════════════
+        function initAntiCheat() {
+            // ── إنشاء بانر التحذير مرة واحدة (JavaScript) —————
+            if (!document.getElementById('tab-warning-banner')) {
+                const banner = document.createElement('div');
+                banner.id = 'tab-warning-banner';
+                banner.style.cssText = [
+                    'display:none',
+                    'position:fixed',
+                    'top:0', 'left:0', 'right:0',
+                    'z-index:99999',
+                    'background:#b91c1c',
+                    'color:#fff',
+                    'font-family:Cairo,sans-serif',
+                    'font-size:0.95rem',
+                    'font-weight:800',
+                    'padding:14px 24px',
+                    'text-align:center',
+                    'box-shadow:0 4px 20px rgba(185,28,28,0.5)',
+                    'animation:bannerIn 0.3s ease',
+                ].join(';');
+                document.body.appendChild(banner);
+
+                // CSS animation للبانر
+                if (!document.getElementById('anti-cheat-style')) {
+                    const s = document.createElement('style');
+                    s.id = 'anti-cheat-style';
+                    s.textContent = '@keyframes bannerIn{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+                    document.head.appendChild(s);
+                }
+            }
+
+            // ── Visibility change listener ——————————————————————
+            document.addEventListener('visibilitychange', () => {
+                // ميشغلش غير لما يكون الامتحان شغال
+                if (!document.body.classList.contains('exam-active')) return;
+
+                if (document.hidden) {
+                    // الطالب خرج — نعد العداد
+                    State.tabSwitchCount++;
+                } else {
+                    // الطالب رجع — نعرض التحذير
+                    const banner = document.getElementById('tab-warning-banner');
+                    if (banner) {
+                        banner.innerHTML = '\u26a0\ufe0f تم تسجيل خروجك من الصفحة &nbsp;<strong>(المرة ' + State.tabSwitchCount + ')</strong>&nbsp; وسيتم إرسال هذا للمشرف';
+                        banner.style.display = 'block';
+                        clearTimeout(banner._tid);
+                        banner._tid = setTimeout(() => { banner.style.display = 'none'; }, 6000);
+                    }
+                    showToast('\u26a0\ufe0f خروجك من الصفحة تم تسجيله! (المرة ' + State.tabSwitchCount + ')', 'error', 5000);
+                }
+            });
         }
 
         // ─── Utility ──────────────────────────────────────────────────

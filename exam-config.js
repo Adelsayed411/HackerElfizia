@@ -24,7 +24,7 @@ const EXAM_CONFIG = {
 
   // ─── رابط Google Apps Script ────────────────────────
   // ⚠️ هذا الرابط يستقبل الإجابات ويصحح على السيرفر
-  sheetsURL: "https://script.google.com/macros/s/AKfycbybiCU2URykD_bLBuepMOf9YMIgK2YVxYKhrrxHb1ap_QmIvKSf4r32x1G1OZIxk-7kMA/exec",
+  sheetsURL: "https://script.google.com/macros/s/AKfycbyHWWGX5yFKVYd1uSfrDcAAvLxkvytbR72CpivsCsQgkzFqGSm04q8bxvxCmxsco45a/exec",
 
   // ─── إعداد عرض النموذج ──────────────────────────────
   // true  → يعرض النتيجة الكاملة + الإجابات الصحيحة فور التسليم
