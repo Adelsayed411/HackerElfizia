@@ -1016,3 +1016,19 @@ body.dark-mode .no-results p {
     background: rgba(255,255,255,0.18) !important;
     color: white !important;
 }
+/* تمدد الأيقونات اللي معاها نص لتصبح زراير */
+        .social-icon.with-text {
+            width: auto !important; /* لكسر العرض الثابت للأيقونة الدائرية */
+            padding: 0 16px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .social-icon.with-text .icon-text {
+            font-family: var(--font);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
