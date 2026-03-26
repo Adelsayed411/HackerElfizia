@@ -1381,6 +1381,58 @@
                 height: 30px;
             }
         }
+  /* ============================================================
+        unanswered (missed) option style - for review mode
+  ============================================================ */        .option-btn.missed {
+            border-color: var(--yellow) !important;
+            background: rgba(245, 158, 11, 0.1) !important;
+        }
+        .option-btn.missed .opt-letter {
+            background: var(--yellow) !important;
+            border-color: var(--yellow) !important;
+            color: #000 !important;
+        }
+
+        /* ستايل التفسير المخفي (Accordion) */
+        .explanation-box {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .exp-header {
+            padding: 14px 16px;
+            color: var(--green);
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .exp-header:hover {
+            background: rgba(34, 197, 94, 0.05);
+        }
+        .exp-content {
+            padding: 0 16px;
+            max-height: 0;
+            opacity: 0;
+            color: var(--text-muted);
+            line-height: 1.65;
+            transition: all 0.3s ease-in-out;
+        }
+        /* لما الطالب يدوس على التفسير الكلاس open بيضاف */
+        .explanation-box.open .exp-content {
+            max-height: 500px;
+            opacity: 1;
+            padding: 0 16px 16px 16px;
+        }
+        .explanation-box.open .exp-header i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 
@@ -1573,7 +1625,7 @@
             <div class="locked-card">
                 <span class="lock-icon"><i class="fa-solid fa-lock"></i></span>
                 <h2>لقد سبق وأديت هذا الامتحان</h2>
-                <p>يمكنك أداء الامتحان مرة واحدة فقط  .</p>
+                <p>يمكنك أداء الامتحان مرة واحدة فقط .</p>
 
                 <div class="prev-score-display">
                     <div class="big-score" id="locked-score">—</div>
@@ -2177,7 +2229,7 @@
                 : '<div class="pass-badge failed"><i class="fa-solid fa-circle-xmark"></i> لم تنجح هذه المرة</div>';
 
             $('result-message').textContent =
-                result.percent === 100 ? 'ممتاز! إجابات مثالية 💯' :
+                result.percent === 100 ? 'مبروك عليك ال 1000 جنيه ☺️💵💯' :
                     result.percent >= 80 ? 'أداء رائع! استمر على هذا المستوى 🔥' :
                         result.percent >= 50 ? 'حصلت على درجة مقبولة. راجع الأسئلة اللي غلطت فيها 📖' :
                             'محتاج تراجع الدرس أكتر. أنت قادر تعملها 💪';
@@ -2192,60 +2244,138 @@
             if (result.percent >= 80) triggerConfetti();
         }
 
-        // ─── ✅ renderReview المعدّلة — تشتغل مع details من السيرفر ──
         function renderReview(details) {
-            let html = '';
+            const container = $('review-render');
 
-            details.forEach(d => {
-                // نجيب بيانات السؤال من State.questions لعرض نص السؤال والخيارات
-                const questionsSource = (State.questions && State.questions.length > 0)
-                    ? State.questions
-                    : EXAM_CONFIG.questions;          // ← الـ fallback للـ reload case
-                const qObj = questionsSource[d.qNumber - 1];
-                html += '<div class="question-card" style="margin-bottom:20px;">';
-                html += '<div class="q-header">';
-                html += '<div class="q-number-badge">' + d.qNumber + '</div>';
-                if (qObj) html += '<div class="q-text">' + escapeHtml(qObj.text) + '</div>';
-                html += '</div>';
+            // 🛡️ guard
+            if (!Array.isArray(details) || details.length === 0) {
+                container.innerHTML = '<div class="empty-state">لا توجد بيانات للمراجعة</div>';
+                return;
+            }
 
-                if (qObj && qObj.image) {
-                    html += '<img class="q-image" src="' + qObj.image + '" alt=""/>';
-                }
+            // ✅ نحسب مرة واحدة
+            const questionsSource = (State.questions && State.questions.length > 0)
+                ? State.questions
+                : EXAM_CONFIG.questions;
 
-                if (qObj && qObj.options) {
-                    // عرض الخيارات مع تمييز الصح والغلط بناءً على ما قاله السيرفر
-                    html += '<div class="options-grid">';
-                    qObj.options.forEach((opt, oi) => {
-                        const letter = LETTERS[oi];
-                        const studentPicked = d.studentAns === letter;
-                        const isCorrect = d.correctAns === letter;
-
-                        let cls = 'option-btn';
-                        if (isCorrect) cls += ' correct';
-                        else if (studentPicked && !isCorrect) cls += ' wrong';
-
-                        html += '<button class="' + cls + '" disabled>';
-                        html += '<div class="opt-letter">' + letter + '</div>';
-                        html += '<div class="opt-text">';
-                        if (opt.image) html += '<img class="opt-image" src="' + opt.image + '" alt=""/> ';
-                        html += escapeHtml(opt.text);
-                        html += '</div></button>';
-                    });
-                    html += '</div>';
-                }
-
-                // التفسير جاي من السيرفر (مش من exam-config.js)
-                if (d.explanation) {
-                    html += '<div class="explanation-box" style="display:block;">';
-                    html += '<div class="exp-label"><i class="fa-solid fa-lightbulb"></i> التفسير</div>';
-                    html += escapeHtml(d.explanation);
-                    html += '</div>';
-                }
-
-                html += '</div>';
+            // ✅ نحولها lookup بالـ id أو qNumber (fallback)
+            const questionsMap = new Map();
+            questionsSource.forEach((q, index) => {
+                const key = q.id ?? (index + 1);
+                questionsMap.set(key, q);
             });
 
-            $('review-render').innerHTML = html;
+            const htmlParts = [];
+
+            details.forEach(d => {
+                const qObj = questionsMap.get(d.qId ?? d.qNumber);
+
+                if (!qObj) {
+                    htmlParts.push(`
+                <div class="question-card error">
+                    <div class="q-header">
+                        <div class="q-number-badge">${d.qNumber ?? '-'}</div>
+                        <div class="q-text">السؤال غير متوفر</div>
+                    </div>
+                </div>
+            `);
+                    return;
+                }
+
+                // 🛑 تظبيط حالة السؤال (هل هو صح، غلط، ولا متساب فاضي؟)
+                const isUnanswered = d.studentAns === 'لم يجب' || !d.studentAns;
+                const isCorrect = d.isCorrect;
+
+                // 🎨 تلوين الكارت من بره
+                let borderColor = isCorrect ? 'var(--green)' : (isUnanswered ? 'var(--yellow)' : 'var(--red)');
+                let bgColor = isCorrect ? 'rgba(34, 197, 94, 0.05)' : (isUnanswered ? 'rgba(245, 158, 11, 0.05)' : 'rgba(239, 68, 68, 0.05)');
+
+                htmlParts.push(`<div class="question-card" style="border-color: ${borderColor}; background: ${bgColor};">`);
+
+                // header
+                htmlParts.push(`
+            <div class="q-header" style="align-items: center;">
+                <div class="q-number-badge" style="margin-bottom:0;">${d.qNumber}</div>
+        `);
+
+                // ⚠️ أيقونة الحالة جنب رقم السؤال
+                if (isCorrect) {
+                    htmlParts.push('<div style="color:var(--green); font-size:1.4rem; margin:0 12px;"><i class="fa-solid fa-check"></i></div>');
+                } else if (isUnanswered) {
+                    htmlParts.push('<div style="background:var(--yellow); color:#000; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:50px; margin:0 12px;">لم تُجب ⚠️</div>');
+                } else {
+                    htmlParts.push('<div style="color:var(--red); font-size:1.4rem; margin:0 12px;"><i class="fa-solid fa-xmark"></i></div>');
+                }
+
+                htmlParts.push(`<div class="q-text">${escapeHtml(qObj.text)}</div></div>`);
+
+                // صورة السؤال
+                if (qObj.image && isSafeUrl(qObj.image)) {
+                    htmlParts.push(`<img class="q-image" loading="lazy" src="${qObj.image}" alt="صورة السؤال">`);
+                }
+
+                // الخيارات
+                if (Array.isArray(qObj.options)) {
+                    htmlParts.push('<div class="options-grid">');
+
+                    qObj.options.forEach((opt, oi) => {
+                        const letter = EXAM_CONFIG.mode === 'bubble' ? AB_LETTERS[oi] : LETTERS[oi];
+
+                        const studentPicked = d.studentAns === letter;
+                        const isOptCorrect = d.correctAns === letter;
+
+                        let cls = 'option-btn';
+                        if (isOptCorrect) cls += ' correct';
+                        else if (studentPicked && !isOptCorrect) cls += ' wrong';
+                        else if (isUnanswered && isOptCorrect) cls += ' missed'; // للإجابة الصح اللي سابها
+
+                        // بهتان للخيارات الغلط لو هو مجاوبش أصلاً عشان الصح يبرز
+                        let extraStyle = (isUnanswered && !isOptCorrect) ? 'style="opacity: 0.5;"' : '';
+
+                        htmlParts.push(`<button class="${cls}" disabled ${extraStyle}>`);
+                        htmlParts.push(`<div class="opt-letter">${letter}</div>`);
+                        htmlParts.push('<div class="opt-text">');
+
+                        if (opt.image && isSafeUrl(opt.image)) {
+                            htmlParts.push(`<img class="opt-image" loading="lazy" src="${opt.image}" alt="صورة خيار">`);
+                        }
+
+                        htmlParts.push(escapeHtml(opt.text || ''));
+                        htmlParts.push('</div></button>');
+                    });
+
+                    htmlParts.push('</div>');
+                }
+
+                // التفسير (toggle)
+                if (d.explanation) {
+                    htmlParts.push(`
+                <div class="explanation-box">
+                    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+                        <i class="fa-solid fa-lightbulb"></i> عرض التفسير
+                        <i class="fa-solid fa-chevron-down" style="margin-right:auto; font-size:0.8rem;"></i>
+                    </div>
+                    <div class="exp-content">
+                        ${escapeHtml(d.explanation)}
+                    </div>
+                </div>
+            `);
+                }
+
+                htmlParts.push('</div>');
+            });
+
+            container.innerHTML = htmlParts.join('');
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function isSafeUrl(url) {
+            try {
+                const u = new URL(url, window.location.origin);
+                return ['http:', 'https:', 'data:'].includes(u.protocol);
+            } catch {
+                return false;
+            }
         }
 
         // ─── Confetti ─────────────────────────────────────────────────
