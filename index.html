@@ -171,13 +171,55 @@
                     </button>
                 </div>
             </div>
-            <div style="text-align: center; margin: 40px 0;">
-                <h3 style="color: var(--text); margin-bottom: 15px;">امتحان ال 1000 جنيه💵❤️</h3>
-                <a href="exam.html"
-                    style="display: inline-block; background: linear-gradient(135deg, #fda5fa, #a3165a); color: white; padding: 14px 32px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); transition: transform 0.2s;">
-                    <i class="fa-solid fa-gamepad"></i> دخول الامتحان 
-                </a>
+            <div class="task-card" data-lecture-id="march-exam">
+                <div class="task-header" onclick="toggleTask(this)">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-march-exam" onchange="updateProgress()"
+                            class="lecture-checkbox">
+                        <label for="check-march-exam" class="checkbox-label"></label>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-title"> امتحان مارس (امتحان ال 1000 جنيه)<br> <span
+                                style="color: rgb(206, 8, 137);"></span>
+                        </div>
+                        <div class="task-details">امتحان شهر مارس علي ال 1000 جنيه💵❤️</div>
+                    </div>
+                    <div class="task-icons">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </div>
+                </div>
+                <div class="task-content">
+                    <div class="task-body">
+                        <div style="text-align: center; margin: 40px 0;">
+                            <h3 style="color: var(--text); margin-bottom: 15px;">امتحان ال 1000 جنيه💵❤️</h3>
+                            <a href="exam.html"
+                                style="display: inline-block; background: linear-gradient(135deg, #fda5fa, #a3165a); color: white; padding: 14px 32px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); transition: transform 0.2s;">
+                                <i class="fa-solid fa-gamepad"></i> دخول الامتحان
+                            </a>
+                        </div>
+                        <a href="https://youtu.be/gS-AwTl4to0" target="_blank" class="part-item">
+                            <span class="part-title">فيديو حل الامتحان </span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a>
+                        <!-- <a href="PDF/L6.pdf" download="هكر_الفيزياء_–_فيديو_درس_انعكاس_وانكسار_الضوء_–_فيزياء_2ث.pdf"
+                            target="_blank" class="part-item">
+                            <span class="part-title">شرح المحاضرة (PDF)</span>
+                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a> -->
+                        </a>
+                        <!-- <a href="https://youtu.be/-7EzeOKtv2I" target="_blank" class="part-item">
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الإمتحان)<br> <span
+                                    style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a> -->
+                    </div>
+                </div>
             </div>
+
 
             <h2 class="content-section-title">محتوى الكورس</h2>
             <div class="task-card" data-lecture-id="weakly-tasks">
@@ -273,11 +315,12 @@
                         <label for="check-mars" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">مراجعة شهر مارس <span style="color: rgb(206, 8, 137);">1000 جنيه💵❤️</span> 
+                        <div class="task-title">مراجعة شهر مارس <span style="color: rgb(206, 8, 137);">1000
+                                جنيه💵❤️</span>
                         </div>
                         <div class="task-details">
                             مراجعة علي منهج شهر مارس <br>
-                            الأول له <strong>جايزة 1000 جنيه💵❤️</strong> 
+                            الأول له <strong>جايزة 1000 جنيه💵❤️</strong>
                         </div>
                     </div>
                     <div class="task-icons">
@@ -292,8 +335,8 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <a href="PDF/Rev_mars.pdf" download="هكر_الفيزياء_–_فيديو_مراجعة_شهر_مارس_–_فيزياء_2ث.pdf" target="_blank"
-                            class="part-item">
+                        <a href="PDF/Rev_mars.pdf" download="هكر_الفيزياء_–_فيديو_مراجعة_شهر_مارس_–_فيزياء_2ث.pdf"
+                            target="_blank" class="part-item">
                             <span class="part-title">شرح المحاضرة (PDF)</span>
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
@@ -730,8 +773,9 @@
 
     <!-- أيقونات وسائل التواصل الاجتماعي -->
     <div class="social-icons">
-       <a href="https://wa.me/+201501857217?text=السلام عليكم محتاج استفسر عن " target="_blank"
-            class="social-icon whatsapp-personal with-text" title="تواصل شخصي عبر WhatsApp" aria-label="تواصل عبر واتساب">
+        <a href="https://wa.me/+201501857217?text=السلام عليكم محتاج استفسر عن " target="_blank"
+            class="social-icon whatsapp-personal with-text" title="تواصل شخصي عبر WhatsApp"
+            aria-label="تواصل عبر واتساب">
             <i class="fa-brands fa-whatsapp"></i>
             <span class="icon-text">الدعم</span>
         </a>
