@@ -1381,12 +1381,15 @@
                 height: 30px;
             }
         }
-  /* ============================================================
+
+        /* ============================================================
         unanswered (missed) option style - for review mode
-  ============================================================ */        .option-btn.missed {
+  ============================================================ */
+        .option-btn.missed {
             border-color: var(--yellow) !important;
             background: rgba(245, 158, 11, 0.1) !important;
         }
+
         .option-btn.missed .opt-letter {
             background: var(--yellow) !important;
             border-color: var(--yellow) !important;
@@ -1402,6 +1405,7 @@
             overflow: hidden;
             transition: 0.3s;
         }
+
         .exp-header {
             padding: 14px 16px;
             color: var(--green);
@@ -1413,9 +1417,11 @@
             user-select: none;
             transition: background 0.2s;
         }
+
         .exp-header:hover {
             background: rgba(34, 197, 94, 0.05);
         }
+
         .exp-content {
             padding: 0 16px;
             max-height: 0;
@@ -1424,12 +1430,14 @@
             line-height: 1.65;
             transition: all 0.3s ease-in-out;
         }
+
         /* لما الطالب يدوس على التفسير الكلاس open بيضاف */
         .explanation-box.open .exp-content {
             max-height: 500px;
             opacity: 1;
             padding: 0 16px 16px 16px;
         }
+
         .explanation-box.open .exp-header i.fa-chevron-down {
             transform: rotate(180deg);
         }
@@ -1771,11 +1779,37 @@
             if (stored) {
                 try {
                     const data = JSON.parse(stored);
-
                     // ── نتيجة كاملة موجودة ─────────────────────────────────
                     if (data.submitted) {
                         if (EXAM_CONFIG.showModelAnswer) {
                             // ✅ showModelAnswer أصبح true — نعرض النتائج الكاملة
+
+                            // 🩹 --- بداية باتش إعادة التصحيح السحري --- 🩹
+                            const FIXED_KEYS = [3, 0, 0, 3, 1, 2, 3, 1, 0, 0, 3, 3, 0, 1, 1, 0, 2, 2, 3, 2, 1, 0, 0, 2, 1, 1, 2, 0, 2, 1, 3, 0, 3, 3, 1, 1];
+                            const modeLetters = EXAM_CONFIG.mode === 'bubble' ? ['A', 'B', 'C', 'D', 'E'] : ['أ', 'ب', 'ج', 'د', 'هـ'];
+
+                            if (data.fullResult && data.fullResult.details) {
+                                let recalcCorrect = 0;
+                                data.fullResult.details.forEach((item, index) => {
+                                    if (FIXED_KEYS[index] !== undefined) {
+                                        const realCorrectLetter = modeLetters[FIXED_KEYS[index]];
+                                        item.correctAns = realCorrectLetter; // إجبار المتصفح على الإجابة الصح الجديدة
+                                        item.isCorrect = (item.studentAns === realCorrectLetter); // إعادة التصحيح
+                                    }
+                                    if (item.isCorrect) recalcCorrect++;
+                                });
+
+                                // إعادة حساب الدرجات والنسبة
+                                data.fullResult.correct = recalcCorrect;
+                                data.fullResult.wrong = data.fullResult.total - recalcCorrect;
+                                data.fullResult.percent = Math.round((recalcCorrect / data.fullResult.total) * 100);
+                                data.fullResult.passed = data.fullResult.percent >= EXAM_CONFIG.passMark;
+
+                                // حفظ التعديل بصمت في جهاز الطالب
+                                localStorage.setItem(getStorageKey(), JSON.stringify(data));
+                            }
+                            // 🩹 --- نهاية باتش إعادة التصحيح السحري --- 🩹
+
                             showResults(data.fullResult);
                         } else {
                             // 🔒 showModelAnswer لا يزال false — شاشة الانتظار
