@@ -74,7 +74,7 @@ function loadProgress() {
     if (savedProgress) {
         const progress = JSON.parse(savedProgress);
         const checkboxes = document.querySelectorAll('.lecture-checkbox');
-        checkboxes.forEach(function(checkbox) {
+        checkboxes.forEach(function (checkbox) {
             const card = checkbox.closest('.task-card');
             const lectureId = card ? card.getAttribute('data-lecture-id') : checkbox.id;
             if (lectureId && progress[lectureId]) {
@@ -93,7 +93,7 @@ function loadProgress() {
 function initPartItemTracking() {
     var partItems = document.querySelectorAll('.part-item');
 
-    partItems.forEach(function(item, index) {
+    partItems.forEach(function (item, index) {
         var href = item.getAttribute('href') || ('item-' + index);
         // مفتاح آمن وفريد
         var safeKey = 'part_done__' + encodeURIComponent(href).replace(/%/g, '_').slice(0, 60);
@@ -126,7 +126,7 @@ function markPartItemDone(item, animate) {
 
     if (animate) {
         item.classList.add('part-item--pulse');
-        setTimeout(function() { item.classList.remove('part-item--pulse'); }, 600);
+        setTimeout(function () { item.classList.remove('part-item--pulse'); }, 600);
     }
 }
 
@@ -150,14 +150,14 @@ function initPWAInstall() {
         return;
     }
 
-    window.addEventListener('beforeinstallprompt', function(e) {
+    window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
         deferredPrompt = e;
         showInstallBanner();
         scheduleInstallOverlay();
     });
 
-    window.addEventListener('appinstalled', function() {
+    window.addEventListener('appinstalled', function () {
         pwaInstalled = true;
         hidePWAElements();
         localStorage.setItem('pwaInstalled', 'true');
@@ -174,12 +174,12 @@ function initPWAInstall() {
     var closeBannerBtn = document.getElementById('close-banner-btn');
 
     if (installBtn) {
-        installBtn.addEventListener('click', function() {
+        installBtn.addEventListener('click', function () {
             triggerInstall();
         });
     }
     if (closeBannerBtn) {
-        closeBannerBtn.addEventListener('click', function() {
+        closeBannerBtn.addEventListener('click', function () {
             hideInstallBanner();
             setTimeout(showInstallBanner, 5 * 60 * 1000);
         });
@@ -214,7 +214,7 @@ function showInstallOverlay() {
     var overlay = document.getElementById('pwa-overlay');
     if (overlay) {
         overlay.style.display = 'flex';
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             overlay.classList.add('pwa-overlay--visible');
         });
     }
@@ -225,7 +225,7 @@ function closeInstallOverlay() {
     var overlay = document.getElementById('pwa-overlay');
     if (overlay) {
         overlay.classList.remove('pwa-overlay--visible');
-        setTimeout(function() { overlay.style.display = 'none'; }, 350);
+        setTimeout(function () { overlay.style.display = 'none'; }, 350);
     }
 }
 
@@ -234,7 +234,7 @@ function triggerInstall() {
     hideInstallBanner();
     closeInstallOverlay();
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(function(result) {
+    deferredPrompt.userChoice.then(function (result) {
         console.log('نتيجة التثبيت: ' + result.outcome);
         deferredPrompt = null;
     });
@@ -256,7 +256,7 @@ function searchLectures() {
 
     var visibleCount = 0;
 
-    cards.forEach(function(card) {
+    cards.forEach(function (card) {
         var titleEl = card.querySelector('.task-title');
         var detailsEl = card.querySelector('.task-details');
         var partTitles = card.querySelectorAll('.part-title');
@@ -264,7 +264,7 @@ function searchLectures() {
         var titleText = titleEl ? titleEl.textContent.toLowerCase() : '';
         var detailsText = detailsEl ? detailsEl.textContent.toLowerCase() : '';
         var partText = '';
-        partTitles.forEach(function(p) { partText += p.textContent.toLowerCase() + ' '; });
+        partTitles.forEach(function (p) { partText += p.textContent.toLowerCase() + ' '; });
 
         var combinedText = titleText + ' ' + detailsText + ' ' + partText;
 
@@ -302,7 +302,7 @@ function highlightText(container, query) {
     var escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     var regex = new RegExp('(' + escapedQuery + ')', 'gi');
 
-    titleEl.childNodes.forEach(function(node) {
+    titleEl.childNodes.forEach(function (node) {
         if (node.nodeType === 3 && regex.test(node.textContent)) {
             var wrapper = document.createElement('span');
             wrapper.innerHTML = node.textContent.replace(regex, '<mark class="search-highlight">$1</mark>');
@@ -312,7 +312,7 @@ function highlightText(container, query) {
 }
 
 function clearHighlights(container) {
-    container.querySelectorAll('.search-highlight').forEach(function(mark) {
+    container.querySelectorAll('.search-highlight').forEach(function (mark) {
         var parent = mark.parentNode;
         parent.replaceChild(document.createTextNode(mark.textContent), mark);
         parent.normalize();
@@ -323,7 +323,7 @@ function clearSearch() {
     var input = document.getElementById('searchInput');
     if (!input) return;
     input.value = '';
-    document.querySelectorAll('.task-card').forEach(function(card) { clearHighlights(card); });
+    document.querySelectorAll('.task-card').forEach(function (card) { clearHighlights(card); });
     searchLectures();
     input.focus();
 }
@@ -369,7 +369,7 @@ function closeNewsBar() {
     var newsBar = document.getElementById('newsBar');
     if (!newsBar) return;
     newsBar.style.animation = 'slideUp 0.3s ease forwards';
-    setTimeout(function() { newsBar.style.display = 'none'; }, 300);
+    setTimeout(function () { newsBar.style.display = 'none'; }, 300);
     localStorage.setItem('newsBarClosed', 'true');
 }
 
@@ -403,7 +403,7 @@ function toggleTask(header) {
 function triggerConfetti() {
     var colors = ['#5e35b1', '#ff007f', '#ffd700', '#00e676', '#2979ff'];
     for (var i = 0; i < 80; i++) {
-        (function() {
+        (function () {
             var confetti = document.createElement('div');
             var color = colors[Math.floor(Math.random() * colors.length)];
             var size = Math.random() * 10 + 6;
@@ -426,7 +426,7 @@ function triggerConfetti() {
             ].join(';');
 
             document.body.appendChild(confetti);
-            setTimeout(function() { confetti.remove(); }, (duration + delay + 0.5) * 1000);
+            setTimeout(function () { confetti.remove(); }, (duration + delay + 0.5) * 1000);
         })();
     }
 }
@@ -447,7 +447,7 @@ document.addEventListener('click', function (e) {
     }
 });
 
-document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         var target = document.querySelector(this.getAttribute('href'));
@@ -594,3 +594,185 @@ dynamicStyles.textContent = [
 ].join('\n');
 
 document.head.appendChild(dynamicStyles);
+
+// =========================================
+// 🚀 نظام الـ App Dashboard (التنقل بين الأقسام)
+// =========================================
+let currentLevel = 'main'; // تتبع مكان الطالب (main, reviews-menu, category)
+
+function showReviewsMenu() {
+    document.getElementById('mainDashboard').style.display = 'none';
+    document.getElementById('heroBanner').style.display = 'none';
+    document.getElementById('reviewsSubMenu').style.display = 'grid';
+    document.getElementById('backBtn').style.display = 'flex';
+    currentLevel = 'reviews-menu';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openCategory(category) {
+    // إخفاء كل القوائم
+    document.getElementById('mainDashboard').style.display = 'none';
+    document.getElementById('reviewsSubMenu').style.display = 'none';
+    document.getElementById('heroBanner').style.display = 'none';
+    document.getElementById('backBtn').style.display = 'flex';
+
+    // إظهار مكتبة الـ PDF لو هي المطلوبة
+    document.getElementById('pdfLibrary').style.display = category === 'pdfs' ? 'block' : 'none';
+
+    // فلترة الكروت
+    const cards = document.querySelectorAll('.task-card');
+    cards.forEach(card => {
+        card.style.display = card.getAttribute('data-category') === category ? 'block' : 'none';
+    });
+
+    currentLevel = 'category';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleBackNavigation() {
+    if (currentLevel === 'category') {
+        // لو هو جوا قسم مراجعة فرعي، نرجعه لمنيو المراجعات
+        const visibleCard = document.querySelector('.task-card[style*="block"]');
+        const cat = visibleCard ? visibleCard.getAttribute('data-category') : '';
+
+        if (['chapter-rev', 'month-rev', 'solution-rev', 'final-rev'].includes(cat)) {
+            showReviewsMenu();
+        } else {
+            goHome();
+        }
+    } else if (currentLevel === 'reviews-menu') {
+        goHome();
+    }
+}
+
+function goHome() {
+    document.getElementById('mainDashboard').style.display = 'grid';
+    document.getElementById('heroBanner').style.display = 'block';
+    document.getElementById('reviewsSubMenu').style.display = 'none';
+    document.getElementById('backBtn').style.display = 'none';
+    document.getElementById('pdfLibrary').style.display = 'none';
+
+    document.querySelectorAll('.task-card').forEach(card => card.style.display = 'none');
+    currentLevel = 'main';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// دالة المراجعة النهائية (للبانر والنافذة)
+function openSuperRevision() {
+    openCategory('final-rev');
+    setTimeout(() => {
+        const card = document.getElementById('finalRevisionCard');
+        if (card) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const header = card.querySelector('.task-header');
+            const content = card.querySelector('.task-content');
+            if (content && !content.style.maxHeight) toggleTask(header);
+        }
+    }, 500);
+}
+
+// =========================================
+// 🚀 نظام المراجعة النهائية (Modal & Hero Banner)
+// =========================================
+
+document.addEventListener('DOMContentLoaded', function () {
+    // إظهار النافذة الترحيبية مرة واحدة فقط لكل جلسة (Session)
+    if (!sessionStorage.getItem('welcomeModalShown')) {
+        setTimeout(function () {
+            const modal = document.getElementById('welcomeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                sessionStorage.setItem('welcomeModalShown', 'true');
+            }
+        }, 1500); // تظهر بعد ثانية ونص من فتح الموقع
+    }
+});
+
+function closeWelcomeModal() {
+    const modal = document.getElementById('welcomeModal');
+    if (modal) {
+        modal.style.opacity = '0';
+        modal.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => modal.style.display = 'none', 400);
+    }
+}
+
+// دالة العبور السريع للكارت السوبر
+function openSuperRevision() {
+    // 1. فتح قسم المراجعات
+    openCategory('revision-final');
+
+    // 2. إخفاء البانر الرئيسي عشان مياخدش مساحة فوق الكروت
+    const heroBanner = document.getElementById('heroBanner');
+    if (heroBanner) heroBanner.style.display = 'none';
+
+    // 3. النزول السلس للكارت السوبر وفتحه تلقائياً
+    setTimeout(function () {
+        const finalCard = document.getElementById('finalRevisionCard');
+        if (finalCard) {
+            // عمل سكرول للكارت
+            finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // فتح الأكورديون لو كان مقفول
+            const content = finalCard.querySelector('.task-content');
+            const header = finalCard.querySelector('.task-header');
+            if (content && (!content.style.maxHeight || content.style.maxHeight === '0px')) {
+                toggleTask(header);
+            }
+
+            // إضافة تأثير النبض (Pulse) للكارت للفت الانتباه
+            finalCard.classList.remove('super-card-highlight'); // إعادة ضبط
+            void finalCard.offsetWidth; // Trigger reflow
+            finalCard.classList.add('super-card-highlight');
+        }
+    }, 300); // تأخير بسيط للسماح بانتقال الشاشة أولاً
+}
+
+// تعديل بسيط على دالة goHome لإعادة إظهار البانر الرئيسي
+const originalGoHome = goHome;
+goHome = function () {
+    originalGoHome(); // استدعاء الدالة القديمة
+    const heroBanner = document.getElementById('heroBanner');
+    if (heroBanner) {
+        heroBanner.style.display = 'block';
+        heroBanner.style.animation = 'fadeInCard 0.4s ease forwards';
+    }
+}
+function initDashboard() {
+    // 1. إخفاء جميع الكروت في البداية
+    document.querySelectorAll('.task-card').forEach(card => {
+        card.style.display = 'none';
+    });
+    const contentTitle = document.getElementById('courseContentTitle');
+    if (contentTitle) contentTitle.style.display = 'none';
+
+    // 2. تجميع ملفات الـ PDF وتسميتها بذكاء
+    const pdfList = document.getElementById('pdfList');
+    if (pdfList) {
+        const pdfLinks = document.querySelectorAll('.task-card a[href$=".pdf"], .task-card a[download]');
+        pdfList.innerHTML = ''; // تفريغ القائمة قبل الإضافة لمنع التكرار
+
+        if (pdfLinks.length === 0) {
+            pdfList.innerHTML = '<p style="color:var(--text-muted); text-align:center;">لا توجد ملفات PDF حالياً.</p>';
+        } else {
+            // السطر ده هو السر: تحويل العناصر لمصفوفة وعكس الترتيب (الأحدث أولاً)
+            Array.from(pdfLinks).reverse().forEach(link => {
+                const clonedLink = link.cloneNode(true);
+                clonedLink.className = 'part-item pdf-quick-link';
+                
+                const parentCard = link.closest('.task-card');
+                const lectureName = parentCard ? parentCard.querySelector('.task-title').textContent : 'ملف خارجي';
+                
+                // لو فيه data-name استخدمه، لو مفيش استخدم اسم المحاضرة الافتراضي
+                const customName = link.getAttribute('data-name') || lectureName;
+                
+                const titleSpan = clonedLink.querySelector('.part-title');
+                if (titleSpan) {
+                    titleSpan.innerHTML = `📄 ${customName} <br><small style="font-size:0.8rem; color:var(--text-muted);">تحميل المذكرة</small>`;
+                }
+                
+                pdfList.appendChild(clonedLink);
+            });
+        }
+    }
+}

@@ -11,7 +11,7 @@
     --gray-light: #f5f5f5;
     --border-radius: 12px;
     --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
-    
+
     /* --- ألوان الوضع الليلي --- */
     --dark-bg: #1a1a1a;
     --dark-card-bg: #2d2d2d;
@@ -69,6 +69,7 @@ body.dark-mode .news-bar {
         transform: translateY(-100%);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -90,9 +91,12 @@ body.dark-mode .news-bar {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.1);
     }
@@ -188,12 +192,16 @@ body.dark-mode .countdown-timer {
 }
 
 @keyframes tickTock {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: rotate(0deg);
     }
+
     25% {
         transform: rotate(-10deg);
     }
+
     75% {
         transform: rotate(10deg);
     }
@@ -357,6 +365,7 @@ body.dark-mode .progress-bar-container {
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(100%);
     }
@@ -590,7 +599,7 @@ body.dark-mode .lecture-checkbox {
     font-weight: bold;
 }
 
-.lecture-checkbox:checked ~ .task-info .task-title {
+.lecture-checkbox:checked~.task-info .task-title {
     text-decoration: line-through;
     opacity: 0.6;
 }
@@ -859,69 +868,72 @@ body.dark-mode .no-results p {
         font-size: 20px;
     }
 }
+
 /* =========================================
    تنسيقات بانر تحميل التطبيق (PWA)
    ========================================= */
 .install-banner {
-  display: none; /* مخفي في البداية لحد ما البرمجة تظهره */
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1e1e1e;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  z-index: 9999;
-  text-align: right;
-  width: 90%;
-  max-width: 400px;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Cairo', sans-serif;
-  border: 2px solid #8e44ad;
-  direction: rtl;
+    display: none;
+    /* مخفي في البداية لحد ما البرمجة تظهره */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e1e1e;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    text-align: right;
+    width: 90%;
+    max-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Cairo', sans-serif;
+    border: 2px solid #8e44ad;
+    direction: rtl;
 }
 
 .banner-text {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .banner-text strong {
-  display: block;
-  font-size: 16px;
-  color: #f1c40f;
+    display: block;
+    font-size: 16px;
+    color: #f1c40f;
 }
 
 .banner-text span {
-  font-size: 13px;
-  color: #ddd;
+    font-size: 13px;
+    color: #ddd;
 }
 
 .banner-buttons {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
 }
 
 #install-btn {
-  background: #8e44ad;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: 'Cairo', sans-serif;
+    background: #8e44ad;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Cairo', sans-serif;
 }
 
 #close-banner-btn {
-  background: transparent;
-  color: #aaa;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
+    background: transparent;
+    color: #aaa;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
 }
+
 /* =========================================
    تنسيقات PWA محسّنة (تستبدل القديمة)
    ========================================= */
@@ -935,7 +947,7 @@ body.dark-mode .no-results p {
     color: white;
     padding: 14px 18px;
     border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(142,68,173,0.4);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(142, 68, 173, 0.4);
     z-index: 9999;
     text-align: right;
     width: 92%;
@@ -989,7 +1001,7 @@ body.dark-mode .no-results p {
     font-size: 0.9rem !important;
     white-space: nowrap;
     transition: 0.25s;
-    box-shadow: 0 3px 12px rgba(142,68,173,0.5);
+    box-shadow: 0 3px 12px rgba(142, 68, 173, 0.5);
 }
 
 #install-btn:hover {
@@ -997,7 +1009,7 @@ body.dark-mode .no-results p {
 }
 
 #close-banner-btn {
-    background: rgba(255,255,255,0.08) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
     color: #bbb !important;
     border: none !important;
     font-size: 18px !important;
@@ -1013,22 +1025,420 @@ body.dark-mode .no-results p {
 }
 
 #close-banner-btn:hover {
-    background: rgba(255,255,255,0.18) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
     color: white !important;
 }
-/* تمدد الأيقونات اللي معاها نص لتصبح زراير */
-        .social-icon.with-text {
-            width: auto !important; /* لكسر العرض الثابت للأيقونة الدائرية */
-            padding: 0 16px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
 
-        .social-icon.with-text .icon-text {
-            font-family: var(--font);
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
+/* تمدد الأيقونات اللي معاها نص لتصبح زراير */
+.social-icon.with-text {
+    width: auto !important;
+    /* لكسر العرض الثابت للأيقونة الدائرية */
+    padding: 0 16px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.social-icon.with-text .icon-text {
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* =========================================
+   تنسيقات الـ Dashboard الجديدة
+========================================= */
+
+/* شبكة الأقسام */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* كارت القسم */
+.dash-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body.dark-mode .dash-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dash-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(94, 53, 177, 0.15);
+    border-color: var(--header-bg);
+}
+
+body.dark-mode .dash-card:hover {
+    border-color: var(--header-accent);
+}
+
+.dash-card.revisions-card {
+    background: linear-gradient(135deg, rgba(255, 0, 127, 0.05), rgba(255, 0, 127, 0.01));
+    border-color: rgba(255, 0, 127, 0.2);
+}
+
+.dash-icon {
+    font-size: 2.5rem;
+    color: var(--header-bg);
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+body.dark-mode .dash-icon {
+    color: var(--header-accent);
+}
+
+.dash-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+body.dark-mode .dash-card h3 {
+    color: var(--dark-text);
+}
+
+.dash-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* زر الرجوع */
+.back-btn {
+    background: var(--gray-light);
+    color: var(--header-bg);
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    width: fit-content;
+}
+
+body.dark-mode .back-btn {
+    background: var(--dark-card-bg);
+    color: var(--header-accent);
+    border-color: var(--dark-border);
+}
+
+.back-btn:hover {
+    background: var(--header-bg);
+    color: white;
+}
+
+body.dark-mode .back-btn:hover {
+    background: var(--header-accent);
+    color: white;
+}
+
+/* أنيميشن الدخول الناعم */
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تنسيق قسم الـ PDF */
+.pdf-library-container {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    animation: fadeInCard 0.4s ease forwards;
+}
+
+body.dark-mode .pdf-library-container {
+    background: var(--dark-card-bg);
+}
+
+.pdf-quick-link {
+    margin-bottom: 15px;
+    border-left: 4px solid #ff007f !important;
+}
+
+/* =========================================
+   تنسيقات الميزات الجديدة (النافذة، البانر، الكارت السوبر)
+========================================= */
+
+/* 1. النافذة المنبثقة (Welcome Modal) */
+.welcome-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .modal-content {
+    background: var(--dark-card-bg);
+    border: 1px solid var(--dark-border);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #555;
+}
+
+body.dark-mode .modal-close {
+    background: #444;
+    color: #fff;
+}
+
+.modal-close:hover {
+    background: #e1e1e1;
+    transform: rotate(90deg);
+}
+
+.modal-image {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-title {
+    font-size: 1.6rem;
+    color: #ff007f;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.modal-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+body.dark-mode .modal-desc {
+    color: var(--dark-text-muted);
+}
+
+.modal-cta {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ff007f, #5e35b1);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    font-family: 'Cairo', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 8px 25px rgba(255, 0, 127, 0.4);
+}
+
+.modal-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 0, 127, 0.6);
+}
+
+/* 2. بانر الإنقاذ الفوري (Hero Banner) */
+.hero-banner {
+    margin-bottom: 30px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.hero-banner:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 0, 127, 0.3);
+}
+
+.hero-banner-inner {
+    position: relative;
+    width: 100%;
+    padding-top: 45%;
+    /* Aspect ratio */
+}
+
+@media (max-width: 768px) {
+    .hero-banner-inner {
+        padding-top: 60%;
+    }
+}
+
+.hero-banner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 30px;
+    color: white;
+    text-align: right;
+}
+
+.hero-badge {
+    background: #ff007f;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.hero-overlay h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .hero-overlay h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.hero-action {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.hero-banner:hover .hero-action {
+    transform: translateX(-10px);
+}
+
+/* 3. الكارت السوبر (Super Card) */
+.super-card {
+    border: 2px solid #ff007f !important;
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.15) !important;
+}
+
+body.dark-mode .super-card {
+    border-color: #ff007f !important;
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.3) !important;
+}
+
+.super-card-cover {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-bottom: 2px solid #ff007f;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .super-card-cover {
+        height: 200px;
+    }
+}
+
+.super-part-item {
+    background: rgba(255, 0, 127, 0.05) !important;
+    border-left: 4px solid #ff007f !important;
+}
+
+.super-part-item:hover {
+    background: rgba(255, 0, 127, 0.1) !important;
+}
+
+@keyframes superPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 0, 127, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 127, 0);
+    }
+}
+
+.super-card-highlight {
+    animation: superPulse 2s cubic-bezier(0.66, 0, 0, 1) 2;
+}

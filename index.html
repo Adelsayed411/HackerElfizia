@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ===== SEO الأساسي ===== -->
     <meta name="description"
         content="أقوى منصة لشرح فيزياء الصف الثاني الثانوي مجاناً. فيديوهات شرح، مذكرات PDF، وامتحانات شاملة. فيزياء ثانية ثانوي، شرح فيزياء مجاني، هكر الفيزياء، مستر عادل بسيوني.">
     <meta name="keywords"
@@ -13,14 +12,12 @@
     <meta name="author" content="مستر عادل بسيوني">
     <meta name="application-name" content="منصة هكر الفيزياء">
 
-    <!-- ===== منع GitHub من التحكم ===== -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
 
     <title>منصة مستر عادل بسيوني | هكر الفيزياء - شرح فيزياء تانية ثانوي مجاناً</title>
 
-    <!-- ===== Open Graph ===== -->
     <meta property="og:locale" content="ar_EG">
     <meta property="og:type" content="website">
     <meta property="og:title" content="منصة مستر عادل بسيوني | هكر الفيزياء">
@@ -35,7 +32,6 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="منصة مستر عادل بسيوني - هكر الفيزياء">
 
-    <!-- ===== Twitter Card ===== -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="منصة مستر عادل بسيوني | هكر الفيزياء">
     <meta name="twitter:description"
@@ -43,14 +39,12 @@
     <meta name="twitter:image" content="https://adelsayed411.github.io/HackerElfizia/logo.png">
     <meta name="twitter:image:alt" content="منصة مستر عادل بسيوني - هكر الفيزياء">
 
-    <!-- ===== Theme & Icons ===== -->
     <meta name="theme-color" content="#5e35b1">
     <meta name="msapplication-TileColor" content="#5e35b1">
     <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="manifest" href="manifest.JSON">
 
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8XZL5BSHL"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -59,7 +53,6 @@
         gtag('config', 'G-V8XZL5BSHL');
     </script>
 
-    <!-- ===== Schema.org ===== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -95,8 +88,16 @@
 </head>
 
 <body>
+    <div id="welcomeModal" class="welcome-modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWelcomeModal()">&times;</button>
+            <img src="/images/شرح المنهج بالكامل.jpg" alt="مراجعة المنهج بالكامل" class="modal-image">
+            <h2 class="modal-title">مزنوق في الفيزياء؟ 😱</h2>
+            <p class="modal-desc">أنقذ نفسك ولم المنهج كله في 3 ساعات بس مع أقوى مراجعة نهائية!</p>
+            <button class="modal-cta" onclick="openSuperRevision(); closeWelcomeModal();">أنقذني يلا 🚀</button>
+        </div>
+    </div>
 
-    <!-- ===== شريط الأخبار العاجلة ===== -->
     <div class="news-bar" id="newsBar">
         <div class="news-content">
             <i class="fa-solid fa-bullhorn"></i>
@@ -108,15 +109,12 @@
         </button>
     </div>
 
-    <!-- ===== شريط الأدوات العلوي ===== -->
     <div class="top-toolbar">
         <div class="toolbar-container">
-            <!-- زر الوضع الليلي -->
             <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="تبديل الوضع الليلي">
                 <i class="fa-solid fa-moon" id="darkModeIcon"></i>
             </button>
 
-            <!-- العداد التنازلي -->
             <div class="countdown-timer" id="countdownTimer">
                 <i class="fa-solid fa-clock"></i>
                 <span id="countdownText">جاري التحميل...</span>
@@ -149,7 +147,6 @@
     <main class="main-container">
 
         <section class="content-column">
-            <!-- شريط التقدم -->
             <div class="progress-section">
                 <div class="progress-info">
                     <h3>تقدمك في الكورس</h3>
@@ -160,7 +157,6 @@
                 </div>
             </div>
 
-            <!-- شريط البحث -->
             <div class="search-section">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -171,7 +167,80 @@
                     </button>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="march-exam">
+
+            <button id="backBtn" class="back-btn" onclick="goHome()" style="display: none;">
+                <i class="fa-solid fa-arrow-right"></i> رجوع للقائمة الرئيسية
+            </button>
+            <div id="heroBanner" class="hero-banner" onclick="openSuperRevision()">
+                <div class="hero-banner-inner">
+                    <img src="images/شرح المنهج بالكامل.jpg" alt="المراجعة النهائية">
+                    <div class="hero-overlay">
+                        <!-- <span class="hero-badge">🔥 طوارئ المراجعة</span> -->
+                        <h2>المنهج كامل في 3 ساعات!</h2>
+                        <span class="hero-action">ابدأ المراجعة الآن <i class="fa-solid fa-arrow-left"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="backBtn" class="back-btn" onclick="handleBackNavigation()" style="display: none;">
+                <i class="fa-solid fa-arrow-right"></i> رجوع
+            </button>
+
+            <div id="mainDashboard" class="dashboard-grid">
+                <div class="dash-card" onclick="openCategory('lectures')">
+                    <div class="dash-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <h3>محاضرات الشرح</h3>
+                    <p>شرح المنهج + حل + ملفات PDF</p>
+                </div>
+                <div class="dash-card" onclick="openCategory('homework')">
+                    <div class="dash-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <h3>التقييمات والواجبات</h3>
+                    <p>تطبيقات أسبوعية شاملة</p>
+                </div>
+                <div class="dash-card revisions-card" onclick="showReviewsMenu()">
+                    <div class="dash-icon"><i class="fa-solid fa-fire"></i></div>
+                    <h3>المراجعات والإمتحانات</h3>
+                    <p>فصول، شهور، حل، وليلة امتحان</p>
+                </div>
+                <div class="dash-card" onclick="openCategory('pdfs')">
+                    <div class="dash-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <h3>مكتبة الـ PDF</h3>
+                    <p>تجميعة كل مذكرات المنهج</p>
+                </div>
+            </div>
+
+            <div id="reviewsSubMenu" class="dashboard-grid" style="display: none;">
+                <div class="dash-card" onclick="openCategory('chapter-rev')">
+                    <div class="dash-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3>مراجعات الفصول</h3>
+                    <p>ملخصات الفصول كاملة</p>
+                </div>
+                <div class="dash-card" onclick="openCategory('month-rev')">
+                    <div class="dash-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>مراجعات الشهر</h3>
+                    <p>امتحانات الشهور وجوائزها</p>
+                </div>
+                <div class="dash-card" onclick="openCategory('solution-rev')">
+                    <div class="dash-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3>مراجعات الحل</h3>
+                    <p>تدريبات مكثفة وحل امتحانات</p>
+                </div>
+                <div class="dash-card final-rev-card" onclick="openCategory('final-rev')">
+                    <div class="dash-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>مراجعات ليلة الإمتحان</h3>
+                    <p>الزتونة النهائية للمنهج</p>
+                </div>
+            </div>
+
+            <div id="pdfLibrary" style="display: none;" class="pdf-library-container">
+                <h2 class="content-section-title" style="margin-bottom: 15px;">مكتبة ملفات الـ PDF 📑</h2>
+                <div id="pdfList" class="pdf-list">
+                </div>
+            </div>
+
+            <h2 class="content-section-title" id="courseContentTitle">محتوى الكورس</h2>
+
+            <div class="task-card" data-lecture-id="march-exam" data-category="month-rev">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-march-exam" onchange="updateProgress()"
@@ -179,9 +248,7 @@
                         <label for="check-march-exam" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title"> امتحان مارس (امتحان ال 1000 جنيه)<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title"> امتحان مارس (امتحان ال 1000 جنيه)</div>
                         <div class="task-details">امتحان شهر مارس علي ال 1000 جنيه💵❤️</div>
                     </div>
                     <div class="task-icons">
@@ -203,35 +270,18 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <!-- <a href="PDF/L6.pdf" download="هكر_الفيزياء_–_فيديو_درس_انعكاس_وانكسار_الضوء_–_فيزياء_2ث.pdf"
-                            target="_blank" class="part-item">
-                            <span class="part-title">شرح المحاضرة (PDF)</span>
-                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
-                        </a>
-                        <!-- <a href="https://youtu.be/-7EzeOKtv2I" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الإمتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
             </div>
 
-
-            <h2 class="content-section-title">محتوى الكورس</h2>
-            <div class="task-card" data-lecture-id="weakly-tasks">
+            <div class="task-card" data-lecture-id="weakly-tasks" data-category="homework">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-weakly" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-weakly" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">التقييمات الإسبوعية والوجابات المنزلية<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">التقييمات الإسبوعية والوجابات المنزلية</div>
                         <div class="task-details">حل التقييمات الاسبوعية والواجبات المنزلية كاملة بالتفصيل مع الشرح
                         </div>
                     </div>
@@ -302,7 +352,6 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-
                         <a href="https://youtu.be/OtjuI68jV70" target="_blank" class="part-item">
                             <span class="part-title">الواجب المنزلي - 7 (تداخل وحيود الضوء)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
@@ -318,13 +367,11 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-
-
                     </div>
                 </div>
             </div>
 
-            <div class="task-card" data-lecture-id="revision-mars">
+            <div class="task-card" data-lecture-id="revision-mars" data-category="month-rev">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-mars" onchange="updateProgress()" class="lecture-checkbox">
@@ -332,12 +379,9 @@
                     </div>
                     <div class="task-info">
                         <div class="task-title">مراجعة شهر مارس <span style="color: rgb(206, 8, 137);">1000
-                                جنيه💵❤️</span>
-                        </div>
-                        <div class="task-details">
-                            مراجعة علي منهج شهر مارس <br>
-                            الأول له <strong>جايزة 1000 جنيه💵❤️</strong>
-                        </div>
+                                جنيه💵❤️</span></div>
+                        <div class="task-details">مراجعة علي منهج شهر مارس <br>الأول له <strong>جايزة 1000
+                                جنيه💵❤️</strong></div>
                     </div>
                     <div class="task-icons">
                         <i class="fa-solid fa-table-cells-large"></i>
@@ -357,15 +401,11 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <!-- <a href="https://youtu.be/3zrW8-SDVTQ" target="_blank" class="part-item">
-                            <span class="part-title">فيديو حل الواجب (حل اسألة كتاب الامتحان)</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-1">
+
+            <div class="task-card" data-lecture-id="lecture-1" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-1" onchange="updateProgress()" class="lecture-checkbox">
@@ -405,7 +445,7 @@
                 </div>
             </div>
 
-            <div class="task-card" data-lecture-id="lecture-2">
+            <div class="task-card" data-lecture-id="lecture-2" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-2" onchange="updateProgress()" class="lecture-checkbox">
@@ -413,9 +453,7 @@
                     </div>
                     <div class="task-info">
                         <div class="task-title">المحاضرة الثانية : درس الطاقة</div>
-                        <div class="task-details">
-                            شرح طاقة الحركة وطاقة الوضع عملي بتجارب علي سبورة تفاعلية <br>
-                        </div>
+                        <div class="task-details">شرح طاقة الحركة وطاقة الوضع عملي بتجارب علي سبورة تفاعلية</div>
                     </div>
                     <div class="task-icons">
                         <i class="fa-solid fa-table-cells-large"></i>
@@ -435,10 +473,8 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/NRJv9ddcakg" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
@@ -446,17 +482,15 @@
                 </div>
             </div>
 
-            <div class="task-card" data-lecture-id="lecture-3">
+            <div class="task-card" data-lecture-id="lecture-3" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-3" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-3" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة الثالثة: قانون بقاء الطاقة<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
-                        <div class="task-details">شرح وحل علي قانون بقاء الطاقة عملي بتجارب علي سبورة تفاعلية </div>
+                        <div class="task-title">المحاضرة الثالثة: قانون بقاء الطاقة</div>
+                        <div class="task-details">شرح وحل علي قانون بقاء الطاقة عملي بتجارب علي سبورة تفاعلية</div>
                     </div>
                     <div class="task-icons">
                         <i class="fa-solid fa-table-cells-large"></i>
@@ -476,17 +510,16 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/pz8q18AKS2Q" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="revision-1">
+
+            <div class="task-card" data-lecture-id="revision-1" data-category="chapter-rev">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-rev1" onchange="updateProgress()" class="lecture-checkbox">
@@ -494,8 +527,7 @@
                     </div>
                     <div class="task-info">
                         <div class="task-title">مراجعة الفصل الأول <br> <span style="color: rgb(206, 8, 137);">في 40
-                                دقيقة</span>
-                        </div>
+                                دقيقة</span></div>
                         <div class="task-details">شرح وحل علي الوحدة الأولي في وقت قياسي جدا وكل التريكات وأفكار المسائل
                         </div>
                     </div>
@@ -517,26 +549,23 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/20VfiDUNvl4" target="_blank" class="part-item">
-                            <span class="part-title">حل اختبار الوحدة الأولي من كتاب الامتحان<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title">حل اختبار الوحدة الأولي من كتاب الامتحان</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-4">
+
+            <div class="task-card" data-lecture-id="lecture-4" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-4" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-4" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة الرابعة: الحركة الإهتزازية<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">المحاضرة الرابعة: الحركة الإهتزازية</div>
                         <div class="task-details">شرح الحركة الإهتزازية عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -557,26 +586,23 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/Qyy51JVGbOA" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-5">
+
+            <div class="task-card" data-lecture-id="lecture-5" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-5" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-5" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة الخامسة : الحركة الموجية<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">المحاضرة الخامسة : الحركة الموجية</div>
                         <div class="task-details">شرح الحركة الموجية عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -597,17 +623,16 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/ryxJWBuw_OI" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الوافي)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="revision-2">
+
+            <div class="task-card" data-lecture-id="revision-2" data-category="chapter-rev">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-rev2" onchange="updateProgress()" class="lecture-checkbox">
@@ -615,8 +640,7 @@
                     </div>
                     <div class="task-info">
                         <div class="task-title">مراجعة الفصل الثاني <br> <span style="color: rgb(206, 8, 137);">في ساعة
-                                فقط !</span>
-                        </div>
+                                فقط !</span></div>
                         <div class="task-details">شرح وحل علي الفصل الثاني في وقت قياسي جدا وكل التريكات وأفكار المسائل
                         </div>
                     </div>
@@ -638,26 +662,24 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/20VfiDUNvl4" target="_blank" class="part-item">
-                            <span class="part-title">حل اختبار الفصل الثاني <br> <span
-                                    style="color: rgb(206, 8, 137);"></span>جديد</span>
+                            <span class="part-title">حل اختبار الفصل الثاني <span
+                                    style="color: rgb(206, 8, 137);">[جديد]</span></span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-6">
+
+            <div class="task-card" data-lecture-id="lecture-6" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-6" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-6" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة السادسة : إنعكاس و إنكسار الضوء<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">المحاضرة السادسة : إنعكاس و إنكسار الضوء</div>
                         <div class="task-details">شرح انعكاس وإنكسار الضوء عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -678,26 +700,23 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/-7EzeOKtv2I" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الإمتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الإمتحان)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-7">
+
+            <div class="task-card" data-lecture-id="lecture-7" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-7" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-7" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة السابعة : تداخل وحيود الضوء<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">المحاضرة السابعة : تداخل وحيود الضوء</div>
                         <div class="task-details">شرح تداخل وحيود الضوء عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -718,26 +737,23 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/kvwnJ3QhXmQ" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-8">
+
+            <div class="task-card" data-lecture-id="lecture-8" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-8" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-8" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة الثامنة : الإنعكاس الكلي للضوء<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">المحاضرة الثامنة : الإنعكاس الكلي للضوء</div>
                         <div class="task-details">شرح الإنعكاس الكلي للضوء عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -758,26 +774,23 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/ah7TyMeYIqo" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-9">
+
+            <div class="task-card" data-lecture-id="lecture-9" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-9" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-9" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة التاسعة : انحراف الضوء في المنشور الثلاثي<br> <span
-                                style="color: rgb(206, 8, 137);"></span>
-                        </div>
+                        <div class="task-title">المحاضرة التاسعة : انحراف الضوء في المنشور الثلاثي</div>
                         <div class="task-details">شرح انحراف الضوء في المنشور الثلاثي عملي بتجارب علي سبورة تفاعلية
                         </div>
                     </div>
@@ -800,26 +813,24 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
                         <a href="https://youtu.be/IPPDFW8P3zY" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);"></span></span>
+                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-10">
+
+            <div class="task-card" data-lecture-id="lecture-10" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-10" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-10" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة العاشرة : المنشور الثلاثي في وضع النهاية الصغري للإنحراف<br>
-                            <span style="color: rgb(206, 8, 137);">[جديد]</span>
-                        </div>
+                        <div class="task-title">المحاضرة العاشرة : المنشور الثلاثي في وضع النهاية الصغري للإنحراف <span
+                                style="color: rgb(206, 8, 137);">[جديد]</span></div>
                         <div class="task-details">شرح عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -841,17 +852,11 @@
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
-                        <!-- <a href="https://youtu.be/IPPDFW8P3zY" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="revision-3">
+
+            <div class="task-card" data-lecture-id="revision-3" data-category="chapter-rev">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-rev3" onchange="updateProgress()" class="lecture-checkbox">
@@ -859,8 +864,7 @@
                     </div>
                     <div class="task-info">
                         <div class="task-title">مراجعة الفصل الثالث <br> <span style="color: rgb(206, 8, 137);">في ساعة
-                                فقط !</span>
-                        </div>
+                                فقط !</span></div>
                         <div class="task-details">شرح وحل علي الفصل الثالث في وقت قياسي جدا وكل التريكات وأفكار المسائل
                         </div>
                     </div>
@@ -876,32 +880,25 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <a href="PDF/Rev3.pdf" download="هكر_الفيزياء_مراجعة_الفصل_الثاني_فيزياء_٢ث_ترم_ثاني_٢٠٢٦_.pdf"
+                        <a href="PDF/Rev3.pdf" download="هكر_الفيزياء_مراجعة_الفصل_الثالث_فيزياء_٢ث_ترم_ثاني_٢٠٢٦_.pdf"
                             target="_blank" class="part-item">
                             <span class="part-title">شرح المحاضرة (PDF)</span>
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        </a>
-                        <!-- <a href="https://youtu.be/20VfiDUNvl4" target="_blank" class="part-item">
-                            <span class="part-title">حل اختبار الفصل الثاني <br> <span
-                                    style="color: rgb(206, 8, 137);"></span>جديد</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-11">
+
+            <div class="task-card" data-lecture-id="lecture-11" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-11" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-11" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة رقم 11 : قوانين الحركة الدائرية<br>
-                            <span style="color: rgb(206, 8, 137);">[جديد]</span>
-                        </div>
+                        <div class="task-title">المحاضرة رقم 11 : قوانين الحركة الدائرية <span
+                                style="color: rgb(206, 8, 137);">[جديد]</span></div>
                         <div class="task-details">شرح عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -916,33 +913,19 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <!-- <a href="PDF/L10.pdf"
-                            download="هكر_الفيزياء_–_فيديو_درس__المنشور_الثلاثي_في_وضع_النهاية_الصغري_للإنحراف_–_فيزياء_2ث.pdf"
-                            target="_blank" class="part-item">
-                            <span class="part-title">شرح المحاضرة (PDF)</span>
-                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
-                        </a>
-                        <!-- <a href="https://youtu.be/IPPDFW8P3zY" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
             </div>
-            <div class="task-card" data-lecture-id="lecture-12">
+
+            <div class="task-card" data-lecture-id="lecture-12" data-category="lectures">
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-12" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-12" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">المحاضرة رقم 12 : الجاذبية الكونية والحركة الدائرية<br>
-                            <span style="color: rgb(206, 8, 137);">[ الآخيرة ]🎉</span>
-                        </div>
+                        <div class="task-title">المحاضرة رقم 12 : الجاذبية الكونية والحركة الدائرية <span
+                                style="color: rgb(206, 8, 137);">[ الآخيرة ]🎉</span></div>
                         <div class="task-details">شرح عملي بتجارب علي سبورة تفاعلية </div>
                     </div>
                     <div class="task-icons">
@@ -957,66 +940,94 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <!-- <a href="PDF/L10.pdf"
-                            download="هكر_الفيزياء_–_فيديو_درس__المنشور_الثلاثي_في_وضع_النهاية_الصغري_للإنحراف_–_فيزياء_2ث.pdf"
-                            target="_blank" class="part-item">
-                            <span class="part-title">شرح المحاضرة (PDF)</span>
-                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
-                        </a>
-                        <!-- <a href="https://youtu.be/IPPDFW8P3zY" target="_blank" class="part-item">
-                            <span class="part-title"> حل الواجب (حل اسألة كتاب الامتحان)<br> <span
-                                    style="color: rgb(206, 8, 137);">🔥[جديد]🔥</span></span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
             </div>
-                        <div class="task-card" data-lecture-id="revision-final">
+
+            <div class="task-card super-card" id="finalRevisionCard" data-lecture-id="revision-final"
+                data-category="final-rev">
+                <img src="images/شرح المنهج بالكامل.jpg" alt="غلاف المراجعة النهائية" class="super-card-cover">
+
                 <div class="task-header" onclick="toggleTask(this)">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-final" onchange="updateProgress()" class="lecture-checkbox">
                         <label for="check-final" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">شرح المنهج بالكامل<span style="color: rgb(206, 8, 137);"> في 3 ساعات فقط</span>
+                        <div class="task-title" style="color: #ff007f; font-size: 1.5rem;">المراجعة النهائية الشاملة 🚀
                         </div>
-                        <div class="task-details">
-                            مراجعة علي المنهج بالكامل  <br>
-                            <!-- الأول له <strong>جايزة 1000 جنيه💵❤️</strong> -->
-                        </div>
+                        <div class="task-details">شرح المنهج بالكامل في 3 ساعات فقط! (أهم فيديو في السنة)</div>
                     </div>
                     <div class="task-icons">
-                        <i class="fa-solid fa-table-cells-large"></i>
+                        <i class="fa-solid fa-fire"
+                            style="color: #ff007f; font-size: 1.5rem; animation: pulse 1.5s infinite;"></i>
                         <i class="fa-solid fa-chevron-down toggle-icon"></i>
                     </div>
                 </div>
                 <div class="task-content">
                     <div class="task-body">
-                        <a href="https://youtu.be/znvI9jb0rU4" target="_blank" class="part-item">
-                            <span class="part-title">فيديو الشرح</span>
+                        <a href="https://youtu.be/znvI9jb0rU4" target="_blank" class="part-item super-part-item">
+                            <span class="part-title"><i class="fa-brands fa-youtube" style="color: red;"></i> مشاهدة
+                                فيديو المراجعة</span>
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <a href="PDF/Rev_final.pdf" download="هكر الفيزياء شرح المنهج بالكامل فيزياء 2ث ترم ثاني 2026.pdf"
-                            target="_blank" class="part-item">
-                            <span class="part-title">المحاضرة (PDF)</span>
+                        <a href="PDF/Rev_final.pdf"
+                            download="هكر الفيزياء شرح المنهج بالكامل فيزياء 2ث ترم ثاني 2026.pdf" target="_blank"
+                            class="part-item">
+                            <span class="part-title">ملزمة المراجعة (PDF)</span>
                             <span class="view-btn">تحميل <i class="fa-solid fa-download"
                                     style="font-size: 0.7rem;"></i></span>
                         </a>
-                        <!-- <a href="https://youtu.be/3zrW8-SDVTQ" target="_blank" class="part-item">
-                            <span class="part-title">فيديو حل الواجب (حل اسألة كتاب الامتحان)</span>
-                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
-                                    style="font-size: 0.7rem;"></i></span>
-                        </a> -->
                     </div>
                 </div>
+            </div>
+            <div class="task-card super-card" id="finalRevisionCard" data-lecture-id="Azhar-revision"
+                data-category="solution-rev">
+                <img src="images/azhar_revision.jpg" alt="غلاف المراجعة النهائية" class="super-card-cover">
 
+                <div class="task-header" onclick="toggleTask(this)">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-final" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="check-final" class="checkbox-label"></label>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-title" style="color: #ff007f; font-size: 1.5rem;">حل امتحانات أزهر🚀
+                        </div>
+                        <div class="task-details">حل 4 امتحانات علي نظام الأزهر</div>
+                    </div>
+                    <div class="task-icons">
+                        <i class="fa-solid fa-fire"
+                            style="color: #ff007f; font-size: 1.5rem; animation: pulse 1.5s infinite;"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </div>
+                </div>
+                <div class="task-content">
+                    <div class="task-body">
+                        <a href="https://youtu.be/yx17ZIGa0yc" target="_blank" class="part-item super-part-item">
+                            <span class="part-title"><i class="fa-brands fa-youtube" style="color: red;"></i> مشاهدة
+                                فيديو حل الإمتحانات</span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a>
+                        <!-- <a href="PDF/Rev_final.pdf"
+                            download="هكر الفيزياء شرح المنهج بالكامل فيزياء 2ث ترم ثاني 2026.pdf" target="_blank"
+                            class="part-item">
+                            <span class="part-title">ملزمة المراجعة (PDF)</span>
+                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a> -->
+                        <a href="PDF/Hacker_Book.pdf" data-name="كتاب هكر الفيزياء للمراجعة النهائية فيزياء ٢ث "
+                            download="كتاب_هكر_الفيزياء_مراجعة_نهائية_فيزياء_٢ث_ترم_ثاني_٢٠٢٦_.pdf" target="_blank"
+                            class="part-item">
+                            <span class="part-title">كتاب هكر الفيزياء للمراجعة النهائية "مجانا"</span>
+                            <span class="view-btn">تحميل <i class="fa-solid fa-download"
+                                    style="font-size: 0.7rem;"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-
-            <!-- رسالة عدم وجود نتائج بحث -->
             <div class="no-results" id="noResults" style="display: none;">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <p>لا توجد محاضرات مطابقة لبحثك</p>
@@ -1033,7 +1044,6 @@
 
     </main>
 
-    <!-- أيقونات وسائل التواصل الاجتماعي -->
     <div class="social-icons">
         <a href="https://wa.me/+201501857217?text=السلام عليكم محتاج استفسر عن " target="_blank"
             class="social-icon whatsapp-personal with-text" title="تواصل شخصي عبر WhatsApp"
@@ -1058,7 +1068,7 @@
             <span class="icon-text">القناة</span>
         </a>
     </div>
-    <!-- ===== بانر التثبيت السفلي (PWA) ===== -->
+
     <div id="install-banner" class="install-banner">
         <div class="banner-text">
             <strong>📲 ثبّت التطبيق مجاناً!</strong>
@@ -1070,7 +1080,6 @@
         </div>
     </div>
 
-    <!-- ===== Overlay PWA الجذاب ===== -->
     <div id="pwa-overlay">
         <div class="pwa-overlay-card">
             <button class="pwa-overlay-close" onclick="closeInstallOverlay(true)" title="إغلاق">&times;</button>
@@ -1095,6 +1104,73 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initDashboard();
+        });
+
+        function initDashboard() {
+            // إخفاء جميع الكروت وعنوان المحتوى في البداية
+            document.querySelectorAll('.task-card').forEach(card => {
+                card.style.display = 'none';
+            });
+            const contentTitle = document.getElementById('courseContentTitle');
+            if (contentTitle) contentTitle.style.display = 'none';
+
+            // تجميع ملفات الـ PDF
+            const pdfList = document.getElementById('pdfList');
+            if (pdfList) {
+                const pdfLinks = document.querySelectorAll('.task-card a[href$=".pdf"], .task-card a[download]');
+
+                if (pdfLinks.length === 0) {
+                    pdfList.innerHTML = '<p style="color:var(--text-muted); text-align:center;">لا توجد ملفات PDF حالياً.</p>';
+                } else {
+                    pdfLinks.forEach(link => {
+                        const clonedLink = link.cloneNode(true);
+                        clonedLink.className = 'part-item pdf-quick-link';
+                        const parentCard = link.closest('.task-card');
+                        const lectureName = parentCard ? parentCard.querySelector('.task-title').textContent : '';
+
+                        clonedLink.querySelector('.part-title').innerHTML = `📄 ${lectureName} <br><small style="font-size:0.8rem; color:var(--text-muted);">تحميل المذكرة</small>`;
+                        pdfList.appendChild(clonedLink);
+                    });
+                }
+            }
+        }
+
+        function openCategory(category) {
+            document.getElementById('dashboardGrid').style.display = 'none';
+            document.getElementById('backBtn').style.display = 'flex';
+            document.getElementById('pdfLibrary').style.display = category === 'pdfs' ? 'block' : 'none';
+
+            const cards = document.querySelectorAll('.task-card');
+            cards.forEach(card => {
+                if (card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInCard 0.4s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            const contentTitle = document.getElementById('courseContentTitle');
+            if (contentTitle) contentTitle.style.display = 'none';
+        }
+
+        function goHome() {
+            const dash = document.getElementById('dashboardGrid');
+            dash.style.display = 'grid';
+            dash.style.animation = 'fadeInCard 0.4s ease forwards';
+
+            document.getElementById('backBtn').style.display = 'none';
+            document.getElementById('pdfLibrary').style.display = 'none';
+
+            document.querySelectorAll('.task-card').forEach(card => {
+                card.style.display = 'none';
+            });
+            const contentTitle = document.getElementById('courseContentTitle');
+            if (contentTitle) contentTitle.style.display = 'none';
+        }
+    </script>
     <script src="script.js"></script>
     <script type="module" src="firebase-init.js"></script>
 </body>
