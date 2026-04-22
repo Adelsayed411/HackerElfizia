@@ -1,6 +1,6 @@
 // =========================================
-// 🚀 هكر الفيزياء - السكريبت الرئيسي المُعاد هيكلته
-// Architecture: Grouped by concern | Defensive null-checks | No global pollution
+// 🚀 هكر الفيزياء - السكريبت الرئيسي
+// Architecture: CSS-class-driven | No inline styles | Delegated events
 // =========================================
 
 // =========================================
@@ -63,7 +63,7 @@ function updateProgress() {
     const progressText = document.getElementById('progressText');
     const progressContainer = document.querySelector('.progress-bar-container');
 
-    if (progressBar) progressBar.style.width = percentage + '%';
+    if (progressBar) progressBar.style.width = percentage + '%'; 
     if (progressContainer) progressContainer.setAttribute('aria-valuenow', Math.round(percentage));
     if (progressText) {
         progressText.textContent =
@@ -96,7 +96,6 @@ function loadProgress() {
 
 // =========================================
 // SECTION 4: Gamification - Part Item Tracking
-// Clicking a video/PDF link turns it green and saves state.
 // =========================================
 function initPartItemTracking() {
     document.querySelectorAll('.part-item').forEach(function (item, index) {
@@ -139,35 +138,32 @@ function markPartItemDone(item, animate) {
 // =========================================
 function triggerConfetti() {
     var colors = ['#5e35b1', '#ff007f', '#ffd700', '#00e676', '#2979ff'];
-    for (var i = 0; i < 80; i++) {
-        (function () {
-            var confetti = document.createElement('div');
-            var color = colors[Math.floor(Math.random() * colors.length)];
-            var size = Math.random() * 10 + 6;
-            var isCircle = Math.random() > 0.5;
-            var duration = Math.random() * 2 + 2;
-            var delay = Math.random() * 1.5;
-            var left = Math.random() * 100;
 
-            confetti.style.cssText = [
-                'position:fixed',
-                'width:' + size + 'px',
-                'height:' + size + 'px',
-                'background:' + color,
-                'border-radius:' + (isCircle ? '50%' : '2px'),
-                'top:-20px',
-                'left:' + left + 'vw',
-                'z-index:99999',
-                'pointer-events:none',
-                'animation:confettiFall ' + duration + 's ease-in ' + delay + 's forwards'
-            ].join(';');
+    function spawnPiece() {
+        var el = document.createElement('div');
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var size = Math.random() * 10 + 6;
+        var duration = Math.random() * 2 + 2;
+        var delay = Math.random() * 1.5;
 
-            document.body.appendChild(confetti);
-            setTimeout(function () {
-                if (confetti.parentNode) confetti.remove();
-            }, (duration + delay + 0.5) * 1000);
-        })();
+        el.style.cssText = [
+            'position:fixed',
+            'width:' + size + 'px',
+            'height:' + size + 'px',
+            'background:' + color,
+            'border-radius:' + (Math.random() > 0.5 ? '50%' : '2px'),
+            'top:-20px',
+            'left:' + (Math.random() * 100) + 'vw',
+            'z-index:99999',
+            'pointer-events:none',
+            'animation:confettiFall ' + duration + 's ease-in ' + delay + 's forwards'
+        ].join(';');
+
+        document.body.appendChild(el);
+        setTimeout(function () { if (el.parentNode) el.remove(); }, (duration + delay + 0.5) * 1000);
     }
+
+    for (var i = 0; i < 80; i++) spawnPiece();
 }
 
 // =========================================
@@ -207,9 +203,7 @@ function initPWAInstall() {
     var installBtn = document.getElementById('install-btn');
     var closeBannerBtn = document.getElementById('close-banner-btn');
 
-    if (installBtn) {
-        installBtn.addEventListener('click', triggerInstall);
-    }
+    if (installBtn) installBtn.addEventListener('click', triggerInstall);
     if (closeBannerBtn) {
         closeBannerBtn.addEventListener('click', function () {
             hideInstallBanner();
@@ -221,19 +215,27 @@ function initPWAInstall() {
 function showInstallBanner() {
     if (pwaInstalled) return;
     var banner = document.getElementById('install-banner');
-    if (banner) banner.style.display = 'flex';
+    if (banner) {
+        banner.hidden = false;
+        banner.classList.remove('is-hidden');
+    }
 }
 
 function hideInstallBanner() {
     var banner = document.getElementById('install-banner');
-    if (banner) banner.style.display = 'none';
+    if (banner) {
+        banner.hidden = true;
+        banner.classList.add('is-hidden');
+    }
 }
 
 function hidePWAElements() {
-    var banner = document.getElementById('install-banner');
-    if (banner) banner.style.display = 'none';
+    hideInstallBanner();
     var overlay = document.getElementById('pwa-overlay');
-    if (overlay) overlay.style.display = 'none';
+    if (overlay) {
+        overlay.hidden = true;
+        overlay.classList.add('is-hidden');
+    }
 }
 
 function scheduleInstallOverlay() {
@@ -244,7 +246,8 @@ function showInstallOverlay() {
     if (pwaInstalled) return;
     var overlay = document.getElementById('pwa-overlay');
     if (overlay) {
-        overlay.style.display = 'flex';
+        overlay.hidden = false;
+        overlay.classList.remove('is-hidden');
         requestAnimationFrame(function () {
             overlay.classList.add('pwa-overlay--visible');
         });
@@ -255,7 +258,10 @@ function closeInstallOverlay() {
     var overlay = document.getElementById('pwa-overlay');
     if (overlay) {
         overlay.classList.remove('pwa-overlay--visible');
-        setTimeout(function () { overlay.style.display = 'none'; }, 350);
+        setTimeout(function () { 
+            overlay.hidden = true;
+            overlay.classList.add('is-hidden'); 
+        }, 350);
     }
 }
 
@@ -276,12 +282,8 @@ function triggerInstall() {
 function initSearch() {
     var input = document.getElementById('searchInput');
     var clearBtn = document.getElementById('searchClear');
-    if (input) {
-        input.addEventListener('input', searchLectures);
-    }
-    if (clearBtn) {
-        clearBtn.addEventListener('click', clearSearch);
-    }
+    if (input) input.addEventListener('input', searchLectures);
+    if (clearBtn) clearBtn.addEventListener('click', clearSearch);
 }
 
 function searchLectures() {
@@ -292,7 +294,6 @@ function searchLectures() {
     var clearBtn = document.getElementById('searchClear');
     var noResults = document.getElementById('noResults');
 
-    // Show/hide clear button using 'hidden' attribute
     if (clearBtn) clearBtn.hidden = !filter;
 
     var visibleCount = 0;
@@ -308,13 +309,16 @@ function searchLectures() {
         var combinedText = titleText + ' ' + detailsText + ' ' + partText;
 
         if (!filter || combinedText.includes(filter)) {
-            card.style.display = 'block';
+            card.hidden = false; // Fix browser native hidden
+            card.classList.remove('is-hidden');
             if (filter) {
                 var content = card.querySelector('.task-content');
-                var icon = card.querySelector('.toggle-icon');
+                var header = card.querySelector('.task-header');
                 if (content && !content.style.maxHeight) {
                     content.style.maxHeight = content.scrollHeight + 'px';
-                    if (icon) icon.style.transform = 'rotate(180deg)';
+                    if (header) header.setAttribute('aria-expanded', 'true');
+                    var icon = card.querySelector('.toggle-icon');
+                    if (icon) icon.classList.add('is-open');
                 }
                 highlightText(card, filter);
             } else {
@@ -322,12 +326,18 @@ function searchLectures() {
             }
             visibleCount++;
         } else {
-            card.style.display = 'none';
+            card.hidden = true; // Fix browser native hidden
+            card.classList.add('is-hidden');
         }
     });
 
     if (noResults) {
         noResults.hidden = !(filter && visibleCount === 0);
+        if(!noResults.hidden) {
+            noResults.classList.remove('is-hidden');
+        } else {
+            noResults.classList.add('is-hidden');
+        }
     }
 }
 
@@ -374,27 +384,27 @@ function clearSearch() {
 // =========================================
 function startCountdown() {
     var examDate = new Date('2026-03-26 21:00:00');
+    var el = document.getElementById('countdownText');
+    if (!el) return;
 
     function updateCountdown() {
         var now = new Date();
         var diff = examDate - now;
-        var el = document.getElementById('countdownText');
-        if (!el) return;
 
         if (diff <= 0) {
             el.textContent = 'انتهى وقت الامتحان!';
             return;
         }
 
-        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         var text = 'متبقي على امتحان شهر مارس: ';
-        if (days > 0) text += days + ' ' + (days === 1 ? 'يوم' : 'أيام');
+        if (days > 0)           text += days + ' ' + (days === 1 ? 'يوم' : 'أيام');
         if (hours > 0 || days > 0) text += ' ' + hours + ' ' + (hours === 1 ? 'ساعة' : 'ساعات');
-        if (days === 0) text += ' ' + minutes + ' دقيقة ' + seconds + ' ثانية';
+        if (days === 0)         text += ' ' + minutes + ' دقيقة ' + seconds + ' ثانية';
 
         el.textContent = text;
     }
@@ -409,15 +419,21 @@ function startCountdown() {
 function closeNewsBar() {
     var newsBar = document.getElementById('newsBar');
     if (!newsBar) return;
-    newsBar.style.animation = 'slideUp 0.3s ease forwards';
-    setTimeout(function () { newsBar.style.display = 'none'; }, 300);
+    newsBar.classList.add('news-bar--closing');
+    setTimeout(function () { 
+        newsBar.hidden = true;
+        newsBar.classList.add('is-hidden'); 
+    }, 300);
     localStorage.setItem('newsBarClosed', 'true');
 }
 
 function checkNewsBarClosed() {
     if (localStorage.getItem('newsBarClosed') === 'true') {
         var bar = document.getElementById('newsBar');
-        if (bar) bar.style.display = 'none';
+        if (bar) {
+            bar.hidden = true;
+            bar.classList.add('is-hidden');
+        }
     }
 }
 
@@ -432,7 +448,7 @@ function toggleTask(header) {
 
     var isOpen = !!content.style.maxHeight;
     content.style.maxHeight = isOpen ? null : content.scrollHeight + 'px';
-    if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    if (icon) icon.classList.toggle('is-open', !isOpen);
     header.setAttribute('aria-expanded', String(!isOpen));
 }
 
@@ -445,7 +461,7 @@ function initWelcomeModal() {
             var modal = document.getElementById('welcomeModal');
             if (modal) {
                 modal.hidden = false;
-                modal.style.display = 'flex';
+                modal.classList.remove('is-hidden');
                 sessionStorage.setItem('welcomeModalShown', 'true');
             }
         }, 1500);
@@ -455,60 +471,54 @@ function initWelcomeModal() {
 function closeWelcomeModal() {
     var modal = document.getElementById('welcomeModal');
     if (modal) {
-        modal.style.opacity = '0';
-        modal.style.transition = 'opacity 0.4s ease';
+        modal.classList.add('modal--closing');
         setTimeout(function () {
-            modal.style.display = 'none';
             modal.hidden = true;
+            modal.classList.add('is-hidden');
+            modal.classList.remove('modal--closing');
         }, 400);
     }
 }
 
 // =========================================
 // SECTION 12: Dashboard Navigation
-// Single source of truth for all navigation state.
 // =========================================
-
-// Cached DOM references for navigation (set in initDashboard)
 var _dom = {};
-var currentLevel = 'main'; // 'main' | 'reviews-menu' | 'category'
+var currentLevel = 'main';    // 'main' | 'reviews-menu' | 'category'
+var currentCategory = null;   // tracks active category for back-navigation
 
 function initDashboard() {
-    // Cache all navigation-related DOM elements once
-    _dom.mainDashboard    = document.getElementById('mainDashboard');
-    _dom.reviewsSubMenu   = document.getElementById('reviewsSubMenu');
-    _dom.heroBanner       = document.getElementById('heroBanner');
-    _dom.backBtn          = document.getElementById('backBtn');
-    _dom.pdfLibrary       = document.getElementById('pdfLibrary');
-    _dom.courseTitle      = document.getElementById('courseContentTitle');
-    _dom.pdfList          = document.getElementById('pdfList');
+    _dom.mainDashboard  = document.getElementById('mainDashboard');
+    _dom.reviewsSubMenu = document.getElementById('reviewsSubMenu');
+    _dom.heroBanner     = document.getElementById('heroBanner');
+    _dom.backBtn        = document.getElementById('backBtn');
+    _dom.pdfLibrary     = document.getElementById('pdfLibrary');
+    _dom.courseTitle    = document.getElementById('courseContentTitle');
+    _dom.pdfList        = document.getElementById('pdfList');
 
     // Hide all task cards initially (dashboard mode)
     document.querySelectorAll('.task-card').forEach(function (card) {
-        card.style.display = 'none';
+        card.hidden = true;
+        card.classList.add('is-hidden');
     });
     if (_dom.courseTitle) _dom.courseTitle.hidden = true;
 
-    // Build PDF library list
     _buildPdfList();
 }
 
 function _buildPdfList() {
-    var pdfList = _dom.pdfList;
-    if (!pdfList) return;
-
+    if (!_dom.pdfList) return;
     var pdfLinks = document.querySelectorAll('.task-card a[href$=".pdf"], .task-card a[download]');
-    pdfList.innerHTML = '';
+    _dom.pdfList.innerHTML = '';
 
     if (pdfLinks.length === 0) {
         var emptyMsg = document.createElement('p');
         emptyMsg.className = 'pdf-empty-msg';
         emptyMsg.textContent = 'لا توجد ملفات PDF حالياً.';
-        pdfList.appendChild(emptyMsg);
+        _dom.pdfList.appendChild(emptyMsg);
         return;
     }
 
-    // Reverse so newest is first
     Array.from(pdfLinks).reverse().forEach(function (link) {
         var clonedLink = link.cloneNode(true);
         clonedLink.className = 'part-item pdf-quick-link';
@@ -526,44 +536,52 @@ function _buildPdfList() {
                 ' <br><small class="pdf-link-sub">تحميل المذكرة</small>';
         }
 
-        pdfList.appendChild(clonedLink);
+        _dom.pdfList.appendChild(clonedLink);
     });
 }
 
-// Helper: hide all dashboard views
 function _hideDashboardViews() {
-    if (_dom.mainDashboard)  _dom.mainDashboard.style.display  = 'none';
-    if (_dom.reviewsSubMenu) _dom.reviewsSubMenu.hidden         = true;
-    if (_dom.heroBanner)     _dom.heroBanner.style.display      = 'none';
-    if (_dom.pdfLibrary)     _dom.pdfLibrary.hidden             = true;
-    document.querySelectorAll('.task-card').forEach(function (c) { c.style.display = 'none'; });
-    if (_dom.courseTitle)    _dom.courseTitle.hidden            = true;
+    if (_dom.mainDashboard)  { _dom.mainDashboard.hidden = true; _dom.mainDashboard.classList.add('is-hidden'); }
+    if (_dom.reviewsSubMenu) { _dom.reviewsSubMenu.hidden = true; _dom.reviewsSubMenu.classList.add('is-hidden'); }
+    if (_dom.heroBanner)     { _dom.heroBanner.hidden = true; _dom.heroBanner.classList.add('is-hidden'); }
+    if (_dom.pdfLibrary)     { _dom.pdfLibrary.hidden = true; _dom.pdfLibrary.classList.add('is-hidden'); }
+    document.querySelectorAll('.task-card').forEach(function (c) { c.hidden = true; c.classList.add('is-hidden'); });
+    if (_dom.courseTitle)    _dom.courseTitle.hidden = true;
 }
 
 function showReviewsMenu() {
     _hideDashboardViews();
     if (_dom.reviewsSubMenu) {
         _dom.reviewsSubMenu.hidden = false;
-        _dom.reviewsSubMenu.style.display = 'grid';
-        _dom.reviewsSubMenu.style.animation = 'fadeInCard 0.4s ease forwards';
+        _dom.reviewsSubMenu.classList.remove('is-hidden');
+        _dom.reviewsSubMenu.classList.add('anim-fade-in');
+        _dom.reviewsSubMenu.addEventListener('animationend', function () {
+            _dom.reviewsSubMenu.classList.remove('anim-fade-in');
+        }, { once: true });
     }
     if (_dom.backBtn) _dom.backBtn.hidden = false;
     currentLevel = 'reviews-menu';
+    currentCategory = null;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function openCategory(category) {
     _hideDashboardViews();
+    currentCategory = category;
 
     if (_dom.pdfLibrary && category === 'pdfs') {
         _dom.pdfLibrary.hidden = false;
-        _dom.pdfLibrary.style.display = 'block';
+        _dom.pdfLibrary.classList.remove('is-hidden');
     }
 
     document.querySelectorAll('.task-card').forEach(function (card) {
         if (card.getAttribute('data-category') === category) {
-            card.style.display = 'block';
-            card.style.animation = 'fadeInCard 0.4s ease forwards';
+            card.hidden = false;
+            card.classList.remove('is-hidden');
+            card.classList.add('anim-fade-in');
+            card.addEventListener('animationend', function () {
+                card.classList.remove('anim-fade-in');
+            }, { once: true });
         }
     });
 
@@ -574,12 +592,8 @@ function openCategory(category) {
 
 function handleBackNavigation() {
     if (currentLevel === 'category') {
-        // Detect if we came from the reviews sub-menu
-        var visibleCard = document.querySelector('.task-card[style*="block"]');
-        var cat = visibleCard ? visibleCard.getAttribute('data-category') : '';
         var reviewCategories = ['chapter-rev', 'month-rev', 'solution-rev', 'final-rev'];
-
-        if (reviewCategories.includes(cat)) {
+        if (currentCategory && reviewCategories.includes(currentCategory)) {
             showReviewsMenu();
         } else {
             goHome();
@@ -591,13 +605,23 @@ function handleBackNavigation() {
 
 function goHome() {
     _hideDashboardViews();
+    currentCategory = null;
+
     if (_dom.mainDashboard) {
-        _dom.mainDashboard.style.display = 'grid';
-        _dom.mainDashboard.style.animation = 'fadeInCard 0.4s ease forwards';
+        _dom.mainDashboard.hidden = false;
+        _dom.mainDashboard.classList.remove('is-hidden');
+        _dom.mainDashboard.classList.add('anim-fade-in');
+        _dom.mainDashboard.addEventListener('animationend', function () {
+            _dom.mainDashboard.classList.remove('anim-fade-in');
+        }, { once: true });
     }
     if (_dom.heroBanner) {
-        _dom.heroBanner.style.display = 'block';
-        _dom.heroBanner.style.animation = 'fadeInCard 0.4s ease forwards';
+        _dom.heroBanner.hidden = false;
+        _dom.heroBanner.classList.remove('is-hidden');
+        _dom.heroBanner.classList.add('anim-fade-in');
+        _dom.heroBanner.addEventListener('animationend', function () {
+            _dom.heroBanner.classList.remove('anim-fade-in');
+        }, { once: true });
     }
     if (_dom.backBtn) _dom.backBtn.hidden = true;
     currentLevel = 'main';
@@ -606,7 +630,6 @@ function goHome() {
 
 // =========================================
 // SECTION 13: Super Revision Navigation
-// Opens the final-rev category and scrolls to + highlights the card
 // =========================================
 function openSuperRevision() {
     openCategory('final-rev');
@@ -617,14 +640,12 @@ function openSuperRevision() {
 
         finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // Auto-open the accordion if closed
         var content = finalCard.querySelector('.task-content');
         var header = finalCard.querySelector('.task-header');
         if (content && (!content.style.maxHeight || content.style.maxHeight === '0px')) {
             if (header) toggleTask(header);
         }
 
-        // Pulse highlight to attract attention
         finalCard.classList.remove('super-card-highlight');
         void finalCard.offsetWidth; // force reflow
         finalCard.classList.add('super-card-highlight');
@@ -633,17 +654,13 @@ function openSuperRevision() {
 
 // =========================================
 // SECTION 14: Event Delegation
-// Centralised listeners — no inline onChange/onClick duplication
 // =========================================
-
-// Progress: delegated change listener for checkboxes
 document.addEventListener('change', function (e) {
     if (e.target.classList.contains('lecture-checkbox')) {
         updateProgress();
     }
 });
 
-// Prevent accordion toggling when clicking the checkbox/label
 document.addEventListener('click', function (e) {
     if (e.target.classList.contains('lecture-checkbox') ||
         e.target.classList.contains('checkbox-label')) {
@@ -651,7 +668,6 @@ document.addEventListener('click', function (e) {
     }
 });
 
-// Smooth scroll for in-page anchor links
 document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -662,17 +678,17 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
 
 // =========================================
 // SECTION 15: Keyboard Accessibility
-// Makes role="button" divs respond to Enter/Space
 // =========================================
 function initKeyboardNav() {
-    document.querySelectorAll('[role="button"]').forEach(function (el) {
-        // Skip elements that are already <button> or <a> tags
-        if (el.tagName === 'BUTTON' || el.tagName === 'A') return;
-        el.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', function (e) {
+        var el = e.target;
+        if (el.getAttribute('role') === 'button' &&
+            el.tagName !== 'BUTTON' &&
+            el.tagName !== 'A') {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 el.click();
             }
-        });
+        }
     });
 }

@@ -86,7 +86,9 @@
 </head>
 
 <body>
-    <div id="welcomeModal" class="welcome-modal" aria-modal="true" aria-label="نافذة ترحيبية" role="dialog" hidden>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="welcome-modal is-hidden" aria-modal="true" aria-label="نافذة ترحيبية" role="dialog" hidden>
         <div class="modal-content">
             <button class="modal-close" onclick="closeWelcomeModal()" aria-label="إغلاق النافذة">&times;</button>
             <img src="images/final-revision.jpg" alt="مراجعة المنهج بالكامل" class="modal-image">
@@ -96,6 +98,7 @@
         </div>
     </div>
 
+    <!-- News Bar -->
     <div class="news-bar" id="newsBar" role="banner" aria-label="شريط الأخبار">
         <div class="news-content">
             <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
@@ -107,6 +110,7 @@
         </button>
     </div>
 
+    <!-- Top Toolbar -->
     <div class="top-toolbar" role="toolbar" aria-label="شريط الأدوات">
         <div class="toolbar-container">
             <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="تبديل الوضع الليلي"
@@ -120,6 +124,7 @@
         </div>
     </div>
 
+    <!-- Header -->
     <header class="course-header-bg">
         <div class="header-content">
             <h1 class="course-title-main">
@@ -144,6 +149,7 @@
 
         <section class="content-column" aria-label="محتوى الكورس">
 
+            <!-- Progress Bar -->
             <div class="progress-section" aria-label="تقدمك في الكورس">
                 <div class="progress-info">
                     <h3>تقدمك في الكورس</h3>
@@ -155,6 +161,7 @@
                 </div>
             </div>
 
+            <!-- Search -->
             <div class="search-section" role="search" aria-label="البحث في المحاضرات">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
@@ -166,10 +173,12 @@
                 </div>
             </div>
 
+            <!-- Back Button -->
             <button id="backBtn" class="back-btn" onclick="handleBackNavigation()" aria-label="رجوع" hidden>
                 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> رجوع
             </button>
 
+            <!-- Hero Banner -->
             <div id="heroBanner" class="hero-banner" onclick="openSuperRevision()" role="button" tabindex="0"
                 aria-label="ابدأ المراجعة النهائية">
                 <div class="hero-banner-inner">
@@ -182,6 +191,7 @@
                 </div>
             </div>
 
+            <!-- Main Dashboard -->
             <div id="mainDashboard" class="dashboard-grid" role="navigation" aria-label="أقسام الكورس">
                 <div class="dash-card" onclick="openCategory('lectures')" role="button" tabindex="0"
                     aria-label="محاضرات الشرح">
@@ -209,7 +219,8 @@
                 </div>
             </div>
 
-            <div id="reviewsSubMenu" class="dashboard-grid" aria-label="قائمة المراجعات" hidden>
+            <!-- Reviews Sub-Menu -->
+            <div id="reviewsSubMenu" class="dashboard-grid is-hidden" aria-label="قائمة المراجعات" hidden>
                 <div class="dash-card" onclick="openCategory('chapter-rev')" role="button" tabindex="0">
                     <div class="dash-icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></div>
                     <h3>مراجعات الفصول</h3>
@@ -232,12 +243,15 @@
                 </div>
             </div>
 
-            <div id="pdfLibrary" class="pdf-library-container" aria-label="مكتبة ملفات الـ PDF" hidden>
+            <!-- PDF Library -->
+            <div id="pdfLibrary" class="pdf-library-container is-hidden" aria-label="مكتبة ملفات الـ PDF" hidden>
                 <h2 class="content-section-title">مكتبة ملفات الـ PDF 📑</h2>
                 <div id="pdfList" class="pdf-list"></div>
             </div>
 
-            <h2 class="content-section-title" id="courseContentTitle" hidden>محتوى الكورس</h2>
+            <h2 class="content-section-title is-hidden" id="courseContentTitle" hidden>محتوى الكورس</h2>
+
+            <!-- ===== TASK CARDS ===== -->
 
             <article class="task-card" data-lecture-id="march-exam" data-category="month-rev">
                 <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false" aria-label="امتحان مارس">
@@ -256,9 +270,9 @@
                 </div>
                 <div class="task-content" role="region">
                     <div class="task-body">
-                        <div class="exam-cta-wrapper" style="text-align: center; margin: 40px 0;">
-                            <h3 style="color: var(--text); margin-bottom: 15px;">امتحان ال 1000 جنيه💵❤️</h3>
-                            <a href="exam.html" class="exam-entry-btn" style="display: inline-block; background: linear-gradient(135deg, #fda5fa, #a3165a); color: white; padding: 14px 32px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); transition: transform 0.2s;">
+                        <div class="exam-cta-wrapper">
+                            <h3>امتحان ال 1000 جنيه💵❤️</h3>
+                            <a href="exam.html" class="exam-entry-btn">
                                 <i class="fa-solid fa-gamepad" aria-hidden="true"></i> دخول الامتحان
                             </a>
                         </div>
@@ -927,6 +941,7 @@
 
     </main>
 
+    <!-- Social Icons -->
     <nav class="social-icons" aria-label="روابط التواصل الاجتماعي">
         <a href="https://wa.me/+201501857217?text=السلام عليكم محتاج استفسر عن " target="_blank" rel="noopener noreferrer" class="social-icon whatsapp-personal with-text" title="تواصل شخصي عبر WhatsApp" aria-label="تواصل عبر واتساب">
             <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
@@ -944,7 +959,8 @@
         </a>
     </nav>
 
-    <div id="install-banner" class="install-banner" role="complementary" aria-label="تثبيت التطبيق">
+    <!-- PWA Install Banner -->
+    <div id="install-banner" class="install-banner is-hidden" role="complementary" aria-label="تثبيت التطبيق">
         <div class="banner-text">
             <strong>📲 ثبّت التطبيق مجاناً!</strong>
             <span>ادرس بدون انترنت وافتكر من أي حاجة وصلتلها!</span>
@@ -955,7 +971,8 @@
         </div>
     </div>
 
-    <div id="pwa-overlay" role="dialog" aria-modal="true" aria-label="نافذة تثبيت التطبيق">
+    <!-- PWA Overlay -->
+    <div id="pwa-overlay" class="is-hidden" role="dialog" aria-modal="true" aria-label="نافذة تثبيت التطبيق">
         <div class="pwa-overlay-card">
             <button class="pwa-overlay-close" onclick="closeInstallOverlay()" title="إغلاق" aria-label="إغلاق">&times;</button>
             <span class="pwa-overlay-icon" aria-hidden="true">📲</span>
