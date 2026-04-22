@@ -1,44 +1,47 @@
 // =========================================
-// 🚀 هكر الفيزياء - السكريبت الرئيسي المطوّر
-// الميزات: بحث ذكي + PWA عدواني + تتبع تقدم بـ Gamification
+// 🚀 هكر الفيزياء - السكريبت الرئيسي المُعاد هيكلته
+// Architecture: Grouped by concern | Defensive null-checks | No global pollution
 // =========================================
 
+// =========================================
+// SECTION 1: Initialization
+// =========================================
 document.addEventListener('DOMContentLoaded', function () {
     loadDarkMode();
     loadProgress();
-    loadPartItemProgress();   // ميزة 3: تحميل حالة الأزرار المكتملة
+    initPartItemTracking();
     startCountdown();
     checkNewsBarClosed();
-    initPWAInstall();         // ميزة 2: تشغيل نظام PWA العدواني
+    initPWAInstall();
+    initDashboard();
+    initSearch();
+    initWelcomeModal();
+    initKeyboardNav();
 });
 
 // =========================================
-// الوضع الليلي (Dark Mode)
+// SECTION 2: Dark Mode
 // =========================================
 function toggleDarkMode() {
     const body = document.body;
     const icon = document.getElementById('darkModeIcon');
     body.classList.toggle('dark-mode');
-    if (body.classList.contains('dark-mode')) {
-        icon.className = 'fa-solid fa-sun';
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        icon.className = 'fa-solid fa-moon';
-        localStorage.setItem('darkMode', 'disabled');
-    }
+
+    const isDark = body.classList.contains('dark-mode');
+    if (icon) icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
 }
 
 function loadDarkMode() {
-    const darkMode = localStorage.getItem('darkMode');
-    const icon = document.getElementById('darkModeIcon');
-    if (darkMode === 'enabled') {
+    if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
+        const icon = document.getElementById('darkModeIcon');
         if (icon) icon.className = 'fa-solid fa-sun';
     }
 }
 
 // =========================================
-// نظام التقدم بـ Checkboxes
+// SECTION 3: Progress Tracking & Gamification
 // =========================================
 function updateProgress() {
     const checkboxes = document.querySelectorAll('.lecture-checkbox');
@@ -46,12 +49,11 @@ function updateProgress() {
     let completedLectures = 0;
     const progress = {};
 
-    checkboxes.forEach((checkbox) => {
-        const isChecked = checkbox.checked;
+    checkboxes.forEach(function (checkbox) {
         const card = checkbox.closest('.task-card');
         const lectureId = card ? card.getAttribute('data-lecture-id') : checkbox.id;
-        if (lectureId) progress[lectureId] = isChecked;
-        if (isChecked) completedLectures++;
+        if (lectureId) progress[lectureId] = checkbox.checked;
+        if (checkbox.checked) completedLectures++;
     });
 
     localStorage.setItem('lectureProgress', JSON.stringify(progress));
@@ -59,10 +61,14 @@ function updateProgress() {
     const percentage = totalLectures > 0 ? (completedLectures / totalLectures) * 100 : 0;
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
+    const progressContainer = document.querySelector('.progress-bar-container');
 
     if (progressBar) progressBar.style.width = percentage + '%';
-    if (progressText) progressText.textContent =
-        completedLectures + ' من ' + totalLectures + ' محاضرات (' + Math.round(percentage) + '%)';
+    if (progressContainer) progressContainer.setAttribute('aria-valuenow', Math.round(percentage));
+    if (progressText) {
+        progressText.textContent =
+            completedLectures + ' من ' + totalLectures + ' محاضرات (' + Math.round(percentage) + '%)';
+    }
 
     if (completedLectures === totalLectures && totalLectures > 0) {
         triggerConfetti();
@@ -72,39 +78,36 @@ function updateProgress() {
 function loadProgress() {
     const savedProgress = localStorage.getItem('lectureProgress');
     if (savedProgress) {
-        const progress = JSON.parse(savedProgress);
-        const checkboxes = document.querySelectorAll('.lecture-checkbox');
-        checkboxes.forEach(function (checkbox) {
-            const card = checkbox.closest('.task-card');
-            const lectureId = card ? card.getAttribute('data-lecture-id') : checkbox.id;
-            if (lectureId && progress[lectureId]) {
-                checkbox.checked = true;
-            }
-        });
+        try {
+            const progress = JSON.parse(savedProgress);
+            document.querySelectorAll('.lecture-checkbox').forEach(function (checkbox) {
+                const card = checkbox.closest('.task-card');
+                const lectureId = card ? card.getAttribute('data-lecture-id') : checkbox.id;
+                if (lectureId && progress[lectureId]) {
+                    checkbox.checked = true;
+                }
+            });
+        } catch (e) {
+            console.warn('Failed to parse saved progress:', e);
+        }
     }
     updateProgress();
 }
 
 // =========================================
-// ميزة 3: Gamification - تتبع الأزرار (part-item)
-// عند الضغط على أي رابط (فيديو أو PDF)، يتحول لون الزر للأخضر
-// مع علامة مكتمل وتُحفظ الحالة في localStorage
+// SECTION 4: Gamification - Part Item Tracking
+// Clicking a video/PDF link turns it green and saves state.
 // =========================================
 function initPartItemTracking() {
-    var partItems = document.querySelectorAll('.part-item');
-
-    partItems.forEach(function (item, index) {
+    document.querySelectorAll('.part-item').forEach(function (item, index) {
         var href = item.getAttribute('href') || ('item-' + index);
-        // مفتاح آمن وفريد
         var safeKey = 'part_done__' + encodeURIComponent(href).replace(/%/g, '_').slice(0, 60);
         item.dataset.progressKey = safeKey;
 
-        // استعادة الحالة المحفوظة
         if (localStorage.getItem(safeKey) === 'done') {
             markPartItemDone(item, false);
         }
 
-        // عند الضغط، احفظ الحالة وغيّر المظهر
         item.addEventListener('click', function () {
             localStorage.setItem(safeKey, 'done');
             markPartItemDone(item, true);
@@ -113,7 +116,7 @@ function initPartItemTracking() {
 }
 
 function markPartItemDone(item, animate) {
-    if (item.classList.contains('part-item--done')) return;
+    if (!item || item.classList.contains('part-item--done')) return;
     item.classList.add('part-item--done');
 
     var titleSpan = item.querySelector('.part-title');
@@ -121,6 +124,7 @@ function markPartItemDone(item, animate) {
         var badge = document.createElement('span');
         badge.className = 'done-badge';
         badge.textContent = ' ✅';
+        badge.setAttribute('aria-label', 'مكتمل');
         titleSpan.appendChild(badge);
     }
 
@@ -130,18 +134,49 @@ function markPartItemDone(item, animate) {
     }
 }
 
-function loadPartItemProgress() {
-    initPartItemTracking();
-}
 // =========================================
-// ميزة 2: PWA Install عدواني واحترافي
-// نظام متكامل: بانر ثابت + نافذة Overlay جذابة (تظهر دايماً)
+// SECTION 5: Confetti
+// =========================================
+function triggerConfetti() {
+    var colors = ['#5e35b1', '#ff007f', '#ffd700', '#00e676', '#2979ff'];
+    for (var i = 0; i < 80; i++) {
+        (function () {
+            var confetti = document.createElement('div');
+            var color = colors[Math.floor(Math.random() * colors.length)];
+            var size = Math.random() * 10 + 6;
+            var isCircle = Math.random() > 0.5;
+            var duration = Math.random() * 2 + 2;
+            var delay = Math.random() * 1.5;
+            var left = Math.random() * 100;
+
+            confetti.style.cssText = [
+                'position:fixed',
+                'width:' + size + 'px',
+                'height:' + size + 'px',
+                'background:' + color,
+                'border-radius:' + (isCircle ? '50%' : '2px'),
+                'top:-20px',
+                'left:' + left + 'vw',
+                'z-index:99999',
+                'pointer-events:none',
+                'animation:confettiFall ' + duration + 's ease-in ' + delay + 's forwards'
+            ].join(';');
+
+            document.body.appendChild(confetti);
+            setTimeout(function () {
+                if (confetti.parentNode) confetti.remove();
+            }, (duration + delay + 0.5) * 1000);
+        })();
+    }
+}
+
+// =========================================
+// SECTION 6: PWA Install System
 // =========================================
 var deferredPrompt = null;
 var pwaInstalled = false;
 
 function initPWAInstall() {
-    // هل التطبيق مُثبَّت أصلاً؟
     if (window.matchMedia('(display-mode: standalone)').matches ||
         window.navigator.standalone === true ||
         localStorage.getItem('pwaInstalled') === 'true') {
@@ -169,14 +204,11 @@ function initPWAInstall() {
         }
     });
 
-    // البانر السفلي الموجود
     var installBtn = document.getElementById('install-btn');
     var closeBannerBtn = document.getElementById('close-banner-btn');
 
     if (installBtn) {
-        installBtn.addEventListener('click', function () {
-            triggerInstall();
-        });
+        installBtn.addEventListener('click', triggerInstall);
     }
     if (closeBannerBtn) {
         closeBannerBtn.addEventListener('click', function () {
@@ -205,7 +237,6 @@ function hidePWAElements() {
 }
 
 function scheduleInstallOverlay() {
-    // شيلنا شرط الحفظ في الذاكرة، وخليناها تظهر بعد ثانية واحدة (1000 ملي ثانية)
     setTimeout(showInstallOverlay, 1000);
 }
 
@@ -221,7 +252,6 @@ function showInstallOverlay() {
 }
 
 function closeInstallOverlay() {
-    // شيلنا فكرة الإغلاق الدائم، هتقفل دلوقتي بس ولما يعمل ريفريش هتطلعله تاني
     var overlay = document.getElementById('pwa-overlay');
     if (overlay) {
         overlay.classList.remove('pwa-overlay--visible');
@@ -241,9 +271,19 @@ function triggerInstall() {
 }
 
 // =========================================
-// ميزة 1: البحث الذكي اللحظي
-// يبحث في: عنوان المحاضرة، التفاصيل، وعناوين الأزرار
+// SECTION 7: Smart Search
 // =========================================
+function initSearch() {
+    var input = document.getElementById('searchInput');
+    var clearBtn = document.getElementById('searchClear');
+    if (input) {
+        input.addEventListener('input', searchLectures);
+    }
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearSearch);
+    }
+}
+
 function searchLectures() {
     var input = document.getElementById('searchInput');
     if (!input) return;
@@ -252,7 +292,8 @@ function searchLectures() {
     var clearBtn = document.getElementById('searchClear');
     var noResults = document.getElementById('noResults');
 
-    if (clearBtn) clearBtn.style.display = filter ? 'block' : 'none';
+    // Show/hide clear button using 'hidden' attribute
+    if (clearBtn) clearBtn.hidden = !filter;
 
     var visibleCount = 0;
 
@@ -263,14 +304,11 @@ function searchLectures() {
 
         var titleText = titleEl ? titleEl.textContent.toLowerCase() : '';
         var detailsText = detailsEl ? detailsEl.textContent.toLowerCase() : '';
-        var partText = '';
-        partTitles.forEach(function (p) { partText += p.textContent.toLowerCase() + ' '; });
-
+        var partText = Array.from(partTitles).map(function (p) { return p.textContent.toLowerCase(); }).join(' ');
         var combinedText = titleText + ' ' + detailsText + ' ' + partText;
 
         if (!filter || combinedText.includes(filter)) {
             card.style.display = 'block';
-            // فتح الكارد تلقائيًا لو في نتيجة بحث
             if (filter) {
                 var content = card.querySelector('.task-content');
                 var icon = card.querySelector('.toggle-icon');
@@ -289,7 +327,7 @@ function searchLectures() {
     });
 
     if (noResults) {
-        noResults.style.display = (filter && visibleCount === 0) ? 'block' : 'none';
+        noResults.hidden = !(filter && visibleCount === 0);
     }
 }
 
@@ -312,10 +350,13 @@ function highlightText(container, query) {
 }
 
 function clearHighlights(container) {
+    if (!container) return;
     container.querySelectorAll('.search-highlight').forEach(function (mark) {
         var parent = mark.parentNode;
-        parent.replaceChild(document.createTextNode(mark.textContent), mark);
-        parent.normalize();
+        if (parent) {
+            parent.replaceChild(document.createTextNode(mark.textContent), mark);
+            parent.normalize();
+        }
     });
 }
 
@@ -329,7 +370,7 @@ function clearSearch() {
 }
 
 // =========================================
-// العداد التنازلي
+// SECTION 8: Countdown Timer
 // =========================================
 function startCountdown() {
     var examDate = new Date('2026-03-26 21:00:00');
@@ -363,7 +404,7 @@ function startCountdown() {
 }
 
 // =========================================
-// شريط الأخبار
+// SECTION 9: News Bar
 // =========================================
 function closeNewsBar() {
     var newsBar = document.getElementById('newsBar');
@@ -381,261 +422,164 @@ function checkNewsBarClosed() {
 }
 
 // =========================================
-// الأكورديون
+// SECTION 10: Accordion
 // =========================================
 function toggleTask(header) {
+    if (!header) return;
     var content = header.nextElementSibling;
     var icon = header.querySelector('.toggle-icon');
     if (!content) return;
 
-    if (content.style.maxHeight) {
-        content.style.maxHeight = null;
-        if (icon) icon.style.transform = 'rotate(0deg)';
-    } else {
-        content.style.maxHeight = content.scrollHeight + 'px';
-        if (icon) icon.style.transform = 'rotate(180deg)';
+    var isOpen = !!content.style.maxHeight;
+    content.style.maxHeight = isOpen ? null : content.scrollHeight + 'px';
+    if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    header.setAttribute('aria-expanded', String(!isOpen));
+}
+
+// =========================================
+// SECTION 11: Welcome Modal
+// =========================================
+function initWelcomeModal() {
+    if (!sessionStorage.getItem('welcomeModalShown')) {
+        setTimeout(function () {
+            var modal = document.getElementById('welcomeModal');
+            if (modal) {
+                modal.hidden = false;
+                modal.style.display = 'flex';
+                sessionStorage.setItem('welcomeModalShown', 'true');
+            }
+        }, 1500);
+    }
+}
+
+function closeWelcomeModal() {
+    var modal = document.getElementById('welcomeModal');
+    if (modal) {
+        modal.style.opacity = '0';
+        modal.style.transition = 'opacity 0.4s ease';
+        setTimeout(function () {
+            modal.style.display = 'none';
+            modal.hidden = true;
+        }, 400);
     }
 }
 
 // =========================================
-// تأثير الكونفيتي عند إكمال كل المحاضرات
+// SECTION 12: Dashboard Navigation
+// Single source of truth for all navigation state.
 // =========================================
-function triggerConfetti() {
-    var colors = ['#5e35b1', '#ff007f', '#ffd700', '#00e676', '#2979ff'];
-    for (var i = 0; i < 80; i++) {
-        (function () {
-            var confetti = document.createElement('div');
-            var color = colors[Math.floor(Math.random() * colors.length)];
-            var size = Math.random() * 10 + 6;
-            var isCircle = Math.random() > 0.5;
-            var duration = Math.random() * 2 + 2;
-            var delay = Math.random() * 1.5;
-            var left = Math.random() * 100;
 
-            confetti.style.cssText = [
-                'position:fixed',
-                'width:' + size + 'px',
-                'height:' + size + 'px',
-                'background:' + color,
-                'border-radius:' + (isCircle ? '50%' : '2px'),
-                'top:-20px',
-                'left:' + left + 'vw',
-                'z-index:99999',
-                'pointer-events:none',
-                'animation:confettiFall ' + duration + 's ease-in ' + delay + 's forwards'
-            ].join(';');
+// Cached DOM references for navigation (set in initDashboard)
+var _dom = {};
+var currentLevel = 'main'; // 'main' | 'reviews-menu' | 'category'
 
-            document.body.appendChild(confetti);
-            setTimeout(function () { confetti.remove(); }, (duration + delay + 0.5) * 1000);
-        })();
-    }
-}
+function initDashboard() {
+    // Cache all navigation-related DOM elements once
+    _dom.mainDashboard    = document.getElementById('mainDashboard');
+    _dom.reviewsSubMenu   = document.getElementById('reviewsSubMenu');
+    _dom.heroBanner       = document.getElementById('heroBanner');
+    _dom.backBtn          = document.getElementById('backBtn');
+    _dom.pdfLibrary       = document.getElementById('pdfLibrary');
+    _dom.courseTitle      = document.getElementById('courseContentTitle');
+    _dom.pdfList          = document.getElementById('pdfList');
 
-// =========================================
-// مراقبة Checkboxes
-// =========================================
-document.addEventListener('change', function (e) {
-    if (e.target.classList.contains('lecture-checkbox')) {
-        updateProgress();
-    }
-});
-
-document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('lecture-checkbox') ||
-        e.target.classList.contains('checkbox-label')) {
-        e.stopPropagation();
-    }
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Hide all task cards initially (dashboard mode)
+    document.querySelectorAll('.task-card').forEach(function (card) {
+        card.style.display = 'none';
     });
-});
+    if (_dom.courseTitle) _dom.courseTitle.hidden = true;
 
-// =========================================
-// CSS ديناميكي للميزات الجديدة
-// =========================================
-var dynamicStyles = document.createElement('style');
-dynamicStyles.textContent = [
-    /* أنيميشن إغلاق شريط الأخبار */
-    '@keyframes slideUp {',
-    '  from { transform: translateY(0); opacity: 1; }',
-    '  to   { transform: translateY(-100%); opacity: 0; }',
-    '}',
+    // Build PDF library list
+    _buildPdfList();
+}
 
-    /* أنيميشن الكونفيتي */
-    '@keyframes confettiFall {',
-    '  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }',
-    '  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }',
-    '}',
+function _buildPdfList() {
+    var pdfList = _dom.pdfList;
+    if (!pdfList) return;
 
-    /* ميزة 3: الزر المكتمل */
-    '.part-item--done {',
-    '  background: linear-gradient(135deg, #e8f5e9, #c8e6c9) !important;',
-    '  border-left: 4px solid #43a047 !important;',
-    '}',
-    'body.dark-mode .part-item--done {',
-    '  background: rgba(67,160,71,0.15) !important;',
-    '  border-left: 4px solid #66bb6a !important;',
-    '}',
-    '.part-item--done .part-title { color: #2e7d32 !important; }',
-    'body.dark-mode .part-item--done .part-title { color: #a5d6a7 !important; }',
-    '.part-item--done .view-btn { color: #43a047 !important; }',
-    '.done-badge { font-size: 1rem; margin-right: 4px; }',
-    '@keyframes partPulse {',
-    '  0%   { transform: scale(1); }',
-    '  40%  { transform: scale(1.035); }',
-    '  100% { transform: scale(1); }',
-    '}',
-    '.part-item--pulse { animation: partPulse 0.6s ease; }',
+    var pdfLinks = document.querySelectorAll('.task-card a[href$=".pdf"], .task-card a[download]');
+    pdfList.innerHTML = '';
 
-    /* ميزة 1: تمييز نتائج البحث */
-    'mark.search-highlight {',
-    '  background: #fff176; color: #1a1a1a;',
-    '  border-radius: 3px; padding: 0 2px; font-weight: 800;',
-    '}',
-    'body.dark-mode mark.search-highlight {',
-    '  background: #f9a825; color: #1a1a1a;',
-    '}',
+    if (pdfLinks.length === 0) {
+        var emptyMsg = document.createElement('p');
+        emptyMsg.className = 'pdf-empty-msg';
+        emptyMsg.textContent = 'لا توجد ملفات PDF حالياً.';
+        pdfList.appendChild(emptyMsg);
+        return;
+    }
 
-    /* ميزة 2: PWA Overlay */
-    '#pwa-overlay {',
-    '  display: none; position: fixed; inset: 0;',
-    '  background: rgba(0,0,0,0.72); z-index: 100000;',
-    '  align-items: center; justify-content: center;',
-    '  padding: 20px; opacity: 0; transition: opacity 0.35s ease;',
-    '}',
-    '#pwa-overlay.pwa-overlay--visible { opacity: 1; }',
+    // Reverse so newest is first
+    Array.from(pdfLinks).reverse().forEach(function (link) {
+        var clonedLink = link.cloneNode(true);
+        clonedLink.className = 'part-item pdf-quick-link';
 
-    '.pwa-overlay-card {',
-    '  background: #fff; border-radius: 20px; padding: 35px 30px 28px;',
-    '  max-width: 420px; width: 100%; text-align: center; direction: rtl;',
-    '  position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.4);',
-    '  transform: scale(0.88); transition: transform 0.35s ease;',
-    '  font-family: "Cairo", sans-serif;',
-    '}',
-    '#pwa-overlay.pwa-overlay--visible .pwa-overlay-card { transform: scale(1); }',
-    'body.dark-mode .pwa-overlay-card { background: #2d2d2d; color: #e0e0e0; }',
+        var parentCard = link.closest('.task-card');
+        var lectureName = parentCard && parentCard.querySelector('.task-title')
+            ? parentCard.querySelector('.task-title').textContent.trim()
+            : 'ملف خارجي';
+        var customName = link.getAttribute('data-name') || lectureName;
 
-    '.pwa-overlay-close {',
-    '  position: absolute; top: 12px; left: 14px;',
-    '  background: none; border: none; font-size: 1.4rem;',
-    '  cursor: pointer; color: #999; padding: 4px 8px;',
-    '  border-radius: 6px; transition: 0.2s; line-height: 1;',
-    '}',
-    '.pwa-overlay-close:hover { background: #f0f0f0; color: #333; }',
-    'body.dark-mode .pwa-overlay-close:hover { background: #444; color: #fff; }',
+        var titleSpan = clonedLink.querySelector('.part-title');
+        if (titleSpan) {
+            titleSpan.innerHTML =
+                '📄 ' + customName +
+                ' <br><small class="pdf-link-sub">تحميل المذكرة</small>';
+        }
 
-    '.pwa-overlay-icon {',
-    '  font-size: 4rem; margin-bottom: 12px; display: block;',
-    '  animation: iconBounce 1.6s ease-in-out infinite;',
-    '}',
-    '@keyframes iconBounce {',
-    '  0%,100% { transform: translateY(0); }',
-    '  50%      { transform: translateY(-10px); }',
-    '}',
+        pdfList.appendChild(clonedLink);
+    });
+}
 
-    '.pwa-overlay-card h2 {',
-    '  font-size: 1.45rem; font-weight: 900;',
-    '  color: #5e35b1; margin-bottom: 10px;',
-    '}',
-    'body.dark-mode .pwa-overlay-card h2 { color: #ce93d8; }',
-
-    '.pwa-overlay-card p {',
-    '  font-size: 0.97rem; color: #555;',
-    '  line-height: 1.75; margin-bottom: 18px;',
-    '}',
-    'body.dark-mode .pwa-overlay-card p { color: #bbb; }',
-
-    '.pwa-overlay-features {',
-    '  display: flex; justify-content: center;',
-    '  gap: 10px; margin-bottom: 22px; flex-wrap: wrap;',
-    '}',
-    '.pwa-feature-chip {',
-    '  background: #ede7f6; color: #5e35b1;',
-    '  border-radius: 50px; padding: 6px 14px;',
-    '  font-size: 0.82rem; font-weight: 700;',
-    '}',
-    'body.dark-mode .pwa-feature-chip {',
-    '  background: rgba(94,53,177,0.3); color: #ce93d8;',
-    '}',
-
-    '.pwa-install-cta {',
-    '  display: block; width: 100%;',
-    '  background: linear-gradient(135deg, #5e35b1, #ff007f);',
-    '  color: white; border: none; border-radius: 50px;',
-    '  padding: 15px; font-size: 1.1rem; font-weight: 900;',
-    '  cursor: pointer; font-family: "Cairo", sans-serif;',
-    '  margin-bottom: 12px; transition: 0.3s;',
-    '  box-shadow: 0 6px 20px rgba(94,53,177,0.4);',
-    '}',
-    '.pwa-install-cta:hover {',
-    '  transform: translateY(-2px);',
-    '  box-shadow: 0 8px 28px rgba(94,53,177,0.5);',
-    '}',
-
-    '.pwa-overlay-skip {',
-    '  background: none; border: none;',
-    '  color: #aaa; font-size: 0.88rem;',
-    '  cursor: pointer; font-family: "Cairo", sans-serif;',
-    '  text-decoration: underline; transition: 0.2s;',
-    '}',
-    '.pwa-overlay-skip:hover { color: #666; }',
-
-    /* تحسين أنيميشن البانر السفلي */
-    '.install-banner { animation: bannerSlideUp 0.5s ease; }',
-    '@keyframes bannerSlideUp {',
-    '  from { transform: translate(-50%, 100%); opacity: 0; }',
-    '  to   { transform: translateX(-50%); opacity: 1; }',
-    '}'
-].join('\n');
-
-document.head.appendChild(dynamicStyles);
-
-// =========================================
-// 🚀 نظام الـ App Dashboard (التنقل بين الأقسام)
-// =========================================
-let currentLevel = 'main'; // تتبع مكان الطالب (main, reviews-menu, category)
+// Helper: hide all dashboard views
+function _hideDashboardViews() {
+    if (_dom.mainDashboard)  _dom.mainDashboard.style.display  = 'none';
+    if (_dom.reviewsSubMenu) _dom.reviewsSubMenu.hidden         = true;
+    if (_dom.heroBanner)     _dom.heroBanner.style.display      = 'none';
+    if (_dom.pdfLibrary)     _dom.pdfLibrary.hidden             = true;
+    document.querySelectorAll('.task-card').forEach(function (c) { c.style.display = 'none'; });
+    if (_dom.courseTitle)    _dom.courseTitle.hidden            = true;
+}
 
 function showReviewsMenu() {
-    document.getElementById('mainDashboard').style.display = 'none';
-    document.getElementById('heroBanner').style.display = 'none';
-    document.getElementById('reviewsSubMenu').style.display = 'grid';
-    document.getElementById('backBtn').style.display = 'flex';
+    _hideDashboardViews();
+    if (_dom.reviewsSubMenu) {
+        _dom.reviewsSubMenu.hidden = false;
+        _dom.reviewsSubMenu.style.display = 'grid';
+        _dom.reviewsSubMenu.style.animation = 'fadeInCard 0.4s ease forwards';
+    }
+    if (_dom.backBtn) _dom.backBtn.hidden = false;
     currentLevel = 'reviews-menu';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function openCategory(category) {
-    // إخفاء كل القوائم
-    document.getElementById('mainDashboard').style.display = 'none';
-    document.getElementById('reviewsSubMenu').style.display = 'none';
-    document.getElementById('heroBanner').style.display = 'none';
-    document.getElementById('backBtn').style.display = 'flex';
+    _hideDashboardViews();
 
-    // إظهار مكتبة الـ PDF لو هي المطلوبة
-    document.getElementById('pdfLibrary').style.display = category === 'pdfs' ? 'block' : 'none';
+    if (_dom.pdfLibrary && category === 'pdfs') {
+        _dom.pdfLibrary.hidden = false;
+        _dom.pdfLibrary.style.display = 'block';
+    }
 
-    // فلترة الكروت
-    const cards = document.querySelectorAll('.task-card');
-    cards.forEach(card => {
-        card.style.display = card.getAttribute('data-category') === category ? 'block' : 'none';
+    document.querySelectorAll('.task-card').forEach(function (card) {
+        if (card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInCard 0.4s ease forwards';
+        }
     });
 
+    if (_dom.backBtn) _dom.backBtn.hidden = false;
     currentLevel = 'category';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function handleBackNavigation() {
     if (currentLevel === 'category') {
-        // لو هو جوا قسم مراجعة فرعي، نرجعه لمنيو المراجعات
-        const visibleCard = document.querySelector('.task-card[style*="block"]');
-        const cat = visibleCard ? visibleCard.getAttribute('data-category') : '';
+        // Detect if we came from the reviews sub-menu
+        var visibleCard = document.querySelector('.task-card[style*="block"]');
+        var cat = visibleCard ? visibleCard.getAttribute('data-category') : '';
+        var reviewCategories = ['chapter-rev', 'month-rev', 'solution-rev', 'final-rev'];
 
-        if (['chapter-rev', 'month-rev', 'solution-rev', 'final-rev'].includes(cat)) {
+        if (reviewCategories.includes(cat)) {
             showReviewsMenu();
         } else {
             goHome();
@@ -646,133 +590,89 @@ function handleBackNavigation() {
 }
 
 function goHome() {
-    document.getElementById('mainDashboard').style.display = 'grid';
-    document.getElementById('heroBanner').style.display = 'block';
-    document.getElementById('reviewsSubMenu').style.display = 'none';
-    document.getElementById('backBtn').style.display = 'none';
-    document.getElementById('pdfLibrary').style.display = 'none';
-
-    document.querySelectorAll('.task-card').forEach(card => card.style.display = 'none');
+    _hideDashboardViews();
+    if (_dom.mainDashboard) {
+        _dom.mainDashboard.style.display = 'grid';
+        _dom.mainDashboard.style.animation = 'fadeInCard 0.4s ease forwards';
+    }
+    if (_dom.heroBanner) {
+        _dom.heroBanner.style.display = 'block';
+        _dom.heroBanner.style.animation = 'fadeInCard 0.4s ease forwards';
+    }
+    if (_dom.backBtn) _dom.backBtn.hidden = true;
     currentLevel = 'main';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// دالة المراجعة النهائية (للبانر والنافذة)
+// =========================================
+// SECTION 13: Super Revision Navigation
+// Opens the final-rev category and scrolls to + highlights the card
+// =========================================
 function openSuperRevision() {
     openCategory('final-rev');
-    setTimeout(() => {
-        const card = document.getElementById('finalRevisionCard');
-        if (card) {
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            const header = card.querySelector('.task-header');
-            const content = card.querySelector('.task-content');
-            if (content && !content.style.maxHeight) toggleTask(header);
+
+    setTimeout(function () {
+        var finalCard = document.getElementById('finalRevisionCard');
+        if (!finalCard) return;
+
+        finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Auto-open the accordion if closed
+        var content = finalCard.querySelector('.task-content');
+        var header = finalCard.querySelector('.task-header');
+        if (content && (!content.style.maxHeight || content.style.maxHeight === '0px')) {
+            if (header) toggleTask(header);
         }
-    }, 500);
+
+        // Pulse highlight to attract attention
+        finalCard.classList.remove('super-card-highlight');
+        void finalCard.offsetWidth; // force reflow
+        finalCard.classList.add('super-card-highlight');
+    }, 300);
 }
 
 // =========================================
-// 🚀 نظام المراجعة النهائية (Modal & Hero Banner)
+// SECTION 14: Event Delegation
+// Centralised listeners — no inline onChange/onClick duplication
 // =========================================
 
-document.addEventListener('DOMContentLoaded', function () {
-    // إظهار النافذة الترحيبية مرة واحدة فقط لكل جلسة (Session)
-    if (!sessionStorage.getItem('welcomeModalShown')) {
-        setTimeout(function () {
-            const modal = document.getElementById('welcomeModal');
-            if (modal) {
-                modal.style.display = 'flex';
-                sessionStorage.setItem('welcomeModalShown', 'true');
-            }
-        }, 1500); // تظهر بعد ثانية ونص من فتح الموقع
+// Progress: delegated change listener for checkboxes
+document.addEventListener('change', function (e) {
+    if (e.target.classList.contains('lecture-checkbox')) {
+        updateProgress();
     }
 });
 
-function closeWelcomeModal() {
-    const modal = document.getElementById('welcomeModal');
-    if (modal) {
-        modal.style.opacity = '0';
-        modal.style.transition = 'opacity 0.4s ease';
-        setTimeout(() => modal.style.display = 'none', 400);
+// Prevent accordion toggling when clicking the checkbox/label
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('lecture-checkbox') ||
+        e.target.classList.contains('checkbox-label')) {
+        e.stopPropagation();
     }
-}
+});
 
-// دالة العبور السريع للكارت السوبر
-function openSuperRevision() {
-    // 1. فتح قسم المراجعات
-    openCategory('revision-final');
-
-    // 2. إخفاء البانر الرئيسي عشان مياخدش مساحة فوق الكروت
-    const heroBanner = document.getElementById('heroBanner');
-    if (heroBanner) heroBanner.style.display = 'none';
-
-    // 3. النزول السلس للكارت السوبر وفتحه تلقائياً
-    setTimeout(function () {
-        const finalCard = document.getElementById('finalRevisionCard');
-        if (finalCard) {
-            // عمل سكرول للكارت
-            finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-            // فتح الأكورديون لو كان مقفول
-            const content = finalCard.querySelector('.task-content');
-            const header = finalCard.querySelector('.task-header');
-            if (content && (!content.style.maxHeight || content.style.maxHeight === '0px')) {
-                toggleTask(header);
-            }
-
-            // إضافة تأثير النبض (Pulse) للكارت للفت الانتباه
-            finalCard.classList.remove('super-card-highlight'); // إعادة ضبط
-            void finalCard.offsetWidth; // Trigger reflow
-            finalCard.classList.add('super-card-highlight');
-        }
-    }, 300); // تأخير بسيط للسماح بانتقال الشاشة أولاً
-}
-
-// تعديل بسيط على دالة goHome لإعادة إظهار البانر الرئيسي
-const originalGoHome = goHome;
-goHome = function () {
-    originalGoHome(); // استدعاء الدالة القديمة
-    const heroBanner = document.getElementById('heroBanner');
-    if (heroBanner) {
-        heroBanner.style.display = 'block';
-        heroBanner.style.animation = 'fadeInCard 0.4s ease forwards';
-    }
-}
-function initDashboard() {
-    // 1. إخفاء جميع الكروت في البداية
-    document.querySelectorAll('.task-card').forEach(card => {
-        card.style.display = 'none';
+// Smooth scroll for in-page anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-    const contentTitle = document.getElementById('courseContentTitle');
-    if (contentTitle) contentTitle.style.display = 'none';
+});
 
-    // 2. تجميع ملفات الـ PDF وتسميتها بذكاء
-    const pdfList = document.getElementById('pdfList');
-    if (pdfList) {
-        const pdfLinks = document.querySelectorAll('.task-card a[href$=".pdf"], .task-card a[download]');
-        pdfList.innerHTML = ''; // تفريغ القائمة قبل الإضافة لمنع التكرار
-
-        if (pdfLinks.length === 0) {
-            pdfList.innerHTML = '<p style="color:var(--text-muted); text-align:center;">لا توجد ملفات PDF حالياً.</p>';
-        } else {
-            // السطر ده هو السر: تحويل العناصر لمصفوفة وعكس الترتيب (الأحدث أولاً)
-            Array.from(pdfLinks).reverse().forEach(link => {
-                const clonedLink = link.cloneNode(true);
-                clonedLink.className = 'part-item pdf-quick-link';
-                
-                const parentCard = link.closest('.task-card');
-                const lectureName = parentCard ? parentCard.querySelector('.task-title').textContent : 'ملف خارجي';
-                
-                // لو فيه data-name استخدمه، لو مفيش استخدم اسم المحاضرة الافتراضي
-                const customName = link.getAttribute('data-name') || lectureName;
-                
-                const titleSpan = clonedLink.querySelector('.part-title');
-                if (titleSpan) {
-                    titleSpan.innerHTML = `📄 ${customName} <br><small style="font-size:0.8rem; color:var(--text-muted);">تحميل المذكرة</small>`;
-                }
-                
-                pdfList.appendChild(clonedLink);
-            });
-        }
-    }
+// =========================================
+// SECTION 15: Keyboard Accessibility
+// Makes role="button" divs respond to Enter/Space
+// =========================================
+function initKeyboardNav() {
+    document.querySelectorAll('[role="button"]').forEach(function (el) {
+        // Skip elements that are already <button> or <a> tags
+        if (el.tagName === 'BUTTON' || el.tagName === 'A') return;
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
 }
