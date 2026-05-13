@@ -178,6 +178,12 @@
             <button id="backBtn" class="back-btn" onclick="handleBackNavigation()" aria-label="رجوع" hidden>
                 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> رجوع
             </button>
+            <div class="exam-cta-wrapper">
+                <h3>الامتحان الشامل من التقييمات ( اختبر نفسك )❤️</h3>
+                <a href="final_exam.html" class="exam-entry-btn">
+                    <i class="fa-solid fa-gamepad" aria-hidden="true"></i> دخول الامتحان
+                </a>
+            </div>
 
             <!-- Hero Banner -->
             <div id="heroBanner" class="hero-banner" onclick="openSuperRevision()" role="button" tabindex="0"
@@ -463,7 +469,7 @@
                 </div>
             </article>
 
-              <article class="task-card" data-lecture-id="revision-april" data-category="month-rev">
+            <article class="task-card" data-lecture-id="revision-april" data-category="month-rev">
                 <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false">
                     <div class="task-checkbox">
                         <input type="checkbox" id="check-april" onchange="updateProgress()" class="lecture-checkbox"
@@ -471,7 +477,8 @@
                         <label for="check-april" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title">مراجعة شهر ابريل <span class="highlight-pink">حل تقييمات ابريل</span></div>
+                        <div class="task-title">مراجعة شهر ابريل <span class="highlight-pink">حل تقييمات ابريل</span>
+                        </div>
                         <div class="task-details">مراجعة علي منهج شهر ابريل <br><strong></strong></div>
                     </div>
                     <div class="task-icons">
@@ -1105,7 +1112,7 @@
                         <label for="check-final" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title super-card-title">المراجعة النهائية الشاملة 🚀</div>
+                        <div class="task-title super-card-title">شرح المنهج بالكامل في 3 ساعات</div>
                         <div class="task-details">شرح المنهج بالكامل في 3 ساعات فقط! (أهم فيديو في السنة)</div>
                     </div>
                     <div class="task-icons">
@@ -1219,7 +1226,7 @@
                         <label for="check-final" class="checkbox-label"></label>
                     </div>
                     <div class="task-info">
-                        <div class="task-title super-card-title">المراجعة النهائية الشاملة 🚀</div>
+                        <div class="task-title super-card-title">شرح المنهج بالكامل في 3 ساعات 🚀</div>
                         <div class="task-details">شرح المنهج بالكامل في 3 ساعات فقط! (أهم فيديو في السنة)</div>
                     </div>
                     <div class="task-icons">
@@ -1241,6 +1248,43 @@
                             class="part-item">
                             <span class="part-title">ملزمة المراجعة (PDF)</span>
                             <span class="view-btn">تحميل <i class="fa-solid fa-download btn-icon"
+                                    aria-hidden="true"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="task-card super-card" id="finalRevisionCard" data-lecture-id="final-exam"
+                data-category="solution-rev">
+                <img src="images/takieem-exam.jpg" alt="غلاف المراجعة النهائية" class="super-card-cover">
+                <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="final-exam" onchange="updateProgress()" class="lecture-checkbox"
+                            aria-label="تحديد كمكتمل">
+                        <label for="final-exam" class="checkbox-label"></label>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-title">حل امتحانات من التقييمات</div>
+                        <div class="task-details">علي نفس مواصفات الورقة الامتحانية (من التقييمات)</div>
+                    </div>
+                    <div class="task-icons">
+                        <i class="fa-solid fa-fire super-fire-icon" aria-hidden="true"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="task-content" role="region">
+                    <div class="task-body">
+                        <div class="exam-cta-wrapper">
+                            <h3>الامتحان الخامس ❤️</h3>
+                            <a href="final_exam.html" class="exam-entry-btn">
+                                <i class="fa-solid fa-gamepad" aria-hidden="true"></i> دخول الامتحان
+                            </a>
+                        </div>
+                        <a href="https://youtu.be/znvI9jb0rU4" target="_blank" rel="noopener noreferrer"
+                            class="part-item super-part-item">
+                            <span class="part-title"><i class="fa-brands fa-youtube youtube-icon"
+                                    aria-hidden="true"></i> مشاهدة فيديو </span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left btn-icon"
                                     aria-hidden="true"></i></span>
                         </a>
                     </div>
@@ -1281,7 +1325,7 @@
                             <span class="view-btn">عرض <i class="fa-solid fa-chevron-left btn-icon"
                                     aria-hidden="true"></i></span>
                         </a>
-                         <a href="https://youtu.be/_rzBtOf9r_Q" target="_blank" rel="noopener noreferrer"
+                        <a href="https://youtu.be/_rzBtOf9r_Q" target="_blank" rel="noopener noreferrer"
                             class="part-item super-part-item">
                             <span class="part-title"><i class="fa-brands fa-youtube youtube-icon"
                                     aria-hidden="true"></i> فيديو حل النموذج الثالث</span>
@@ -1289,6 +1333,41 @@
                                     aria-hidden="true"></i></span>
                         </a>
 
+                    </div>
+                </div>
+            </article>
+
+            <article class="task-card" data-lecture-id="march-exam" data-category="final-rev">
+                <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false"
+                    aria-label="امتحان شامل علي المنهج كامل">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-march-exam" onchange="updateProgress()"
+                            class="lecture-checkbox" aria-label="تحديد كمكتمل">
+                        <label for="check-march-exam" class="checkbox-label"></label>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-title">امتحان شامل علي المنهج كامل </div>
+                        <div class="task-details">علي نفس مواصفات الورقة الامتحانية (من التقييمات)</div>
+                    </div>
+                    <div class="task-icons">
+                        <i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="task-content" role="region">
+                    <div class="task-body">
+                        <div class="exam-cta-wrapper">
+                            <h3>الامتحان الشامل</h3>
+                            <a href="exam.html" class="exam-entry-btn">
+                                <i class="fa-solid fa-gamepad" aria-hidden="true"></i> دخول الامتحان
+                            </a>
+                        </div>
+                        <a href="https://youtu.be/gS-AwTl4to0" target="_blank" rel="noopener noreferrer"
+                            class="part-item">
+                            <span class="part-title">فيديو ليلة الامتحان</span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left btn-icon"
+                                    aria-hidden="true"></i></span>
+                        </a>
                     </div>
                 </div>
             </article>
