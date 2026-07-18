@@ -63,7 +63,7 @@ function updateProgress() {
     const progressText = document.getElementById('progressText');
     const progressContainer = document.querySelector('.progress-bar-container');
 
-    if (progressBar) progressBar.style.width = percentage + '%'; 
+    if (progressBar) progressBar.style.width = percentage + '%';
     if (progressContainer) progressContainer.setAttribute('aria-valuenow', Math.round(percentage));
     if (progressText) {
         progressText.textContent =
@@ -258,9 +258,9 @@ function closeInstallOverlay() {
     var overlay = document.getElementById('pwa-overlay');
     if (overlay) {
         overlay.classList.remove('pwa-overlay--visible');
-        setTimeout(function () { 
+        setTimeout(function () {
             overlay.hidden = true;
-            overlay.classList.add('is-hidden'); 
+            overlay.classList.add('is-hidden');
         }, 350);
     }
 }
@@ -333,7 +333,7 @@ function searchLectures() {
 
     if (noResults) {
         noResults.hidden = !(filter && visibleCount === 0);
-        if(!noResults.hidden) {
+        if (!noResults.hidden) {
             noResults.classList.remove('is-hidden');
         } else {
             noResults.classList.add('is-hidden');
@@ -396,15 +396,15 @@ function startCountdown() {
             return;
         }
 
-        var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-        var hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         var text = 'متبقي على امتحان شهر مارس: ';
-        if (days > 0)           text += days + ' ' + (days === 1 ? 'يوم' : 'أيام');
+        if (days > 0) text += days + ' ' + (days === 1 ? 'يوم' : 'أيام');
         if (hours > 0 || days > 0) text += ' ' + hours + ' ' + (hours === 1 ? 'ساعة' : 'ساعات');
-        if (days === 0)         text += ' ' + minutes + ' دقيقة ' + seconds + ' ثانية';
+        if (days === 0) text += ' ' + minutes + ' دقيقة ' + seconds + ' ثانية';
 
         el.textContent = text;
     }
@@ -420,9 +420,9 @@ function closeNewsBar() {
     var newsBar = document.getElementById('newsBar');
     if (!newsBar) return;
     newsBar.classList.add('news-bar--closing');
-    setTimeout(function () { 
+    setTimeout(function () {
         newsBar.hidden = true;
-        newsBar.classList.add('is-hidden'); 
+        newsBar.classList.add('is-hidden');
     }, 300);
     localStorage.setItem('newsBarClosed', 'true');
 }
@@ -488,13 +488,18 @@ var currentLevel = 'main';    // 'main' | 'reviews-menu' | 'category'
 var currentCategory = null;   // tracks active category for back-navigation
 
 function initDashboard() {
-    _dom.mainDashboard  = document.getElementById('mainDashboard');
+    _dom.mainDashboard = document.getElementById('mainDashboard');
     _dom.reviewsSubMenu = document.getElementById('reviewsSubMenu');
-    _dom.heroBanner     = document.getElementById('heroBanner');
-    _dom.backBtn        = document.getElementById('backBtn');
-    _dom.pdfLibrary     = document.getElementById('pdfLibrary');
-    _dom.courseTitle    = document.getElementById('courseContentTitle');
-    _dom.pdfList        = document.getElementById('pdfList');
+    _dom.heroBanner = document.getElementById('heroBanner');
+    _dom.backBtn = document.getElementById('backBtn');
+    _dom.pdfLibrary = document.getElementById('pdfLibrary');
+    _dom.courseTitle = document.getElementById('courseContentTitle');
+    _dom.pdfList = document.getElementById('pdfList');
+
+    // Only initialize dashboard behavior on pages that actually have dashboard containers.
+    if (!_dom.mainDashboard && !_dom.reviewsSubMenu && !_dom.pdfLibrary && !_dom.courseTitle) {
+        return;
+    }
 
     // Hide all task cards initially (dashboard mode)
     document.querySelectorAll('.task-card').forEach(function (card) {
@@ -541,12 +546,12 @@ function _buildPdfList() {
 }
 
 function _hideDashboardViews() {
-    if (_dom.mainDashboard)  { _dom.mainDashboard.hidden = true; _dom.mainDashboard.classList.add('is-hidden'); }
+    if (_dom.mainDashboard) { _dom.mainDashboard.hidden = true; _dom.mainDashboard.classList.add('is-hidden'); }
     if (_dom.reviewsSubMenu) { _dom.reviewsSubMenu.hidden = true; _dom.reviewsSubMenu.classList.add('is-hidden'); }
-    if (_dom.heroBanner)     { _dom.heroBanner.hidden = true; _dom.heroBanner.classList.add('is-hidden'); }
-    if (_dom.pdfLibrary)     { _dom.pdfLibrary.hidden = true; _dom.pdfLibrary.classList.add('is-hidden'); }
+    if (_dom.heroBanner) { _dom.heroBanner.hidden = true; _dom.heroBanner.classList.add('is-hidden'); }
+    if (_dom.pdfLibrary) { _dom.pdfLibrary.hidden = true; _dom.pdfLibrary.classList.add('is-hidden'); }
     document.querySelectorAll('.task-card').forEach(function (c) { c.hidden = true; c.classList.add('is-hidden'); });
-    if (_dom.courseTitle)    _dom.courseTitle.hidden = true;
+    if (_dom.courseTitle) _dom.courseTitle.hidden = true;
 }
 
 function showReviewsMenu() {

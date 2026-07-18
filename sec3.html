@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="منصة هكر الفيزياء - الصف الثالث الثانوي. معسكر الثانوية العامة لشرح الفيزياء بالكامل.">
+    <title>الصف الثالث الثانوي | هكر الفيزياء</title>
+    <meta name="theme-color" content="#111827">
+    <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sec3-style.css">
+</head>
+
+<body class="dark-mode">
+
+    <!-- Top Toolbar -->
+    <div class="top-toolbar" role="toolbar">
+        <div class="toolbar-container">
+            <a href="index.html" class="back-btn"
+                style="margin-bottom:0; min-height:auto; padding:6px 14px; font-size:0.9rem;">
+                <i class="fa-solid fa-home"></i> الرئيسية
+            </a>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+                <i class="fa-solid fa-sun" id="darkModeIcon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="course-header-bg sec3-header">
+        <div class="header-content">
+            <div class="sec3-hero-layout">
+
+                <!-- النص (يمين) -->
+                <div class="hero-text-side">
+                    <span class="vip-badge">
+                        <i class="fa-solid fa-crown"></i> VIP — دفعة 2026
+                    </span>
+
+                    <h1 class="sec3-hero-heading">
+                        فيزياء الصف<br>
+                        <span class="highlight-gold">الثالث الثانوي</span>
+                    </h1>
+
+                    <p class="course-description" style="color:rgba(255,255,255,0.72); max-width:480px;">
+                        معسكر الثانوية العامة. ذاكر المنهج <strong style="color:#f1c40f;">بالشهور</strong> عشان تتابع
+                        جدولك، أو <strong style="color:#f1c40f;">بالفصول</strong> عشان تلم الأبواب براحتك.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#courses" class="btn-gold-hero">
+                            <i class="fa-solid fa-compass" style="margin-left:6px;"></i> ابدأ المذاكرة
+                        </a>
+                        <a href="https://www.youtube.com/@hacker_Elfizia" target="_blank" class="btn-ghost-sec3">
+                            <i class="fa-brands fa-youtube" style="color:#ff0000; margin-left:5px;"></i> قناتنا
+                        </a>
+                    </div>
+
+                    <div class="hero-features-row">
+                        <span><i class="fa-solid fa-circle-check" style="color:#f1c40f;"></i> متابعة مستمرة</span>
+                        <span><i class="fa-solid fa-circle-check" style="color:#f1c40f;"></i> نظام صارم</span>
+                        <span><i class="fa-solid fa-circle-check" style="color:#f1c40f;"></i> ضمان الدرجة</span>
+                    </div>
+                </div>
+
+                <!-- الصورة (شمال) -->
+                <div class="hero-image-side">
+                    <img src="images/cover_2027.png" alt="مستر عادل بسيوني" class="hero-personal-img">
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="content-column">
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+                <div class="progress-info">
+                    <h3 class="progress-title-gold">تقدمك في المعسكر</h3>
+                    <span id="progressText"></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"
+                        style="background:linear-gradient(90deg,#f1c40f,#d4af37);"></div>
+                </div>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="view-toggle-container" id="viewToggleContainer">
+                <div class="view-toggle">
+                    <button class="toggle-btn active" id="months-btn" onclick="switchView('months')">
+                        <i class="fa-solid fa-calendar-days" style="margin-left:6px;"></i> المحتوى بالشهور
+                    </button>
+                    <button class="toggle-btn" id="chapters-btn" onclick="switchView('chapters')">
+                        <i class="fa-solid fa-book-open" style="margin-left:6px;"></i> المحتوى بالفصول
+                    </button>
+                </div>
+            </div>
+
+            <!-- زرار رجوع -->
+            <button id="sec3BackBtn" class="back-btn is-hidden" onclick="goHomeSec3()" hidden>
+                <i class="fa-solid fa-arrow-right"></i> رجوع للأقسام
+            </button>
+
+            <!-- ── MONTHS VIEW ── -->
+            <div id="months-view" class="dashboard-grid">
+
+                <div class="dash-card gold-card" data-tag="august" onclick="openSec3Category('august')" role="button"
+                    tabindex="0">
+                    <div class="dash-icon gold-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <h3>شهر أغسطس</h3>
+                    <p>بداية الرحلة — الفصل الأول</p>
+                </div>
+
+                <div class="dash-card gold-card" data-tag="september" onclick="openSec3Category('september')"
+                    role="button" tabindex="0">
+                    <div class="dash-icon gold-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <h3>شهر سبتمبر</h3>
+                    <p>الفصل الأول (جزء 2) + الفصل الثاني</p>
+                </div>
+
+                <div class="dash-card gold-card" data-tag="october" onclick="openSec3Category('october')" role="button"
+                    tabindex="0">
+                    <div class="dash-icon gold-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <h3>شهر أكتوبر</h3>
+                    <p>استكمال الفصل الثاني والمراجعات</p>
+                </div>
+
+            </div>
+
+            <!-- ── CHAPTERS VIEW ── -->
+            <div id="chapters-view" class="dashboard-grid is-hidden" hidden>
+
+                <div class="dash-card gold-card" data-tag="ch1" onclick="openSec3Category('ch1')" role="button"
+                    tabindex="0">
+                    <div class="dash-icon gold-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>الفصل الأول</h3>
+                    <p>التيار الكهربي وقانون أوم وقانونا كيرشوف</p>
+                </div>
+
+                <div class="dash-card gold-card" data-tag="ch2" onclick="openSec3Category('ch2')" role="button"
+                    tabindex="0">
+                    <div class="dash-icon gold-icon"><i class="fa-solid fa-magnet"></i></div>
+                    <h3>الفصل الثاني</h3>
+                    <p>التأثير المغناطيسي للتيار الكهربي</p>
+                </div>
+
+                <div class="dash-card gold-card" data-tag="ch3" onclick="openSec3Category('ch3')" role="button"
+                    tabindex="0">
+                    <div class="dash-icon gold-icon"><i class="fa-solid fa-plug-circle-bolt"></i></div>
+                    <h3>الفصل الثالث</h3>
+                    <p>الحث الكهرومغناطيسي</p>
+                </div>
+
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 LECTURE CARDS
+                 ══════════════════════════════════════ -->
+
+            <article class="task-card super-card is-hidden" data-tags="august ch1" hidden>
+
+                <img src="images/2027/sec3/L1.jpg" alt="غلاف المحاضرة الأولى" class="super-card-cover">
+
+                <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false">
+
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="sec3-l1" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="sec3-l1" class="checkbox-label"></label>
+                    </div>
+
+                    <div class="task-info">
+                        <div class="task-title super-card-title">
+                            المحاضرة الأولى: التيار الكهربي وفرق الجهد ⚡
+                        </div>
+
+                        <div class="task-details">
+                            الأساسيات الأولى في الكهربية والمقاومة الأومية
+                        </div>
+                    </div>
+
+                    <div class="task-icons">
+                        <i class="fa-solid fa-fire super-fire-icon"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </div>
+
+                </div>
+
+                <div class="task-content">
+                    <div class="task-body">
+
+                        <!--
+            <a href="رابط_الشرح" target="_blank" class="part-item super-part-item">
+                <span class="part-title">
+                    <i class="fa-brands fa-youtube youtube-icon"></i>
+                    مشاهدة المحاضرة
+                </span>
+                <span class="view-btn">
+                    عرض
+                    <i class="fa-solid fa-chevron-left btn-icon"></i>
+                </span>
+            </a>
+
+            <a href="رابط_الحل" target="_blank" class="part-item">
+                <span class="part-title">
+                    <i class="fa-solid fa-pen-to-square"
+                        style="color:#d4af37;margin-left:8px;"></i>
+                    فيديو حل الواجب
+                </span>
+
+                <span class="view-btn">
+                    عرض
+                    <i class="fa-solid fa-chevron-left btn-icon"></i>
+                </span>
+            </a>
+
+            <a href="PDF/sec3_L1.pdf"
+                download="مذكرة_المحاضرة_الأولى_3ث.pdf"
+                target="_blank"
+                class="part-item">
+
+                <span class="part-title">
+                    <i class="fa-solid fa-file-pdf"
+                        style="color:#e74c3c;margin-left:8px;"></i>
+                    ملزمة الشرح (PDF)
+                </span>
+
+                <span class="view-btn">
+                    تحميل
+                    <i class="fa-solid fa-download btn-icon"></i>
+                </span>
+
+            </a>
+
+            <a href="quiz_1.html" class="part-item gold-quiz-item">
+                <span class="part-title">
+                    <i class="fa-solid fa-clock"
+                        style="color:#d4af37;margin-left:8px;"></i>
+                    كويز المحاضرة (اختبر نفسك)
+                </span>
+
+                <span class="view-btn">
+                    ابدأ
+                    <i class="fa-solid fa-chevron-left btn-icon"></i>
+                </span>
+            </a>
+            -->
+
+                    </div>
+                </div>
+
+            </article>
+
+
+
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar-card portal-hero-sidebar">
+            <img src="images/3am_revision.jpg" alt="غلاف كورس 3ث" class="card-image"
+                style="border-bottom:2px solid #d4af37;">
+            <div class="card-body">
+                <a href="#" class="free-btn gold-free-btn">
+                    <i class="fa-solid fa-crown" style="margin-left:8px;"></i> مسار الثانوية العامة
+                </a>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Social Icons -->
+    <nav class="social-icons" aria-label="روابط التواصل الاجتماعي">
+        <a href="https://wa.me/+201501857217" target="_blank" class="social-icon whatsapp-personal with-text"
+            title="تواصل عبر واتساب">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="icon-text">الدعم</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+    <script>
+        function switchView(viewType) {
+            ['months-view', 'chapters-view'].forEach(function (id) {
+                document.getElementById(id).classList.add('is-hidden');
+                document.getElementById(id).hidden = true;
+            });
+            ['months-btn', 'chapters-btn'].forEach(function (id) {
+                document.getElementById(id).classList.remove('active');
+            });
+            var target = document.getElementById(viewType + '-view');
+            target.hidden = false;
+            target.classList.remove('is-hidden');
+            target.classList.add('anim-fade-in');
+            document.getElementById(viewType + '-btn').classList.add('active');
+        }
+
+        function openSec3Category(tag) {
+            ['months-view', 'chapters-view'].forEach(function (id) {
+                document.getElementById(id).hidden = true;
+                document.getElementById(id).classList.add('is-hidden');
+            });
+            document.getElementById('viewToggleContainer').classList.add('is-hidden');
+            var backBtn = document.getElementById('sec3BackBtn');
+            backBtn.hidden = false;
+            backBtn.classList.remove('is-hidden');
+
+            document.querySelectorAll('.task-card').forEach(function (card) {
+                var tags = card.getAttribute('data-tags') || '';
+                if (tags.includes(tag)) {
+                    card.hidden = false;
+                    card.classList.remove('is-hidden');
+                    card.classList.add('anim-fade-in');
+                } else {
+                    card.hidden = true;
+                    card.classList.add('is-hidden');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHomeSec3() {
+            document.querySelectorAll('.task-card').forEach(function (card) {
+                card.hidden = true;
+                card.classList.add('is-hidden');
+            });
+            document.getElementById('sec3BackBtn').hidden = true;
+            document.getElementById('sec3BackBtn').classList.add('is-hidden');
+            document.getElementById('viewToggleContainer').classList.remove('is-hidden');
+            var activeView = document.getElementById('months-btn').classList.contains('active') ? 'months-view' : 'chapters-view';
+            var viewEl = document.getElementById(activeView);
+            viewEl.hidden = false;
+            viewEl.classList.remove('is-hidden');
+            viewEl.classList.add('anim-fade-in');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function hideEmptyCategories() {
+
+            document.querySelectorAll(".dash-card[data-tag]").forEach(function (card) {
+
+                const tag = card.dataset.tag;
+
+                const hasLecture = document.querySelector(
+                    '.task-card[data-tags~="' + tag + '"]'
+                );
+
+                if (hasLecture) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+
+            });
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            hideEmptyCategories();
+        });
+    </script>
+</body>
+
+</html>

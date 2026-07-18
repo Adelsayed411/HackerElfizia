@@ -1,0 +1,529 @@
+/* =====================================================
+   sec3-style.css — تنسيقات خاصة بصفحة تالتة ثانوي VIP
+   منصة هكر الفيزياء | مستر عادل بسيوني
+   -----------------------------------------------------
+   إعادة تصميم الهيرو: هوية "الكارت الأسود والدهب" —
+   خلفية داكنة فاخرة بدل التدرج الأصفر المسطح، مع توقيع
+   بصري مستوحى من المنهج نفسه (تيار كهربي / دوائر) بدل
+   زخارف عشوائية.
+   ===================================================== */
+
+/* ── DESIGN TOKENS (خاصة بالصفحة دي بس) ── */
+:root {
+    --sec3-onyx-warm:    #fdcc78;   /* خلفية الهيدر - وضع فاتح */
+    --sec3-onyx-cool:    #3b021e;   /* خلفية الهيدر - وضع داكن */
+    --sec3-gold-bright:  #ffe9a8;
+    --sec3-gold:         #d4af37;
+    --sec3-gold-deep:    #8c6208;
+    --sec3-cream:        #fbf3df;
+}
+
+/* ── HEADER ── */
+/* بدل التدرج الأصفر الفاتح: خلفية أونيكس داكنة فاخرة مع
+   توهج ذهبي خفيف — بتدي إحساس VIP حقيقي، وبتخلي أي عنصر
+   زجاجي فوقها يبان فعلاً (الزجاج محتاج خلفية غنية عشان
+   يعكسها، مش تدرج مسطح). */
+.sec3-header {
+    position: relative !important;
+    overflow: hidden !important;
+    background:
+        radial-gradient(ellipse 60% 65% at 88% 12%, rgba(212, 175, 55, 0.22) 0%, transparent 62%),
+        radial-gradient(ellipse 45% 55% at 6% 96%, rgba(212, 175, 55, 0.10) 0%, transparent 65%),
+        linear-gradient(160deg, #251b0b 0%, #150f08 45%, var(--sec3-onyx-warm) 100%) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
+}
+
+body.dark-mode .sec3-header {
+    background:
+        radial-gradient(ellipse 60% 65% at 88% 12%, rgba(212, 175, 55, 0.16) 0%, transparent 62%),
+        radial-gradient(ellipse 45% 55% at 6% 96%, rgba(124, 92, 255, 0.05) 0%, transparent 65%),
+        linear-gradient(160deg, #480018 0%, #0d0f1a 50%, var(--sec3-onyx-cool) 100%) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.22) !important;
+}
+
+/* إلغاء padding-left الموروثة من هيدر البوابة الرئيسية —
+   دي كانت بتدفع الكارت كله لليمين وتسيب فراغ غريب على
+   الشمال (السبب الحقيقي وراء المساحة الفاضية في السكرين شوت) */
+.sec3-header .header-content {
+    padding-left: 0 !important;
+}
+
+.sec3-header .course-title-main {
+    color: var(--sec3-cream) !important;
+}
+
+.sec3-header .course-description {
+    color: rgba(251, 243, 223, 0.8) !important;
+}
+
+/* ── SEC3 GLASS HERO FRAME ── */
+.sec3-hero-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    text-align: right !important;
+    width: calc(100% - 48px) !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015)) !important;
+    backdrop-filter: blur(22px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.24) !important;
+    border-radius: 28px !important;
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(212, 175, 55, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    padding: 48px 52px 0 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    gap: 0 !important;
+}
+
+/* توقيع التصميم: خط "تيار" ذهبي بيجري فوق الكارت ماشي بين
+   3 عُقد صغيرة زي عُقد دائرة كهربية — تلميحة بصرية لمنهج
+   التيار الكهربي والدوائر بدل زخرفة عشوائية */
+.sec3-hero-layout::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 6%;
+    right: 6%;
+    height: 3px;
+    background-image:
+        radial-gradient(circle, var(--sec3-gold-bright) 1.4px, transparent 2px),
+        radial-gradient(circle, var(--sec3-gold-bright) 1.4px, transparent 2px),
+        radial-gradient(circle, var(--sec3-gold-bright) 1.4px, transparent 2px),
+        linear-gradient(90deg, transparent, rgba(255, 246, 208, 0.95) 10%, rgba(212, 175, 55, 0.15) 22%, transparent 34%);
+    background-position: 10% 50%, 50% 50%, 90% 50%, 0 50%;
+    background-repeat: no-repeat;
+    background-size: 6px 6px, 6px 6px, 6px 6px, 55% 100%;
+    animation: sec3CurrentFlow 3.6s linear infinite;
+    opacity: 0.95;
+    z-index: 3;
+}
+
+@keyframes sec3CurrentFlow {
+    0%   { background-position: 10% 50%, 50% 50%, 90% 50%, -30% 50%; }
+    100% { background-position: 10% 50%, 50% 50%, 90% 50%, 130% 50%; }
+}
+
+/* نسيج خلفي هادئ جداً يرمز للوحة دوائر إلكترونية — شفافية
+   واطية أوي، مجرد ملمس مش عنصر لافت للنظر */
+.sec3-hero-layout::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M0 32h14V14h18' stroke='%23d4af37' stroke-width='1' fill='none'/%3E%3Ccircle cx='32' cy='14' r='2' fill='%23d4af37'/%3E%3Cpath d='M64 46H46V60' stroke='%23d4af37' stroke-width='1' fill='none'/%3E%3Ccircle cx='46' cy='60' r='2' fill='%23d4af37'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 64px 64px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── SEC3 HERO TEXT ── */
+.sec3-hero-layout .hero-text-side {
+    flex: 1 1 auto !important;
+    padding: 0 52px 44px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    justify-content: center !important;
+    z-index: 2 !important;
+    min-width: 0 !important;
+}
+
+.sec3-hero-heading {
+    font-size: 2.75rem !important;
+    font-weight: 900 !important;
+    margin: 2px 0 0 !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.22 !important;
+    color: var(--sec3-cream) !important;
+}
+
+.highlight-gold {
+    background: linear-gradient(135deg, var(--sec3-gold-bright), var(--sec3-gold) 55%, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* تشيك مارك الميزات كانت بتبان خضرا بسبب قاعدة عامة في
+   style.css أقوى من الـ inline style — بنرجعها دهب VIP */
+.sec3-hero-layout .hero-features-row .fa-circle-check {
+    color: var(--sec3-gold-bright) !important;
+}
+
+/* ── HERO BUTTONS ── */
+.btn-gold-hero {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #f7d774, var(--sec3-gold) 55%, #b8860b);
+    color: #1c1400 !important;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    padding: 13px 30px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    box-shadow: 0 10px 26px rgba(212, 175, 55, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-gold-hero:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+    box-shadow: 0 14px 34px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-ghost-sec3 {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    color: var(--sec3-cream) !important;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-ghost-sec3:hover {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: rgba(212, 175, 55, 0.55);
+}
+
+/* ── SEC3 IMAGE SIDE ── */
+.sec3-hero-layout .hero-image-side {
+    flex: 0 0 420px !important;
+    width: 420px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+    position: relative !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-self: flex-end !important;
+}
+
+/* توهج ذهبي خلف الصورة — بيدي إحساس "سبوت لايت" بدل ما
+   الصورة تبان طايرة على فراغ */
+.sec3-hero-layout .hero-image-side::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    top: 6%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.32), rgba(212, 175, 55, 0.05) 62%, transparent 78%);
+    border-radius: 50%;
+    filter: blur(6px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.sec3-hero-layout .hero-personal-img {
+    width: 100% !important;
+    max-width: 420px !important;
+    height: auto !important;
+    max-height: 520px !important;
+    object-fit: contain !important;
+    object-position: bottom !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: bottom !important;
+    position: relative !important;
+    z-index: 1 !important;
+    filter: drop-shadow(0 -8px 26px rgba(212, 175, 55, 0.28)) drop-shadow(0 18px 34px rgba(0, 0, 0, 0.5)) !important;
+}
+
+/* ── STATS BAR للصفحة الفرعية (لو هتتاح لاحقاً) ── */
+.sec3-stats-bar {
+    max-width: 1100px;
+    margin: -80px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 20;
+}
+
+.sec3-stats-inner {
+    background: #14110a;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+    .sec3-hero-layout .hero-image-side {
+        flex: 0 0 340px !important;
+        width: 340px !important;
+    }
+
+    .sec3-hero-layout .hero-personal-img {
+        max-width: 340px !important;
+        max-height: 440px !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .sec3-header {
+        padding-bottom: 160px !important;
+    }
+
+    .sec3-hero-layout {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 36px 20px 0 !important;
+        border-radius: 20px !important;
+        width: calc(100% - 30px) !important;
+    }
+
+    .sec3-hero-layout .hero-text-side {
+        align-items: center !important;
+        padding: 0 0 24px !important;
+    }
+
+    .sec3-hero-heading {
+        font-size: 1.9rem !important;
+    }
+
+    .sec3-hero-layout .hero-image-side {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 300px !important;
+        align-self: center !important;
+    }
+
+    .sec3-hero-layout .hero-personal-img {
+        max-width: 100% !important;
+        max-height: 300px !important;
+    }
+
+    .sec3-hero-layout .hero-image-side::before {
+        width: 220px;
+        height: 220px;
+        top: 0;
+    }
+
+    .sec3-hero-layout::after {
+        opacity: 0.035;
+    }
+}
+
+@media (max-width: 600px) {
+    .sec3-hero-heading {
+        font-size: 1.6rem !important;
+    }
+
+    .hero-actions {
+        justify-content: center !important;
+    }
+
+    .hero-features-row {
+        justify-content: center !important;
+    }
+
+    .sec3-hero-layout::after {
+        display: none;
+    }
+}
+
+/* حركة الخط الذهبي بتتوقف لو المستخدم مفعّل تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    .sec3-hero-layout::before {
+        animation: none;
+    }
+}
+
+/* ── VIP BADGE ── */
+.vip-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #f3d16b, var(--sec3-gold) 60%, var(--sec3-gold-deep));
+    color: #221703;
+    padding: 6px 16px 6px 14px;
+    border-radius: 50px;
+    font-size: 0.86rem;
+    font-weight: 900;
+    vertical-align: middle;
+    box-shadow: 0 6px 18px rgba(212, 175, 55, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ── PROGRESS TITLE ── */
+.progress-title-gold {
+    color: #d4af37 !important;
+    font-size: 1rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+/* ── TOGGLE SWITCH ── */
+.view-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.view-toggle {
+    display: inline-flex;
+    background: var(--bg-card, #1e293b);
+    border: 1.5px solid rgba(212, 175, 55, 0.25);
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    gap: 4px;
+}
+
+body.dark-mode .view-toggle {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 50px;
+    font-family: var(--font, 'Cairo', sans-serif);
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.28s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body.dark-mode .toggle-btn {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.toggle-btn.active {
+    background: linear-gradient(135deg, #d4af37, #f1c40f);
+    color: #111 !important;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4);
+    font-weight: 900;
+}
+
+.toggle-btn:not(.active):hover {
+    background: rgba(212, 175, 55, 0.08);
+    color: #d4af37;
+}
+
+/* ── GOLD CARDS ── */
+.gold-card {
+    border-color: rgba(212, 175, 55, 0.25) !important;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(212, 175, 55, 0.02)) !important;
+    transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s !important;
+}
+
+.gold-card:hover {
+    border-color: #d4af37 !important;
+    box-shadow: 0 10px 32px rgba(212, 175, 55, 0.18) !important;
+    transform: translateY(-6px) !important;
+}
+
+.gold-icon {
+    color: #d4af37 !important;
+}
+
+/* ── GOLD QUIZ ITEM (كويز المحاضرة) ── */
+.gold-quiz-item {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02)) !important;
+    border-right-color: #d4af37 !important;
+}
+
+/* ── GOLD FREE BTN (sidebar) ── */
+.gold-free-btn {
+    background: linear-gradient(135deg, #d4af37, #f1c40f) !important;
+    color: #111 !important;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4) !important;
+    font-weight: 900 !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: var(--font, 'Cairo', sans-serif);
+    font-size: 1rem;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.gold-free-btn:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+/* ── TASK CARD — override لون الـ border-right للـ VIP ── */
+.task-card {
+    border-right-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+.task-card:hover {
+    border-right-color: #d4af37 !important;
+}
+
+/* ── SIDEBAR PORTAL HERO — إلغاء الـ sidebar الجانبي في صفحة sec3 ── */
+.portal-hero-sidebar {
+    margin-top: 0 !important;
+    z-index: auto !important;
+    background: var(--bg-card, #1e293b) !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.25) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+body.dark-mode .portal-hero-sidebar {
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .toggle-btn {
+        padding: 10px 18px;
+        font-size: 0.88rem;
+    }
+
+    .vip-badge {
+        font-size: 0.78rem;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .view-toggle {
+        flex-direction: column;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .toggle-btn {
+        justify-content: center;
+        border-radius: 12px;
+    }
+}

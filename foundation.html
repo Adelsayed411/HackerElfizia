@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="كورس التأسيس الفيزيائي - منصة هكر الفيزياء. المحاضرة الأهم لبداية منهج الفيزياء بقوة.">
+    <title>كورس التأسيس | هكر الفيزياء</title>
+
+    <meta name="theme-color" content="#111827">
+    <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sec3-style.css">
+</head>
+
+<body class="dark-mode">
+
+    <!-- Top Toolbar -->
+    <div class="top-toolbar" role="toolbar">
+        <div class="toolbar-container">
+            <a href="index.html" class="back-btn"
+                style="margin-bottom:0; min-height:auto; padding:6px 14px; font-size:0.9rem;">
+                <i class="fa-solid fa-home"></i> الرئيسية
+            </a>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+                <i class="fa-solid fa-sun" id="darkModeIcon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="course-header-bg sec3-header">
+        <div class="header-content">
+            <div class="sec3-hero-layout">
+
+                <!-- النص (يمين) -->
+                <div class="hero-text-side">
+                    <span class="vip-badge">
+                        <i class="fa-solid fa-rocket"></i> البداية الصحيحة
+                    </span>
+
+                    <h1 class="sec3-hero-heading">
+                        كورس التأسيس<br>
+                        <span class="highlight-gold">الفيزيائي</span>
+                    </h1>
+
+                    <p class="course-description" style="color:rgba(255,255,255,0.72); max-width:480px;">
+                        حجر الأساس لكل طالب ثانوي. محاضرة شاملة تظبطلك كل أساسيات الفيزياء والرياضيات عشان تبدأ المنهج
+                        بقوة وتفهم أي فكرة مهما كانت صعبة.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#foundation-lecture" class="btn-gold-hero">
+                            <i class="fa-solid fa-play" style="margin-left:6px;"></i> ابدأ المحاضرة
+                        </a>
+                        <a href="https://www.youtube.com/@hacker_Elfizia" target="_blank" class="btn-ghost-sec3">
+                            <i class="fa-brands fa-youtube" style="color:#ff0000; margin-left:5px;"></i> قناتنا
+                        </a>
+                    </div>
+
+                    <div class="hero-features-row">
+                        <span><i class="fa-solid fa-circle-check" style="color:#f1c40f;"></i> أساسيات رياضية</span>
+                        <span><i class="fa-solid fa-circle-check" style="color:#f1c40f;"></i> تحويلات وحدات</span>
+                        <span><i class="fa-solid fa-circle-check" style="color:#f1c40f;"></i> رسم بياني</span>
+                    </div>
+                </div>
+
+                <!-- الصورة (شمال) -->
+                <div class="hero-image-side">
+                    <!-- حط صورة مناسبة للتأسيس هنا -->
+                    <img src="images/cover_2027.png" alt="كورس التأسيس الفيزيائي" class="hero-personal-img">
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="content-column">
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+                <div class="progress-info">
+                    <h3 class="progress-title-gold">تقدمك في الكورس</h3>
+                    <span id="progressText"></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"
+                        style="background:linear-gradient(90deg,#f1c40f,#d4af37);"></div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 محاضرة التأسيس الوحيدة (ظاهرة فوراً)
+                 ══════════════════════════════════════ -->
+
+            <h2 class="content-section-title" id="foundation-lecture" style="color: #d4af37; margin-top: 20px;">محتوى
+                الكورس 🚀</h2>
+
+            <article class="task-card super-card" id="foundationCard" data-lecture-id="foundation-course">
+                <img src="images/foundation_2027.jpg" alt="غلاف كورس التأسيس" class="super-card-cover">
+
+                <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="check-foundation" onchange="updateProgress()"
+                            class="lecture-checkbox" aria-label="تحديد كمكتمل">
+                        <label for="check-foundation" class="checkbox-label"></label>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-title super-card-title">المحاضرة التأسيسية الشاملة 🚀</div>
+                        <div class="task-details">شرح أساسيات الفيزياء والرياضيات كاملة (ساعتين ونصف)</div>
+                    </div>
+                    <div class="task-icons">
+                        <i class="fa-solid fa-fire super-fire-icon" aria-hidden="true"></i>
+                        <i class="fa-solid fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                    </div>
+                </div>
+
+                <div class="task-content" role="region">
+                    <div class="task-body">
+                        <a href="https://youtu.be/TUfCSc4Rl2k" target="_blank" rel="noopener noreferrer"
+                            class="part-item super-part-item">
+                            <span class="part-title"><i class="fa-brands fa-youtube youtube-icon"
+                                    aria-hidden="true"></i> مشاهدة المحاضرة (2.5 ساعة)</span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left btn-icon"
+                                    aria-hidden="true"></i></span>
+                        </a>
+
+                        <a href="PDF/2027/foundation/foundation.pdf" data-name="ملزمة التأسيس الفيزيائي"
+                            download="مذكرة_التأسيس_الفيزيائي_هكر_الفيزياء.pdf" target="_blank" class="part-item">
+                            <span class="part-title">ملزمة التأسيس (PDF)</span>
+                            <span class="view-btn">تحميل <i class="fa-solid fa-download btn-icon"
+                                    aria-hidden="true"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar-card portal-hero-sidebar">
+            <img src="images/foundation_2027.jpg" alt="غلاف التأسيس" class="card-image"
+                style="border-bottom:2px solid #d4af37;">
+            <div class="card-body">
+                <a href="#" class="free-btn gold-free-btn">
+                    <i class="fa-solid fa-rocket" style="margin-left:8px;"></i> مسار التأسيس مجاني
+                </a>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Social Icons -->
+    <nav class="social-icons" aria-label="روابط التواصل الاجتماعي">
+        <a href="https://wa.me/+201501857217" target="_blank" class="social-icon whatsapp-personal with-text"
+            title="تواصل عبر واتساب">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="icon-text">الدعم</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+    <!-- تم إزالة أكواد الجافاسكريبت الخاصة بالتبديل بين الفصول والشهور لأنها غير مطلوبة هنا -->
+</body>
+
+</html>
