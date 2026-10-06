@@ -645,6 +645,41 @@
             </article>
 
 
+            <article class="task-card super-card is-hidden" data-tags="october ch1" hidden>
+                <img src="images/2027/sec2-bac/lec12.jpg" alt="غلاف المحاضرة الثانية عشر" class="super-card-cover">
+                <div class="task-header" onclick="toggleTask(this)" role="button" tabindex="0" aria-expanded="false">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="sec2-l12" onchange="updateProgress()" class="lecture-checkbox">
+                        <label for="sec2-l12" class="checkbox-label"></label>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-title">الدرس الثاني عشر : قوانين كبلر والجاذبية الأرضية</div>
+                        <div class="task-details">( قوانين كبلر والجاذبية الأرضية )</div>
+                    </div>
+                    <div class="task-icons"><i class="fa-solid fa-chevron-down toggle-icon"></i></div>
+                </div>
+                <div class="task-content">
+                    <div class="task-body">
+                        <a href=https://youtu.be/tL7QSF_deaA target="_blank" class="part-item">
+                            <span class="part-title"><i class="fa-solid fa-play"
+                                    style="color:var(--color-primary);margin-left:8px;"></i> فيديو الشرح</span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left btn-icon"></i></span>
+                        </a>
+                        <!-- <a href=https://youtu.be/rtGqrL9aqhI target="_blank" class="part-item">
+                            <span class="part-title"><i class="fa-solid fa-pen-to-square"
+                                    style="color:#d4af37;margin-left:8px;"></i> فيديو حل تقييم الدرس الأول</span>
+                            <span class="view-btn">عرض <i class="fa-solid fa-chevron-left btn-icon"></i></span>
+                        </a> -->
+                        <a href="PDF/2027/sec2-bac/lec12.pdf" download="الدرس_الثاني_العاشر_2ث.pdf" target="_blank"
+                            class="part-item">
+                            <span class="part-title"><i class="fa-solid fa-file-pdf"
+                                    style="color:#e74c3c;margin-left:8px;"></i> ملزمة الشرح (PDF)</span>
+                            <span class="view-btn">تحميل <i class="fa-solid fa-download btn-icon"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
 
         </section>
 
@@ -683,6 +718,44 @@
             <span class="icon-text">القناة</span>
         </a>
     </nav>
+
+    <!-- PWA Install Banner -->
+    <div id="install-banner" class="install-banner is-hidden" role="complementary" aria-label="تثبيت التطبيق">
+        <div class="banner-text">
+            <strong>📲 ثبّت التطبيق مجاناً!</strong>
+            <span>ادرس بدون انترنت وافتكر من أي حاجة وصلتلها!</span>
+        </div>
+        <div class="banner-buttons">
+            <button id="install-btn" aria-label="تثبيت التطبيق">تثبيت الآن</button>
+            <button id="close-banner-btn" aria-label="إغلاق البانر">&times;</button>
+        </div>
+    </div>
+
+    <!-- PWA Overlay -->
+    <div id="pwa-overlay" class="is-hidden" role="dialog" aria-modal="true" aria-label="نافذة تثبيت التطبيق">
+        <div class="pwa-overlay-card">
+            <button class="pwa-overlay-close" onclick="closeInstallOverlay()" title="إغلاق"
+                aria-label="إغلاق">&times;</button>
+            <span class="pwa-overlay-icon" aria-hidden="true">📲</span>
+            <h2>وفّر بياناتك وادرس بدون انقطاع!</h2>
+            <p>
+                ثبّت تطبيق <strong>هكر الفيزياء</strong> على شاشتك الرئيسية وافتحه في أي وقت —
+                حتى بدون إنترنت. مش هتحتاج تدور عليه في المتصفح تاني! 🚀
+            </p>
+            <div class="pwa-overlay-features">
+                <span class="pwa-feature-chip">⚡ أسرع بكثير</span>
+                <span class="pwa-feature-chip">📴 يعمل بدون نت</span>
+                <span class="pwa-feature-chip">🔔 إشعارات فورية</span>
+                <span class="pwa-feature-chip">🆓 مجاني 100%</span>
+            </div>
+            <button class="pwa-install-cta" onclick="triggerInstall()" aria-label="تثبيت التطبيق مجاناً">
+                📥 ثبّت التطبيق الآن مجاناً!
+            </button>
+            <button class="pwa-overlay-skip" onclick="closeInstallOverlay()">
+                لا شكراً، هفضل في المتصفح
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script>
@@ -764,6 +837,8 @@
             hideEmptyCategories();
         });
     </script>
+    <script type="module" src="firebase-init.js"></script>
+
 </body>
 
 </html>
