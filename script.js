@@ -114,6 +114,8 @@ function initPartItemTracking() {
     });
 }
 
+
+
 function markPartItemDone(item, animate) {
     if (!item || item.classList.contains('part-item--done')) return;
     item.classList.add('part-item--done');

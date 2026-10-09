@@ -150,19 +150,59 @@
     <div class="portal-stats-bar">
         <div class="portal-stats-inner">
             <div class="stat-item">
-                <div class="stat-num">+35,000</div>
-                <div class="stat-label">طالب مسجّل</div>
+                <div class="stat-num" dir="ltr">+<span class="counter" data-target="35700">0</span></div>
+                <div class="stat-label">مشترك على يوتيوب <i class="fa-brands fa-youtube"
+                        style="color:#ff0000; margin-right:5px;"></i></div>
             </div>
             <div class="stat-item">
-                <div class="stat-num">+200</div>
+                <div class="stat-num" dir="ltr">+<span class="counter" data-target="200">0</span></div>
                 <div class="stat-label">فيديو شرح</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num">4</div>
+                <div class="stat-num" dir="ltr"><span class="counter" data-target="4">0</span></div>
                 <div class="stat-label">مسارات دراسية</div>
             </div>
         </div>
     </div>
+
+    <!-- كود العداد المباشر والمضمون -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.counter');
+
+            const startCounting = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const speed = 200; // سرعة العداد
+                const inc = target / speed;
+
+                const updateCount = () => {
+                    count += inc;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count).toLocaleString('en-US');
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target.toLocaleString('en-US');
+                    }
+                };
+                updateCount();
+            };
+
+            // تشغيل فوري أول ما الكارت يظهر
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startCounting(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0 }); // 0 يعني بمجرد ما يلمس الشاشة يشتغل
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+    </script>
 
     <!-- Portal Main Navigation -->
     <main class="portal-main" id="courses">
